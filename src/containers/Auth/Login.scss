@@ -1,0 +1,74 @@
+.login-background {
+    margin: 0 auto;
+    height: 100vh;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+    padding-top: 20px;
+    
+    .login-container {
+        width: 400px;
+        height: 500px;
+        margin: 0 auto;
+        border-radius: 10px;
+        background-color:aquamarine;
+        
+
+        .login-content{
+            padding: 15px;
+
+            .login-input{
+                margin: 7px 0;
+            }
+            .text-login{
+                font-weight: 600;
+                font-size: 24px;
+                padding-top: 10px;
+                border-radius: none;
+                text-align: center;
+            }
+            .button-container{
+                margin: 0px 25%;
+            }
+            .button-login{
+                background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+                border: none;
+                outline: none;
+                border-radius: 10px;
+                text-align: center;
+                width: 50%;
+                height: 30px;
+                color: white;
+                margin: 10px 0;
+            }
+            .forgot-password{
+                font-size: 12px;
+                color: blue;
+            }
+            .text-order-login{
+                text-align: center;
+            }   
+            .social-login{
+                display: flex;
+                justify-content: center;
+
+                .social-login-facebook{
+                    padding: 0 5px;
+                    color: blue;
+                    font-size: 40px;
+                }
+                .social-login-google{
+                    font-size: 30px;
+                    padding: 0 5px;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: rgb(246, 66, 66);
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+    }
+}
