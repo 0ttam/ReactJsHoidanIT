@@ -12,7 +12,32 @@ class Login extends Component {
     // eslint-disable-next-line no-useless-constructor
     constructor(props) {
         super(props);
+        this.state = {
+            username: "",
+            password: "",
+            hide: false,
+        };
     }
+
+    handleOnchangeInputUser = (event) => {
+        this.setState({
+            username: event.target.value,
+        });
+        console.log(event.target.value);
+    };
+    handleOnchangeInputPassword = (event) => {
+        this.setState({
+            password: event.target.value,
+        });
+    };
+    handleLogin = () => {
+        alert("say Hi");
+    };
+    handleHideShowEye = (event) => {
+        this.setState({
+            hide: !this.state.hide,
+        });
+    };
 
     render() {
         //JSX
@@ -28,21 +53,43 @@ class Login extends Component {
                                 type="text"
                                 name="login-user"
                                 id="login-user"
+                                value={this.state.username}
+                                onChange={(event) =>
+                                    this.handleOnchangeInputUser(event)
+                                }
                                 placeholder="Enter your username"
                             />
                         </div>
                         <div className="col-12 form-group login-input">
                             <label for="login-password">Password:</label>
-                            <input
-                                className="form-control"
-                                type="password"
-                                name="login-    password"
-                                id="login-password"
-                                placeholder="Enter your password"
-                            />
+                            <div className="custom-password-input">
+                                <input
+                                    className="form-control"
+                                    type={this.state.hide ? "text" : "password"}
+                                    name="login-password"
+                                    id="login-password"
+                                    value={this.state.password}
+                                    onChange={(event) =>
+                                        this.handleOnchangeInputPassword(event)
+                                    }
+                                    placeholder="Enter your password"
+                                />
+                                <span
+                                    className="custom-password-eye"
+                                    onClick={(event) =>
+                                        this.handleHideShowEye(event)
+                                    }
+                                >
+                                    <i class={this.state.hide ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+                                </span>
+                            </div>
                         </div>
                         <div className="col-12 button-container">
-                            <button type="submit" className="button-login">
+                            <button
+                                type="submit"
+                                onClick={() => this.handleLogin()}
+                                className="button-login"
+                            >
                                 Login
                             </button>
                         </div>
