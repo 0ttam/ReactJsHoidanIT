@@ -1,0 +1,41 @@
+.users-table {
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        
+      }
+      th {
+        background-color: #04AA6D;
+      }
+      
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+}
+button {
+  border: none;
+  outline: none;
+  width: 40px;
+  
+}
+.pencil {
+  color: rgb(100, 100, 18);
+  background: transparent;
+  &:hover {
+      color: orange !important;
+  }
+}
+.trash {
+  color: orange;
+  background: transparent;
+  &:hover {
+    color: red !important;
+}
+}
