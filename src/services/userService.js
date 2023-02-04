@@ -7,5 +7,8 @@ let handleLoginApi = (email, password) => {
 let handleGetAllUsers = (userId) => {
     return axios.get(`/api/get-all-users?id=${userId}`);
 };
+let handleCreateUser = (data) => {
+    return axios.post('/api/create-new-user', stringify(data));
+};
 
-export { handleLoginApi, handleGetAllUsers };
+export { handleLoginApi, handleGetAllUsers, handleCreateUser };

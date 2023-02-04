@@ -22,10 +22,10 @@
 button {
   border: none;
   outline: none;
-  width: 40px;
   
 }
 .pencil {
+  font-size: 16px;
   color: rgb(100, 100, 18);
   background: transparent;
   &:hover {
@@ -37,5 +37,43 @@ button {
   background: transparent;
   &:hover {
     color: red !important;
+  }
 }
+.modal-user-container {
+  .modal-header {
+    button {
+      background-color: transparent;
+      color: white ;
+      border: none ;
+      font-size: 30px;
+      &:hover{
+        color: rgb(200, 164, 164);
+      }
+    }
+  }
+  .modal-user-body {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    .input-container {
+      width: 49%;
+      display: flex;
+      flex-direction: column;
+      &.w-100{
+        width: 100%;
+      }
+      &.w-33{
+        width: 32%;
+      }
+      input {
+        outline: none;
+        border: 1px solid grey;
+        height: 28px;
+        padding: 0 10px;
+      }
+      label {
+        font-weight: 600;
+      }
+  }
+  }
 }
