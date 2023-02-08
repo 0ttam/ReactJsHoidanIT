@@ -7,8 +7,10 @@ import {
     handleGetAllUsers,
     handleCreateUser,
     handleDeleteUser,
+    handleEditUser,
 } from '../../services/userService';
 import ModalUser from './ModalUser';
+import ModalEditUser from './ModalEditUser';
 import axios from 'axios';
 import logger from 'redux-logger';
 import { emitter } from '../../utils/emitter';
@@ -18,6 +20,8 @@ class UserManage extends Component {
         this.state = {
             arrUsers: [],
             isOpenModalUser: false,
+            isOpenModalEditUser: false,
+            userEdit: {},
         };
     }
 
@@ -35,7 +39,18 @@ class UserManage extends Component {
             isOpenModalUser: true,
         });
     };
-
+    handleEditUser = (user) => {
+        this.setState({
+            isOpenModalEditUser: true,
+            userEdit: user,
+        });
+        // emitter.emit('TRANSFER_DATA_EDIT_USER', { data: user });
+    };
+    toggleFormEditParent = () => {
+        this.setState({
+            isOpenModalEditUser: !this.state.isOpenModalEditUser,
+        });
+    };
     toggleModalUser = () => {
         this.setState({
             isOpenModalUser: !this.state.isOpenModalUser,
@@ -72,6 +87,24 @@ class UserManage extends Component {
             console.log(error);
         }
     };
+    saveChangeUser = async (data) => {
+        try {
+            // call Api request modal
+            let message = await handleEditUser(data);
+            if (message && message.errCode === 0) {
+                let response = await handleGetAllUsers('ALL');
+                this.setState({
+                    arrUsers: response.users,
+                });
+                alert('Edit user successfully!');
+                this.toggleFormEditParent();
+            } else {
+                alert(message.errMessage);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     render() {
         let arrUsers = this.state.arrUsers;
@@ -82,6 +115,14 @@ class UserManage extends Component {
                     toggleFormParent={this.toggleModalUser}
                     createNewUser={this.createNewUser}
                 />
+                {this.state.isOpenModalEditUser && (
+                    <ModalEditUser
+                        isOpen={this.state.isOpenModalEditUser}
+                        toggleFormEditParent={this.toggleFormEditParent}
+                        currentUser={this.state.userEdit}
+                        saveChangeUser={this.saveChangeUser}
+                    />
+                )}
                 <div className='title text-center'>Manage users</div>
                 <div className='mx-4'>
                     <button
@@ -109,7 +150,12 @@ class UserManage extends Component {
                                         <td>{item.lastName}</td>
                                         <td>{item.address}</td>
                                         <td>
-                                            <button className='pencil'>
+                                            <button
+                                                className='pencil'
+                                                onClick={() =>
+                                                    this.handleEditUser(item)
+                                                }
+                                            >
                                                 <i className='fas fa-pencil-alt'></i>
                                             </button>
                                             <button

@@ -13,10 +13,14 @@ const handleCreateUser = (data) => {
 const handleDeleteUser = (userId) => {
     return axios.delete(`/api/delete-user?id=${userId}`);
 };
+const handleEditUser = (data) => {
+    return axios.put('/api/edit-user', stringify(data));
+}
 
 export {
     handleLoginApi,
     handleGetAllUsers,
     handleCreateUser,
     handleDeleteUser,
+    handleEditUser
 };
