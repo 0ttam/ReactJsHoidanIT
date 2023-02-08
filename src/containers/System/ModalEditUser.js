@@ -142,7 +142,7 @@ class ModalUser extends Component {
                                 class='form-control'
                                 id='gender'
                                 name='gender'
-                                value={this.state.gender === true ? 1 : 0}
+                                value={this.state.gender}
                                 onChange={(event) =>
                                     this.handleOnchangeInput(event, 'gender')
                                 }
