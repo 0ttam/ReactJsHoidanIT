@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import './Header.scss';
+import { LANGUAGES } from '../../utils/constant';
+import { changeLanguageApp } from '../../store/actions/appActions';
 
 class Header extends Component {
+    changeLanguage = (language) => {
+        this.props.changeLanguageAppRedux(language);
+        //fire redux event : actions
+    };
     render() {
-        console.log('check props', this.props);
+        let language = this.props.language;
         return (
             <React.Fragment>
                 <div className='home-header-container'>
@@ -27,42 +33,75 @@ class Header extends Component {
                             </div>
                             <div className='child-content'>
                                 <div>
-                                    <b><FormattedMessage id='home-header.health-facility'/></b>
+                                    <b>
+                                        <FormattedMessage id='home-header.health-facility' />
+                                    </b>
                                 </div>
                                 <div className='sub-content'>
-                                <FormattedMessage id='home-header.choose-hospital-clinic'/>
+                                    <FormattedMessage id='home-header.choose-hospital-clinic' />
                                 </div>
                             </div>
                             <div className='child-content'>
                                 <div>
-                                    <b><FormattedMessage id='home-header.doctor'/></b>
+                                    <b>
+                                        <FormattedMessage id='home-header.doctor' />
+                                    </b>
                                 </div>
-                                <div className='sub-content'><FormattedMessage id='home-header.choose-a-good-doctor'/></div>
+                                <div className='sub-content'>
+                                    <FormattedMessage id='home-header.choose-a-good-doctor' />
+                                </div>
                             </div>
                             <div className='child-content'>
                                 <div>
-                                    <b><FormattedMessage id='home-header.examination-package'/></b>
+                                    <b>
+                                        <FormattedMessage id='home-header.examination-package' />
+                                    </b>
                                 </div>
                                 <div className='sub-content'>
-                                <FormattedMessage id='home-header.general-health-check'/>
+                                    <FormattedMessage id='home-header.general-health-check' />
                                 </div>
                             </div>
                         </div>
                         <div className='right-content'>
                             <div className='support'>
                                 <i className='fa fa-question-circle'></i>
-                                <FormattedMessage id='home-header.support'/>
+                                <FormattedMessage id='home-header.support' />
                             </div>
-                            <div className='flag'>VN</div>
-                            <div className='flag'>EN</div>
+                            <div
+                                className={
+                                    language === LANGUAGES.VI
+                                        ? 'language-vi active'
+                                        : 'language-vi'
+                                }
+                            >
+                                <span onClick={() => this.changeLanguage('vi')}>
+                                    VI
+                                </span>
+                            </div>
+                            <div className='flash'>|</div>
+                            <div
+                                className={
+                                    language === LANGUAGES.EN
+                                        ? 'language-en active'
+                                        : 'language-en'
+                                }
+                            >
+                                <span onClick={() => this.changeLanguage('en')}>
+                                    EN
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className='home-header-banner'>
                     <div className='content-top'>
-                        <div className='title-1'><FormattedMessage id='banner.title1'/></div>
                         <div className='title-1'>
-                            <b><FormattedMessage id='banner.title2'/></b>
+                            <FormattedMessage id='banner.title1' />
+                        </div>
+                        <div className='title-1'>
+                            <b>
+                                <FormattedMessage id='banner.title2' />
+                            </b>
                         </div>
                         <div className='search'>
                             <i className='fa fa-search'></i>
@@ -76,27 +115,31 @@ class Header extends Component {
                                     <img src='https://cdn.bookingcare.vn/fo/2021/12/08/133537-khamchuyenkhoa.png' />
                                 </div>
                                 <div className='text-child'>
-                                <FormattedMessage id='banner.specialist-examination'/>
+                                    <FormattedMessage id='banner.specialist-examination' />
                                 </div>
                             </div>
                             <div className='options-child'>
                                 <div className='icon-child'>
                                     <img src='https://cdn.bookingcare.vn/fo/2021/12/08/133657-khamtuxa.png' />
                                 </div>
-                                <div className='text-child'><FormattedMessage id='banner.remote-medical-examination'/></div>
+                                <div className='text-child'>
+                                    <FormattedMessage id='banner.remote-medical-examination' />
+                                </div>
                             </div>
                             <div className='options-child'>
                                 <div className='icon-child'>
                                     <img src='https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtongquat.png' />
                                 </div>
-                                <div className='text-child'><FormattedMessage id='banner.physical-examination'/></div>
+                                <div className='text-child'>
+                                    <FormattedMessage id='banner.physical-examination' />
+                                </div>
                             </div>
                             <div className='options-child'>
                                 <div className='icon-child'>
                                     <img src='https://cdn.bookingcare.vn/fo/2021/12/08/133744-dichvuxetnghiem.png' />
                                 </div>
                                 <div className='text-child'>
-                                <FormattedMessage id='banner.medical-test'/>
+                                    <FormattedMessage id='banner.medical-test' />
                                 </div>
                             </div>
                             <div className='options-child'>
@@ -104,14 +147,16 @@ class Header extends Component {
                                     <img src='https://cdn.bookingcare.vn/fo/2021/12/08/133744-suckhoetinhthan.png' />
                                 </div>
                                 <div className='text-child'>
-                                <FormattedMessage id='banner.mental-health'/>
+                                    <FormattedMessage id='banner.mental-health' />
                                 </div>
                             </div>
                             <div className='options-child'>
                                 <div className='icon-child'>
                                     <img src='https://cdn.bookingcare.vn/fo/2022/05/19/104635-khamnhakhoa.png' />
                                 </div>
-                                <div className='text-child'><FormattedMessage id='banner.dental-examination'/></div>
+                                <div className='text-child'>
+                                    <FormattedMessage id='banner.dental-examination' />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -129,7 +174,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        changeLanguageAppRedux: (language) => {
+            dispatch(changeLanguageApp(language));
+        },
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

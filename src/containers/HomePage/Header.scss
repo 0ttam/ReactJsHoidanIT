@@ -51,16 +51,32 @@
             .support {
                 color: rgb(107,205,218);
                 cursor: pointer;
+                margin-right: 10px;
             }
-            .flag {
-                margin: 0 10px;
+            .flash {
+                margin-top: -3px;
+            }
+            
+            .language-vi, .language-en {
+                margin: 0 5px;
                 font-weight: 600;
+                font-size: 14px;
                 cursor: pointer;
                 color: red;
+                opacity: 0.5;
+
                 &:hover {
                     color: rgb(107,205,218);
                 }
+                &.active {
+                    opacity: 1;
+                    span {
+                        color: red;
+                        font-size: 18px;
+                    }
+                }
             }
+            
         }
     }
 }
