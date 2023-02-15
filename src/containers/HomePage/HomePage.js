@@ -8,7 +8,8 @@ class HomePage extends Component {
     render() {
         return (
             <Fragment>
-                <Header />
+                <Header/>
+                <Specialty/>
                 <Specialty/>
             </Fragment>
         );
