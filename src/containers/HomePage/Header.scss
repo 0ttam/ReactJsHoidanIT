@@ -2,6 +2,10 @@
     height: 68px;
     width: 100%;
     padding: 0 60px;
+    position:  sticky;
+    top: 0;
+    z-index: 1001;
+    background-color: #fff;
 
     .home-header-content{
         width: 100%;
@@ -108,7 +112,7 @@
             height: 48px;
             width: 400px;
             padding: 0 10px;
-            background-color: yellow;
+            background-color: #ffcb34;
             
     
             input {

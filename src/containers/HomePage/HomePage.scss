@@ -98,7 +98,7 @@
             
 
             .hand-book-back-ground {
-                background: #ffff00 ;
+                background: #ffcb34;
                 margin: 0 10px;
                 height: 190px;
 
@@ -127,6 +127,19 @@
     }
 }
 
+// CSS About
+.section-about {
+    height: 450px !important;
+    iframe {
+        height: 300px;
+        width: 550px;;
+    }
+    .about-description {
+        float: right;
+        width: 200px;
+        margin: 0 140px;
+    }
+}
 
 // CSS Share
 .section-share {

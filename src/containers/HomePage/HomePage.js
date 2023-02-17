@@ -9,6 +9,8 @@ import Specialty from './Section/Specialty';
 import MedicalFacility from './Section/MedicalFacility';
 import OutStandingDoctor from './Section/OutStandingDoctor';
 import Handbook from './Section/Handbook';
+import About from './Section/About';
+import Footer from './Footer';
 
 class HomePage extends Component {
     render() {
@@ -34,6 +36,8 @@ class HomePage extends Component {
                         slidesToScroll: 1,
                     }}
                 />
+                <About />
+                <Footer/>
             </Fragment>
         );
     }
