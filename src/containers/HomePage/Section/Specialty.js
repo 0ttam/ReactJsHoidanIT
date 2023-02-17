@@ -4,52 +4,20 @@ import { FormattedMessage } from 'react-intl';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './Specialty.scss';
-
-function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-        <div
-            className={className}
-            style={{ ...style, display: 'block', background: 'red' }}
-            onClick={onClick}
-        />
-    );
-}
-
-function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-        <div
-            className={className}
-            style={{ ...style, display: 'block', background: 'green' }}
-            onClick={onClick}
-        />
-    );
-}
 
 class Specialty extends Component {
     render() {
-        let settings = {
-            dots: false,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            nextArrow: <SampleNextArrow />,
-            prevArrow: <SamplePrevArrow />,
-        };
         return (
-            <div className='section-specialty'>
-                <div className='specialty-container'>
-                    <div className='specialty-header'>
-                        <span className='specialty-name'>
+            <div className='section-share section-specialty'>
+                <div className='section-container'>
+                    <div className='section-header'>
+                        <span className='section-title'>
                             Chuyên khoa phổ biến
                         </span>
-                        <button className='view-more'>XEM THÊM</button>
+                        <button className='btn-view-more'>XEM THÊM</button>
                     </div>
-                    <div className='specialty-body'>
-                        <Slider {...settings}>
+                    <div className='section-body'>
+                        <Slider {...this.props.settings}>
                             <div className='specialty-item'>
                                 <div className='specialty-img'></div>
                                 <div className='specialty-name'>
@@ -58,15 +26,7 @@ class Specialty extends Component {
                             </div>
                             <div className='specialty-item'>
                                 <div className='specialty-img'></div>
-                                <div
-                                    className='specialty-name'
-                                    style={{
-                                        'background':
-                                            'url("../../../assets/specialty/120933-tieu-hoa.jpg")',
-                                    }}
-                                >
-                                    Nam khoa
-                                </div>
+                                <div className='specialty-name'>Nam khoa</div>
                             </div>
                             <div className='specialty-item'>
                                 <div className='specialty-img'></div>
