@@ -8,14 +8,18 @@ class About extends Component {
             <div className='section-share section-about'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <div className='section-title'>Truyền thông nói về BookingCare</div>
+                        <div className='section-title'>
+                            Truyền thông nói về BookingCare
+                        </div>
                     </div>
                     <div className='section-body'>
-                        <iframe
-                            src='https://www.youtube.com/embed/DVP1Vvi6lEY'
-                            
-                        ></iframe>
-                        <div className='about-description'>Tất cả những hình ảnh và âm thanh đều thuộc sở hữu bản quyền của tác giả và nhà sản xuất phim. Các tài liệu được sử dụng dưới dạng "Fair-used". W2W Movie không sở hữu bất kì hình ảnh nào. Nếu các cậu muốn xem trực tuyến, thì hãy mua tài khoản trên các trang xem chính thống. Chúng tớ không khuyến khích xem lậu!</div>
+                        <div className='about-video'><iframe src='https://www.youtube.com/embed/7tiR7SI4CkI'></iframe></div>
+                        <div className='about-description'>
+                            Chương trình cà phê khởi nghiệp của VTV1 - Đài
+                            truyền hình Việt Nam giới thiệu Nền tảng đặt khám
+                            bác sĩ chuyên khoa BookingCare. Chương trình phát
+                            vào 06h30 và phát lại vào 13h05 ngày 21/02/2018.
+                        </div>
                     </div>
                 </div>
             </div>

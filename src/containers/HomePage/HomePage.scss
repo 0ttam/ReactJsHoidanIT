@@ -130,21 +130,25 @@
 // CSS About
 .section-about {
     height: 450px !important;
-    iframe {
+    .about-video {
         height: 300px;
-        width: 550px;;
+        width: 70%;;
+        float: left;
+        iframe {
+            height: 340px;
+            width: 560px;;
+        }
     }
     .about-description {
         float: right;
-        width: 200px;
-        margin: 0 140px;
+        width: 30%;
+        padding: auto;
     }
 }
 
 // CSS Share
 .section-share {
     height: 330px;
-    
 
 
     .section-container {
@@ -188,29 +192,29 @@
     left: -10px !important;
     height: 48px !important;
     width: 44px !important;
-    background: transparent !important;
+    background: #000 url('../../assets/images/arrow-left.png') center center no-repeat !important;
     z-index: 1000 !important;
-    text-align: center;
-
-    &:hover {
-        background: #eceaea !important;
-    }
+    opacity: .3;
 }
-.slick-prev:before, .slick-next:before {
+.slick-prev:before {
+    color: transparent !important;
+    background: #000 url('../../assets/images/arrow-left.png') center center no-repeat !important;
+    content: '';
+}
+.slick-next:before {
     font-family: FontAwesome !important;
-    color: red !important;
-    line-height: 2 !important;
+    color: transparent !important;
+    background: #000 url('../../assets/images/arrow.png') center center no-repeat !important;
+    
+    content: '';
 }
 .slick-next {
     border: 2px solid #d7d7d7 !important;
-    right: -10px !important;
-    background: transparent !important;
+    background: #000 url('../../assets/images/arrow.png') center center no-repeat !important;
     height: 48px !important;
     width: 44px !important;
+    right: -10px !important;
     z-index: 1000 !important;
-    text-align: center;
+    opacity: .3;
 
-    &:hover {
-        background: #eceaea !important;
-    }
 }

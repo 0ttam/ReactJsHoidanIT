@@ -16,9 +16,8 @@ class Footer extends Component {
                             <b>Công ty Cổ phần Công nghệ BookingCare</b>
                         </div>
                         <div>
-                        <i class="fas fa-location-arrow"></i>
-                            28 Thành Thái,
-                            Dịch Vọng, Cầu Giấy, Hà Nội
+                            <i class='fas fa-location-arrow'></i>
+                            28 Thành Thái, Dịch Vọng, Cầu Giấy, Hà Nội
                         </div>
                         <div>
                             <i className='fas fa-check'> </i>
@@ -75,6 +74,15 @@ class Footer extends Component {
                                 <b>Hỗ trợ khách hàng</b>
                             </div>
                             <span>support@bookingcare.vn (7h - 20h)</span>
+                        </div>
+                    </div>
+                </div>
+                <div className='bottom-container'>
+                    <div className='bottom'>
+                        <div className='tab-left'>&copy; 2023 BookingCare</div>
+                        <div className='tab-right'>
+                            <i className='fab fa-facebook social-login-facebook'></i>
+                            <i className='fab fa-youtube'></i>
                         </div>
                     </div>
                 </div>
