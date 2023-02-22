@@ -8,7 +8,8 @@
         "choose-a-good-doctor": "Chọn bác sĩ giỏi",
         "examination-package": "Gói khám",
         "general-health-check": "Khám sức khỏe tổng quát",
-        "support": "Hỗ trợ"
+        "support": "Hỗ trợ",
+        "welcome": "Xin chào"
 
     },
     "banner": {
@@ -22,7 +23,6 @@
         "mental-health": "Sức khỏe tinh thần",
         "dental-examination": "Khám nha khoa"
     },
-
     "common": {
         "add": "Thêm",
         "edit": "Sửa",
@@ -61,6 +61,19 @@
             "system-parameter": {
                 "header": "Tham số hệ thống"
             }
+        },
+        "admin": {
+            "manage-user": "Người dùng",
+            "manage-doctor": "Quản lý bác sĩ",
+            "manage-admin": "Quản lý admin",
+            "crud": "CRUD user",
+            "crud-redux": "CRUD redux",
+            "clinic": "Phòng khám",
+            "manage-clinic": "Quản lý phòng khám",
+            "specialty": "Chuyên khoa",
+            "manage-specialty": "Quản lý chuyên khoa",
+            "handbook": "Cẩm nang",
+            "manage-handbook": "Quản lý cẩm nang"
         }
     },
     "system": {

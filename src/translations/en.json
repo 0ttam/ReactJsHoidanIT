@@ -8,7 +8,8 @@
         "choose-a-good-doctor": "Choose a good doctor",
         "examination-package": "Examination package",
         "general-health-check": "General health check",
-        "support": "Support"
+        "support": "Support",
+        "welcome": "Welcome"
     },
     "banner": {
         "title1":"MEDICAL PLATFORM",
@@ -61,6 +62,19 @@
             "system-parameter": {
                 "header": "System-parameter"
             }
+        },
+        "admin": {
+            "manage-user": "User manager",
+            "manage-doctor": "Doctor manager",
+            "manage-admin": "Admin manager",
+            "crud": "CRUD user",
+            "crud-redux": "CRUD Redux",
+            "manage-clinic": "Clinic manager",
+            "clinic": "Clinic",
+            "specialty": "Specialty",
+            "manage-specialty": "Specialty manage",
+            "handbook": "Handbook",
+            "manage-handbook": "Handbook manage"
         }
     },
     "system": {

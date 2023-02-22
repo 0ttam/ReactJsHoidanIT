@@ -13,7 +13,6 @@ class MedicalFacility extends Component {
                         <button className='btn-view-more'>XEM TẤT CẢ</button>
                     </div>
                     <div className='section-body'>
-                        {console.log(this.props.settings)}
                         <Slider {...this.props.settings}>
                             <div className='hand-book-item'>
                                 <div className='hand-book-back-ground'>
