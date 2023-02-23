@@ -22,7 +22,20 @@
         "mental-health": "Mental health",
         "dental-examination": "Dental examination"
     },
-
+    "manage-user": {
+        "add": "Add new user",
+        "email": "Email",
+        "password": "Password",
+        "first-name": "First name",
+        "last-name": "Last name",
+        "address": "Address",
+        "phone": "Phone Number",
+        "image": "Image",
+        "gender": "Gender",
+        "role-id":"RoleID",
+        "position-id": "PositionID",
+        "save": "Save"
+    },
 
     "common": {
         "add": "Add",
