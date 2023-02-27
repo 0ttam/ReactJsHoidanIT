@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserRedux.scss';
-import { getAllCodeServices } from '../../../services/allCodeService';
 import { LANGUAGES } from '../../../utils/constant';
+import * as actions from '../../../store/actions/adminAction';
 
 class UserRedux extends Component {
     constructor(props) {
@@ -16,42 +16,29 @@ class UserRedux extends Component {
     }
 
     async componentDidMount() {
-        try {
-            let resGender = await getAllCodeServices('gender');
-            if (resGender && resGender.errCode === 0) {
-                this.setState({
-                    genderArr: resGender.data,
-                });
-            }
-            let resRole = await getAllCodeServices('role');
-            if (resRole && resRole.errCode === 0) {
-                this.setState({
-                    roleArr: resRole.data,
-                });
-            }
-            let positionArr = await getAllCodeServices('position');
-            if (positionArr && positionArr.errCode === 0) {
-                this.setState({
-                    positionArr: positionArr.data,
-                });
-            }
-        } catch (e) {
-            console.log(e);
+        this.props.getGenderStart();
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.genderRedux !== this.props.genderRedux) {
+            this.setState({
+                genderArr: this.props.genderRedux,
+            });
         }
     }
 
     render() {
         let language = this.props.language;
-        let genders = this.state.genderArr;
         let role = this.state.roleArr;
         let position = this.state.positionArr;
+        let genders = this.state.genderArr;
+        console.log('check props from react', genders);
         return (
             <div className='user-redux-container'>
                 <div className='title'>Manage User Redux</div>
                 <div className='user-redux-body'>
                     <div className='container'>
                         <div className='row'>
-                            <div className='col-12'>
+                            <div className='col-12 title'>
                                 <FormattedMessage id='manage-user.add' />
                             </div>
                             <div className='col-3'>
@@ -179,11 +166,13 @@ class UserRedux extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return { language: state.app.language };
+    return { language: state.app.language, genderRedux: state.admin.genders };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        getGenderStart: () => dispatch(actions.fetchGenderStart()),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRedux);
