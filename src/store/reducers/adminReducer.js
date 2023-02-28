@@ -4,28 +4,63 @@ const initialState = {
     genders: [],
     roles: [],
     positions: [],
+    isLoadingGender: false,
+    isLoadingPosition: false,
+    isLoadingRole: false,
 };
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_GENDER_START:
-            console.log('fire action start', action);
+            state.isLoadingGender = true;
             return {
                 ...state,
             };
         case actionTypes.FETCH_GENDER_SUCCESS:
-            console.log('fire action success', action);
-            let copyState = { ...state };
-            copyState.genders = action.data;
+            state.genders = action.data;
+            state.isLoadingGender = false;
             return {
-                ...copyState,
+                ...state,
             };
         case actionTypes.FETCH_GENDER_FAILED:
-            console.log('fire action failed', action);
+            state.isLoadingGender = false;
             return {
                 ...state,
             };
 
+        case actionTypes.FETCH_POSITION_START:
+            state.isLoadingPosition = true;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_POSITION_SUCCESS:
+            state.positions = action.data;
+            state.isLoadingPosition = false;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_POSITION_FAILED:
+            state.isLoadingPosition = false;
+            return {
+                ...state,
+            };
+
+        case actionTypes.FETCH_ROLE_START:
+            state.isLoadingRole = true;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_ROLE_SUCCESS:
+            state.roles = action.data;
+            state.isLoadingRole = false;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_ROLE_FAILED:
+            state.isLoadingRole = false;
+            return {
+                ...state,
+            };
         default:
             return state;
     }

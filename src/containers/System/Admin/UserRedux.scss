@@ -3,5 +3,33 @@
     
     .user-redux-body {
 
+        .image-container {
+            display: flex;
+
+            .upload-image {
+                
+                .fa-upload {
+                    margin-left: 5px;
+                }
+                .btn-upload {
+                    padding: 0 5px;
+                    background-color: #007bff;
+                    color: #fff;
+                    justify-content: center;
+                    text-align: center;
+                    cursor: pointer;
+                }
+            }
+            .preview-image {
+                height: 58px;
+                width: 120px;
+                margin-top: -24px;
+                margin-left: 20px;
+                background: no-repeat;
+                background-size: contain;
+                cursor: pointer;
+            }
+        }
+        
     }
 }
