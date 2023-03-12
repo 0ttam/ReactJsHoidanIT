@@ -53,17 +53,26 @@ button {
   }
   .modal-user-body {
     display: flex;
-    gap: 10px;
+    //gap: 10px;
     flex-wrap: wrap;
     .input-container {
-      width: 49%;
+      //width: 49%;
       display: flex;
       flex-direction: column;
-      &.w-100{
+      &.w-100 {
         width: 100%;
       }
-      &.w-33{
+      &.w-66 {
+        width: 67%;
+      }
+      &.w-50 {
+        width: 40%;
+      }
+      &.w-33 {
         width: 32%;
+      }
+      &.w-20 {
+        width: 19%;
       }
       input {
         outline: none;

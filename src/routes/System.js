@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/System/UserManage';
-import UserRedux from '../containers/System/Admin/UserRedux';
+import UserManagerRedux from '../containers/System/Admin/UserManagerRedux';
 import Header from '../containers/Header/Header';
 
 class System extends Component {
@@ -21,7 +21,7 @@ class System extends Component {
                             />
                             <Route
                                 path='/system/user-redux'
-                                component={UserRedux}
+                                component={UserManagerRedux}
                             />
                             <Route
                                 component={() => {

@@ -5,9 +5,9 @@
 
         .image-container {
             display: flex;
-
+            width: 200px;
             .upload-image {
-                
+                width: 20px;
                 .fa-upload {
                     margin-left: 5px;
                 }
@@ -18,16 +18,19 @@
                     justify-content: center;
                     text-align: center;
                     cursor: pointer;
+                    float: left;
                 }
             }
             .preview-image {
-                height: 58px;
-                width: 120px;
-                margin-top: -24px;
-                margin-left: 20px;
+                //height: 58px;
+                //width: 120px;
+                //margin-top: -24px;
+               // margin-left: 20px;
                 background: no-repeat;
                 background-size: contain;
                 cursor: pointer;
+                background-color: #007bff;
+                float: right;
             }
         }
         

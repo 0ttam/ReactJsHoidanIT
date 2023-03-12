@@ -73,7 +73,7 @@ class App extends Component {
                             </Scrollbars>
                         </div>
 
-                        <ToastContainer
+                        {/* <ToastContainer
                             className='toast-container'
                             toastClassName='toast-item'
                             bodyClassName='toast-item-body'
@@ -84,7 +84,7 @@ class App extends Component {
                             closeOnClick={false}
                             draggable={false}
                             closeButton={<CustomToastCloseButton />}
-                        />
+                        /> */}
                     </div>
                 </Router>
             </Fragment>

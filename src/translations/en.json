@@ -34,7 +34,8 @@
         "gender": "Gender",
         "role-id":"RoleID",
         "position-id": "PositionID",
-        "save": "Save"
+        "save": "Save",
+        "edit": "Change info user"
     },
 
     "common": {

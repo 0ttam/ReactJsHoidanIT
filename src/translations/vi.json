@@ -35,7 +35,8 @@
         "gender": "Giới tính",
         "role-id":"Vai trò",
         "position-id": "Chức vụ",
-        "save": "Lưu"
+        "save": "Lưu",
+        "edit": "Thay đổi thông tin người dùng"
     },
     "menu": {
         "system": {

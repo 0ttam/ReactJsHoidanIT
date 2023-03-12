@@ -107,7 +107,6 @@ class UserRedux extends Component {
     handleSaveUser = () => {
         let isValid = this.handleValidateInput();
         if (isValid === true) {
-            console.log('check input before submit', this.state);
             // call Api request modal
             this.props.createNewUser({
                 email: this.state.email,

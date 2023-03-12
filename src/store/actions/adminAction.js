@@ -1,6 +1,11 @@
 import actionTypes from './actionTypes';
 import { getAllCodeServices } from '../../services/allCodeService';
-import { handleCreateUser } from '../../services/userService';
+import {
+    handleCreateUser,
+    handleGetAllUsers,
+    handleDeleteUser,
+    handleEditUser,
+} from '../../services/userService';
 
 // Fetch Gender
 export const fetchGenderStart = () => {
@@ -87,19 +92,162 @@ export const createNewUserStart = (data) => {
         try {
             let res = await handleCreateUser(data);
             if (res && res.errCode === 0) {
-                dispatch(createNewUserSuccess());
+                dispatch(
+                    createNewUserSuccess({
+                        vi: 'Tạo mới người dùng thành công',
+                        en: 'Create new user successfully!',
+                        errType: 'success',
+                    })
+                );
+                dispatch(fetchAllUserStart('ALL'));
             } else {
-                dispatch(createNewUserFailed());
+                dispatch(
+                    createNewUserFailed({
+                        vi: 'Tạo mới người không thành công',
+                        en: 'Create new user failed!',
+                        errType: 'error',
+                    })
+                );
             }
         } catch (e) {
-            dispatch(createNewUserFailed());
+            dispatch(
+                createNewUserFailed({
+                    vi: 'Tạo mới người không thành công',
+                    en: 'Create new user failed!',
+                    errType: 'error',
+                })
+            );
             console.log('create new user failed', e);
         }
     };
 };
-export const createNewUserSuccess = () => ({
+export const createNewUserSuccess = (data) => ({
     type: actionTypes.CREATE_USER_SUCCESS,
+    data: data,
 });
-export const createNewUserFailed = () => ({
+export const createNewUserFailed = (data) => ({
     type: actionTypes.CREATE_USER_FAILED,
+    data: data,
+});
+
+export const fetchAllUserStart = (dataType) => {
+    return async (dispatch, getState) => {
+        let res = await handleGetAllUsers(dataType);
+        try {
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllUserSuccess(res.users.reverse()));
+            } else {
+                dispatch(
+                    fetchAllUserFailed({
+                        vi: 'Lấy dữ liệu người dùng không thành công',
+                        en: 'Get all users failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                fetchAllUserFailed({
+                    vi: 'Lấy dữ liệu người dùng không thành công',
+                    en: 'Get all users failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const fetchAllUserSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_USER_SUCCESS,
+    data: data,
+});
+export const fetchAllUserFailed = (data) => ({
+    type: actionTypes.FETCH_ALL_USER_FAILED,
+    data: data,
+});
+export const deleteUserStart = (user) => {
+    return async (dispatch, getState) => {
+        let res = await handleDeleteUser(user);
+        try {
+            if (res && res.errCode === 0) {
+                dispatch(
+                    deleteUserSuccess({
+                        vi: 'Xóa người dùng thành công',
+                        en: 'Delete user success!',
+                        errType: 'success',
+                    })
+                );
+                dispatch(fetchAllUserStart('ALL'));
+            } else {
+                dispatch(
+                    deleteUserFailed({
+                        vi: 'Xóa người dùng không thành công',
+                        en: 'Delete user failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                deleteUserFailed({
+                    vi: 'Xóa người dùng không thành công',
+                    en: 'Delete user failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('delete user redux failed', e);
+        }
+    };
+};
+export const deleteUserSuccess = (data) => ({
+    type: actionTypes.DELETE_USER_SUCCESS,
+    data: data,
+});
+export const deleteUserFailed = (data) => ({
+    type: actionTypes.FETCH_ALL_USER_FAILED,
+    data: data,
+});
+
+export const editUserStart = (data) => {
+    return async (dispatch, getState) => {
+        let res = await handleEditUser(data);
+        try {
+            if (res && res.errCode === 0) {
+                dispatch(
+                    editUserSuccess({
+                        vi: 'Cập nhật dùng thành công',
+                        en: 'Update user success!',
+                        errType: 'success',
+                    })
+                );
+                dispatch(fetchAllUserStart('ALL'));
+            } else {
+                console.log('cn2');
+                dispatch(
+                    editUserFailed({
+                        vi: 'Cập nhật dùng không thành công',
+                        en: 'Update user failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                editUserFailed({
+                    vi: 'Cập nhật dùng không thành công',
+                    en: 'Update user failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('delete user redux failed', e);
+        }
+    };
+};
+export const editUserSuccess = (data) => ({
+    type: actionTypes.UPDATE_USER_SUCCESS,
+    data: data,
+});
+export const editUserFailed = (data) => ({
+    type: actionTypes.UPDATE_USER_FAILED,
+    data: data,
 });
