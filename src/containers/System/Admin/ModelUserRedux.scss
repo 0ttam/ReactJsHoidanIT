@@ -21,15 +21,15 @@
                     float: left;
                 }
             }
-            .preview-image {
-                //height: 58px;
-                //width: 120px;
+            .preview {
+                // height: 58px;
+                // width: 120px;
                 //margin-top: -24px;
                // margin-left: 20px;
-                background: no-repeat;
+                background-repeat: no-repeat;
                 background-size: contain;
                 cursor: pointer;
-                background-color: #007bff;
+                //background-color: #007bff;
                 float: right;
             }
         }

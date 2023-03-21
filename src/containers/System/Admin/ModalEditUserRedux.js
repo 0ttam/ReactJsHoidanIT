@@ -7,6 +7,7 @@ import { LANGUAGES } from '../../../utils/constant';
 import './ModelUserRedux.scss';
 import * as actions from '../../../store/actions/adminAction';
 import { isEmpty } from 'lodash';
+import CommonUtils from '../../../utils/CommonUtils';
 
 class ModalEditUserRedux extends Component {
     constructor(props) {
@@ -26,29 +27,37 @@ class ModalEditUserRedux extends Component {
             gender: '',
             roleId: '',
             positionId: '',
-            avatar: '',
+            avatar: Blob,
         };
-        this.listenToEmitter();
+        // this.listenToEmitter();
     }
-    listenToEmitter() {
-        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
-            //reset state
-            this.setState({
-                email: '',
-                password: '',
-                firstName: '',
-                lastName: '',
-                phoneNumber: '',
-                address: '',
-                gender: '',
-                roleId: '',
-                positionId: '',
-                avatar: '',
-            });
-        });
-    } // bus event
+    // listenToEmitter() {
+    //     emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
+    //         //reset state
+    //         this.setState({
+    //             email: '',
+    //             password: '',
+    //             firstName: '',
+    //             lastName: '',
+    //             phoneNumber: '',
+    //             address: '',
+    //             gender: '',
+    //             roleId: '',
+    //             positionId: '',
+    //             avatar: '',
+    //         });
+    //     });
+    // }
+    // bus event
 
     componentDidMount() {
+        let imageBase64 = '';
+        if (this.props.currentUser.avatar) {
+            imageBase64 = new Buffer(
+                this.props.currentUser.avatar,
+                'base64'
+            ).toString('binary');
+        }
         this.setState({
             genderArr: this.props.fetchGender,
             positionArr: this.props.fetchPosition,
@@ -56,10 +65,18 @@ class ModalEditUserRedux extends Component {
             gender: this.props.currentUser.gender,
             roleId: this.props.currentUser.roleId,
             positionId: this.props.currentUser.positionId,
+            previewImageUrl: imageBase64,
         });
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.currentUser !== this.props.currentUser) {
+            let imageBase64 = '';
+            if (this.props.currentUser.avatar) {
+                imageBase64 = new Buffer(
+                    this.props.currentUser.avatar,
+                    'base64'
+                ).toString('binary');
+            }
             this.setState({
                 email: this.props.currentUser.email,
                 password: this.props.currentUser.password,
@@ -73,9 +90,13 @@ class ModalEditUserRedux extends Component {
                 gender: this.props.currentUser.gender,
                 roleId: this.props.currentUser.roleId,
                 positionId: this.props.currentUser.positionId,
+                previewImageUrl: imageBase64,
             });
         }
     }
+    // componentWillUnmount
+    // componentDidCatch
+    // shouldComponentUpdate
     toggle = () => {
         this.props.toggleFormParent();
         this.setState({
@@ -85,26 +106,30 @@ class ModalEditUserRedux extends Component {
         });
     };
 
-    handleImageChange = (event) => {
+    handleImageChange = async (event) => {
         let data = event.target.files;
+        let file = data[0];
         if (data) {
-            let file = data[0];
+            let base64 = await CommonUtils.getBase64(file);
             let objectUrl = URL.createObjectURL(file);
             this.setState({
                 previewImageUrl: objectUrl,
-                avatar: file,
+                avatar: base64,
             });
         }
     };
     openPreviewImage = () => {
-        this.setState({ isOpen: true });
+        this.props.togglePreviewFormUser(
+            this.state.previewImageUrl,
+            'isOpenModalUpdateUser',
+            this.props.currentUser
+        );
     };
 
     handleOnchangeInput = (event, id) => {
         let copyState = { ...this.state };
         copyState[id] = event.target.value;
         this.setState({ ...copyState });
-        console.log('test', this.state);
     };
     handleValidateInput = () => {
         let isValid = true;
@@ -170,8 +195,16 @@ class ModalEditUserRedux extends Component {
         let gender = this.state.gender;
         let roleId = this.state.roleId;
         let positionId = this.state.positionId;
-        let { email, password, firstName, lastName, phoneNumber, address } =
-            this.state;
+        let {
+            email,
+            password,
+            firstName,
+            lastName,
+            phoneNumber,
+            address,
+            previewImageUrl,
+        } = this.state;
+
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -197,6 +230,7 @@ class ModalEditUserRedux extends Component {
                                 onChange={(event) =>
                                     this.handleOnchangeInput(event, 'email')
                                 }
+                                disabled={true}
                             />
                         </div>
                         <div class='input-container col-6 mb-2'>
@@ -206,12 +240,13 @@ class ModalEditUserRedux extends Component {
                             <input
                                 type='password'
                                 className='form-control'
-                                placeholder='Enter password...'
+                                placeholder=''
                                 name='password'
                                 value={password}
                                 onChange={(event) =>
                                     this.handleOnchangeInput(event, 'password')
                                 }
+                                disabled={true}
                             />
                         </div>
                         <div class='input-container col-6 mb-2'>
@@ -400,15 +435,23 @@ class ModalEditUserRedux extends Component {
                                     </label>
                                 </span>
 
-                                <div
-                                    className='preview-image'
-                                    style={{
-                                        backgroundImage: `url(${this.state.previewImageUrl})`,
-                                    }}
-                                    onClick={() => {
-                                        this.openPreviewImage();
-                                    }}
-                                ></div>
+                                {this.state.previewImageUrl && (
+                                    <div
+                                        className='preview'
+                                        style={{
+                                            cursor: 'pointer',
+                                            marginLeft: '90px',
+                                            marginTop: '-50px',
+                                            height: '56px',
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundSize: 'contain',
+                                            backgroundImage: `url(${this.state.previewImageUrl})`,
+                                        }}
+                                        onClick={() => {
+                                            this.openPreviewImage();
+                                        }}
+                                    ></div>
+                                )}
                             </div>
                         </div>
                     </div>

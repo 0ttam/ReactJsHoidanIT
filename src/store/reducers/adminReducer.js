@@ -67,12 +67,12 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
             };
         case actionTypes.CREATE_USER_SUCCESS:
-            state.updateUserNotifications = action.data;
+            state.createUserNotifications = action.data;
             return {
                 ...state,
             };
         case actionTypes.CREATE_USER_FAILED:
-            state.updateUserNotifications = action.data;
+            state.createUserNotifications = action.data;
             return {
                 ...state,
             };

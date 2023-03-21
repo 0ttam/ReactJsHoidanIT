@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { emitter } from '../../../utils/emitter';
 import { LANGUAGES } from '../../../utils/constant';
-import './ModelUserRedux.scss';
-import * as actions from '../../../store/actions/adminAction';
-
+import CommonUtils from '../../../utils/CommonUtils';
 class ModalUserRedux extends Component {
     constructor(props) {
         super(props);
@@ -14,8 +12,6 @@ class ModalUserRedux extends Component {
             genderArr: [],
             roleArr: [],
             positionArr: [],
-            previewImageUrl: '',
-            isOpen: false,
             email: '',
             password: '',
             firstName: '',
@@ -25,7 +21,8 @@ class ModalUserRedux extends Component {
             gender: '',
             roleId: '',
             positionId: '',
-            avatar: '',
+            avatar: Blob,
+            previewImageUrl: '',
         };
         this.listenToEmitter();
     }
@@ -43,57 +40,104 @@ class ModalUserRedux extends Component {
                 roleId: '',
                 positionId: '',
                 avatar: '',
+                previewImageUrl: '',
             });
         });
     } // bus event
 
-    // componentDidMount() {
-    //     setTimeout(() => {
-    //         console.log('fetch child', this.props.fetchGender);
-    //         this.setState({
-    //             genderArr: this.props.fetchGender,
-    //             positionArr: this.props.fetchPosition,
-    //             roleArr: this.props.fetchRole,
-    //             gender: this.props.fetchGender[0].key,
-    //             roleId: this.props.fetchRole[0].key,
-    //             positionId: this.props.fetchPosition[0].key,
-    //         });
-    //     }, 6000);
-    // }
+    componentDidMount() {
+        setTimeout(() => {
+            if (
+                !this.props.currentUser &&
+                !this.props.currentUser.gender &&
+                !this.props.currentUser.roleId &&
+                !this.props.currentUser.positionId
+            ) {
+                this.setState({
+                    genderArr: this.props.fetchGender,
+                    positionArr: this.props.fetchPosition,
+                    roleArr: this.props.fetchRole,
+                    gender: this.props.currentUser.gender,
+                    roleId: this.props.currentUser.roleId,
+                    positionId: this.props.currentUser.positionId,
+                });
+            } else {
+                this.setState({
+                    genderArr: this.props.fetchGender,
+                    positionArr: this.props.fetchPosition,
+                    roleArr: this.props.fetchRole,
+                    gender: this.props.fetchGender[0].key,
+                    roleId: this.props.fetchRole[0].key,
+                    positionId: this.props.fetchPosition[0].key,
+                });
+            }
+        }, 6000);
+    }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.genderArr !== this.props.genderArr) {
-            this.setState({
-                genderArr: this.props.fetchGender,
-                positionArr: this.props.fetchPosition,
-                roleArr: this.props.fetchRole,
-                gender: this.props.fetchGender[0].key,
-                roleId: this.props.fetchRole[0].key,
-                positionId: this.props.fetchPosition[0].key,
-            });
+            if (
+                !this.props.currentUser &&
+                !this.props.currentUser.gender &&
+                !this.props.currentUser.roleId &&
+                !this.props.currentUser.positionId
+            ) {
+                this.setState({
+                    genderArr: this.props.fetchGender,
+                    positionArr: this.props.fetchPosition,
+                    roleArr: this.props.fetchRole,
+                    gender: this.props.currentUser.gender,
+                    roleId: this.props.currentUser.roleId,
+                    positionId: this.props.currentUser.positionId,
+                });
+            } else {
+                this.setState({
+                    genderArr: this.props.fetchGender,
+                    positionArr: this.props.fetchPosition,
+                    roleArr: this.props.fetchRole,
+                    gender: this.props.fetchGender[0].key,
+                    roleId: this.props.fetchRole[0].key,
+                    positionId: this.props.fetchPosition[0].key,
+                });
+            }
         }
     }
     toggle = () => {
         this.props.toggleFormParent();
-        this.setState({
-            genderArr: this.props.fetchGender,
-            positionArr: this.props.fetchPosition,
-            roleArr: this.props.fetchRole,
-        });
+        // this.setState({
+        //     genderArr: this.props.fetchGender,
+        //     positionArr: this.props.fetchPosition,
+        //     roleArr: this.props.fetchRole,
+        // });
     };
-
-    handleImageChange = (event) => {
+    handleImageChange = async (event) => {
         let data = event.target.files;
+        let file = data[0];
         if (data) {
-            let file = data[0];
+            let base64 = await CommonUtils.getBase64(file);
             let objectUrl = URL.createObjectURL(file);
             this.setState({
                 previewImageUrl: objectUrl,
-                avatar: file,
+                avatar: base64,
             });
         }
     };
     openPreviewImage = () => {
-        this.setState({ isOpen: true });
+        this.props.togglePreviewFormUser(
+            this.state.previewImageUrl,
+            'isOpenModalUser',
+            {
+                email: this.state.email,
+                password: this.state.password,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                address: this.state.address,
+                phoneNumber: this.state.phoneNumber,
+                gender: this.state.gender,
+                roleId: this.state.roleId,
+                positionId: this.state.positionId,
+                avatar: this.state.avatar,
+            }
+        );
     };
 
     handleOnchangeInput = (event, id) => {
@@ -123,8 +167,24 @@ class ModalUserRedux extends Component {
         }
         return isValid;
     };
-    handleSaveUser = () => {
-        let isValid = this.handleValidateInput();
+    handleValidateOptionInput = () => {
+        let initGender = this.props.fetchGender[0].key;
+        let initRoleId = this.props.fetchRole[0].key;
+        let initPositionId = this.props.fetchPosition[0].key;
+        let isValid = true;
+        let arrInput = ['gender', 'roleId', 'positionId'];
+        let letValueSimilar = [initGender, initRoleId, initPositionId];
+        for (let i = 0; i < arrInput.length; i++) {
+            if (!this.state[arrInput[i]]) {
+                this.setState({ [arrInput[i]]: letValueSimilar[i] });
+            }
+        }
+        return isValid;
+    };
+    handleSaveUser = async () => {
+        await this.handleValidateOptionInput();
+        let isValid = await this.handleValidateInput();
+        // eslint-disable-next-line no-unused-expressions
         if (isValid === true) {
             // call Api request modal
             this.props.createNewUser({
@@ -147,9 +207,6 @@ class ModalUserRedux extends Component {
         let roles = this.state.roleArr;
         let positions = this.state.positionArr;
         let genders = this.state.genderArr;
-        let isLoadingGender = this.props.isLoadingGender;
-        let isLoadingPosition = this.props.isLoadingPosition;
-        let isLoadingRole = this.props.isLoadingRole;
         let {
             email,
             password,
@@ -284,6 +341,11 @@ class ModalUserRedux extends Component {
                                             <option
                                                 key={index}
                                                 value={items.key}
+                                                selected={
+                                                    gender === items.key
+                                                        ? 'selected'
+                                                        : ''
+                                                }
                                             >
                                                 {language === LANGUAGES.VI
                                                     ? items.valueVi
@@ -311,6 +373,11 @@ class ModalUserRedux extends Component {
                                             <option
                                                 key={index}
                                                 value={items.key}
+                                                selected={
+                                                    roleId === items.key
+                                                        ? 'selected'
+                                                        : ''
+                                                }
                                             >
                                                 {language === LANGUAGES.VI
                                                     ? items.valueVi
@@ -341,6 +408,11 @@ class ModalUserRedux extends Component {
                                             <option
                                                 key={index}
                                                 value={items.key}
+                                                selected={
+                                                    positionId === items.key
+                                                        ? 'selected'
+                                                        : ''
+                                                }
                                             >
                                                 {language === LANGUAGES.VI
                                                     ? items.valueVi
@@ -373,17 +445,24 @@ class ModalUserRedux extends Component {
                                         <i class='fas fa-upload'></i>
                                     </label>
                                 </span>
-
+                            </div>
+                            {this.state.previewImageUrl && (
                                 <div
-                                    className='preview-image'
+                                    className='preview'
                                     style={{
+                                        cursor: 'pointer',
+                                        marginLeft: '90px',
+                                        marginTop: '-50px',
+                                        height: '56px',
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundSize: 'contain',
                                         backgroundImage: `url(${this.state.previewImageUrl})`,
                                     }}
                                     onClick={() => {
                                         this.openPreviewImage();
                                     }}
                                 ></div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </ModalBody>

@@ -6,15 +6,17 @@ import '../UserManage.scss';
 import ModalUserRedux from './ModalUserRedux';
 import ModalDeleteUserRedux from './ModalDeleteUserRedux';
 import ModalEditUserRedux from './ModalEditUserRedux';
-import axios from 'axios';
-import logger from 'redux-logger';
+import ModalPreviewImage from './ModalPreviewImage';
+
 import { emitter } from '../../../utils/emitter';
 
 import { LANGUAGES } from '../../../utils/constant';
 import * as actions from '../../../store/actions/adminAction';
 import '../UserManage.scss';
+import './ModelUserRedux.scss';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Fragment } from 'react';
 
 class UserManageRedux extends Component {
     constructor(props) {
@@ -27,8 +29,13 @@ class UserManageRedux extends Component {
             isOpenModalUser: false,
             isOpenModalDeleteUser: false,
             isOpenModalUpdateUser: false,
+            isOpenModalPreviewImage: false,
+            isOpenLightBox: false,
+            previewImageUrl: '',
             userDelete: '',
             userUpdate: '',
+            userDataTyping: '',
+            modalSendToPreviewImage: '',
 
             updateUserNotifications: {},
             createUserNotifications: {},
@@ -50,7 +57,6 @@ class UserManageRedux extends Component {
             });
         }
         if (prevProps.arrGenders !== this.props.arrGenders) {
-            console.log('father arGender', this.props.arrGenders);
             this.setState({
                 arrGenders: this.props.arrGenders,
             });
@@ -95,15 +101,21 @@ class UserManageRedux extends Component {
     // Notification
     notify = (message, type) => toast(message, { autoClose: 2000, type: type });
     // Handles
-    handleAddNewUser = () => {
-        this.setState({
-            isOpenModalUser: true,
-        });
+    handleAddNewUser = (userData) => {
+        if (
+            this.state.isOpenModalPreviewImage === false &&
+            this.state.isOpenModalUpdateUser === false
+        ) {
+            this.setState({
+                isOpenModalUser: true,
+            });
+        }
     };
     toggleModalUser = async () => {
         this.setState({
             isOpenModalUser: !this.state.isOpenModalUser,
         });
+
         await this.props.getGenderStart();
         await this.props.getPositionStart();
         await this.props.getRoleStart();
@@ -171,34 +183,104 @@ class UserManageRedux extends Component {
         });
         // emitter.emit('TRANSFER_DATA_EDIT_USER', { data: user });
     };
+    openModalPreviewImage = (imageData, modal, userData) => {
+        switch (modal) {
+            case 'isOpenModalUser':
+                this.setState({
+                    isOpenModalPreviewImage:
+                        !this.state.isOpenModalPreviewImage,
+                    isOpenModalUser: !this.state.isOpenModalUser,
+                    modalSendToPreviewImage: modal,
+                    previewImageUrl: imageData,
+                    userDataTyping: userData,
+                });
+
+                break;
+            case 'isOpenModalUpdateUser':
+                this.setState({
+                    isOpenModalPreviewImage:
+                        !this.state.isOpenModalPreviewImage,
+                    modalSendToPreviewImage: modal,
+                    previewImageUrl: imageData,
+                    userUpdate: userData,
+                });
+                break;
+            default:
+                this.setState({
+                    isOpenModalPreviewImage:
+                        !this.state.isOpenModalPreviewImage,
+                    previewImageUrl: '',
+                });
+        }
+    };
+    closeModalPreviewImage = (modal = this.state.modalSendToPreviewImage) => {
+        switch (modal) {
+            case 'isOpenModalUser':
+                this.handleAddNewUser(this.state.userDataTyping);
+                this.setState({
+                    isOpenModalPreviewImage:
+                        !this.state.isOpenModalPreviewImage,
+                    isOpenModalUser: !this.state.isOpenModalUser,
+                    modalSendToPreviewImage: '',
+                    previewImageUrl: '',
+                });
+                break;
+            case 'isOpenModalUpdateUser':
+                this.openModalUpdateUser(this.state.userUpdate);
+                this.setState({
+                    isOpenModalPreviewImage:
+                        !this.state.isOpenModalPreviewImage,
+                    modalSendToPreviewImage: '',
+                    previewImageUrl: '',
+                });
+                break;
+            default:
+                this.setState({
+                    isOpenModalPreviewImage:
+                        !this.state.isOpenModalPreviewImage,
+                    previewImageUrl: '',
+                });
+        }
+    };
 
     render() {
         let arrUsers = this.state.arrUsers;
+        let userDataTyping = this.state.userDataTyping;
         return (
             <div className='users-container'>
                 <ToastContainer />
+                <ModalPreviewImage
+                    isOpen={this.state.isOpenModalPreviewImage}
+                    toggleFormParent={this.closeModalPreviewImage}
+                    previewImage={this.state.previewImageUrl}
+                />
                 <ModalUserRedux
                     isOpen={this.state.isOpenModalUser}
                     toggleFormParent={this.toggleModalUser}
+                    togglePreviewFormUser={this.openModalPreviewImage}
                     createNewUser={this.createNewUser}
+                    currentUser={userDataTyping}
                     fetchGender={this.state.arrGenders}
                     fetchRole={this.state.arrRoles}
                     fetchPosition={this.state.arrPositions}
                 />
-                <ModalDeleteUserRedux
-                    isOpen={this.state.isOpenModalDeleteUser}
-                    toggleFormParent={this.toggleModalDeleteUser}
-                    deleteUser={this.handleDeleteUser}
-                    user={this.state.userDelete}
-                />
+
                 <ModalEditUserRedux
                     isOpen={this.state.isOpenModalUpdateUser}
                     toggleFormParent={this.toggleModalUpdateUser}
+                    togglePreviewFormUser={this.openModalPreviewImage}
                     currentUser={this.state.userUpdate}
                     fetchGender={this.state.arrGenders}
                     fetchRole={this.state.arrRoles}
                     fetchPosition={this.state.arrPositions}
                     updateUser={this.updateUser}
+                />
+
+                <ModalDeleteUserRedux
+                    isOpen={this.state.isOpenModalDeleteUser}
+                    toggleFormParent={this.toggleModalDeleteUser}
+                    deleteUser={this.handleDeleteUser}
+                    user={this.state.userDelete}
                 />
 
                 <div className='title text-center'>Manage users redux</div>
