@@ -5,6 +5,7 @@ import {
     handleGetAllUsers,
     handleDeleteUser,
     handleEditUser,
+    handleGetTopDoctorHome,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -222,7 +223,6 @@ export const editUserStart = (data) => {
                 );
                 dispatch(fetchAllUserStart('ALL'));
             } else {
-                console.log('cn2');
                 dispatch(
                     editUserFailed({
                         vi: 'Cập nhật dùng không thành công',
@@ -249,5 +249,41 @@ export const editUserSuccess = (data) => ({
 });
 export const editUserFailed = (data) => ({
     type: actionTypes.UPDATE_USER_FAILED,
+    data: data,
+});
+
+export const fetchTopDoctorStart = (limitInput) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetTopDoctorHome(limitInput);
+            if (res && res.errCode === 0) {
+                dispatch(fetchTopDoctorSuccess(res.topDoctor));
+            } else {
+                dispatch(
+                    fetchTopDoctorFailed({
+                        vi: 'Lấy dữ liệu người dùng không thành công',
+                        en: 'Get all users failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                fetchTopDoctorFailed({
+                    vi: 'Lấy dữ liệu người dùng không thành công',
+                    en: 'Get all users failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const fetchTopDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_TOP_DOCTOR_HOME_SUCCESS,
+    data: data,
+});
+export const fetchTopDoctorFailed = (data) => ({
+    type: actionTypes.FETCH_TOP_DOCTOR_HOME_FAILED,
     data: data,
 });

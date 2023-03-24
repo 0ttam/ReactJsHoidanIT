@@ -66,9 +66,9 @@ class ModalUserRedux extends Component {
                     genderArr: this.props.fetchGender,
                     positionArr: this.props.fetchPosition,
                     roleArr: this.props.fetchRole,
-                    gender: this.props.fetchGender[0].key,
-                    roleId: this.props.fetchRole[0].key,
-                    positionId: this.props.fetchPosition[0].key,
+                    gender: this.props.fetchGender[0].keyMap,
+                    roleId: this.props.fetchRole[0].keyMap,
+                    positionId: this.props.fetchPosition[0].keyMap,
                 });
             }
         }, 6000);
@@ -94,9 +94,9 @@ class ModalUserRedux extends Component {
                     genderArr: this.props.fetchGender,
                     positionArr: this.props.fetchPosition,
                     roleArr: this.props.fetchRole,
-                    gender: this.props.fetchGender[0].key,
-                    roleId: this.props.fetchRole[0].key,
-                    positionId: this.props.fetchPosition[0].key,
+                    gender: this.props.fetchGender[0].keyMap,
+                    roleId: this.props.fetchRole[0].keyMap,
+                    positionId: this.props.fetchPosition[0].keyMap,
                 });
             }
         }
@@ -168,9 +168,9 @@ class ModalUserRedux extends Component {
         return isValid;
     };
     handleValidateOptionInput = () => {
-        let initGender = this.props.fetchGender[0].key;
-        let initRoleId = this.props.fetchRole[0].key;
-        let initPositionId = this.props.fetchPosition[0].key;
+        let initGender = this.props.fetchGender[0].keyMap;
+        let initRoleId = this.props.fetchRole[0].keyMap;
+        let initPositionId = this.props.fetchPosition[0].keyMap;
         let isValid = true;
         let arrInput = ['gender', 'roleId', 'positionId'];
         let letValueSimilar = [initGender, initRoleId, initPositionId];
@@ -340,9 +340,9 @@ class ModalUserRedux extends Component {
                                         return (
                                             <option
                                                 key={index}
-                                                value={items.key}
+                                                value={items.keyMap}
                                                 selected={
-                                                    gender === items.key
+                                                    gender === items.keyMapMap
                                                         ? 'selected'
                                                         : ''
                                                 }
@@ -372,9 +372,9 @@ class ModalUserRedux extends Component {
                                         return (
                                             <option
                                                 key={index}
-                                                value={items.key}
+                                                value={items.keyMap}
                                                 selected={
-                                                    roleId === items.key
+                                                    roleId === items.keyMap
                                                         ? 'selected'
                                                         : ''
                                                 }
@@ -407,9 +407,9 @@ class ModalUserRedux extends Component {
                                         return (
                                             <option
                                                 key={index}
-                                                value={items.key}
+                                                value={items.keyMap}
                                                 selected={
-                                                    positionId === items.key
+                                                    positionId === items.keyMap
                                                         ? 'selected'
                                                         : ''
                                                 }
@@ -490,7 +490,6 @@ class ModalUserRedux extends Component {
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
-
         isLoadingGender: state.admin.isLoadingGender,
         isLoadingPosition: state.admin.isLoadingPosition,
         isLoadingRole: state.admin.isLoadingRole,

@@ -329,9 +329,9 @@ class ModalEditUserRedux extends Component {
                                         return (
                                             <option
                                                 key={index}
-                                                value={items.key}
+                                                value={items.keyMap}
                                                 selected={
-                                                    gender === items.key
+                                                    gender === items.keyMap
                                                         ? 'selected'
                                                         : ''
                                                 }
@@ -361,9 +361,9 @@ class ModalEditUserRedux extends Component {
                                         return (
                                             <option
                                                 key={index}
-                                                value={items.key}
+                                                value={items.keyMap}
                                                 selected={
-                                                    roleId === items.key
+                                                    roleId === items.keyMap
                                                         ? 'selected'
                                                         : ''
                                                 }
@@ -396,9 +396,9 @@ class ModalEditUserRedux extends Component {
                                         return (
                                             <option
                                                 key={index}
-                                                value={items.key}
+                                                value={items.keyMap}
                                                 selected={
-                                                    positionId === items.key
+                                                    positionId === items.keyMap
                                                         ? 'selected'
                                                         : ''
                                                 }
