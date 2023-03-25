@@ -38,6 +38,8 @@
         "save": "Lưu",
         "edit": "Thay đổi thông tin người dùng"
     },
+    "homepage":{"outstanding-doctor":"Bác sĩ nổi bật tuần qua", "more-infor": "Xem thêm"},
+  
     "menu": {
         "system": {
             "header": "Hệ thống",

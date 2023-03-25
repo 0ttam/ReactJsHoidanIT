@@ -37,7 +37,7 @@
         "save": "Save",
         "edit": "Change info user"
     },
-
+    "homepage":{"outstanding-doctor": "Last week's outstanding doctor", "more-infor": "Load more"},
     "common": {
         "add": "Add",
         "edit": "Edit",
