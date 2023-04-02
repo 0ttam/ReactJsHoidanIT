@@ -6,6 +6,8 @@ import {
     handleDeleteUser,
     handleEditUser,
     handleGetTopDoctorHome,
+    handleGetAllDoctor,
+    handlePostDetailInfoDoctor,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -286,4 +288,82 @@ export const fetchTopDoctorSuccess = (data) => ({
 export const fetchTopDoctorFailed = (data) => ({
     type: actionTypes.FETCH_TOP_DOCTOR_HOME_FAILED,
     data: data,
+});
+
+export const fetchAllDoctorStart = (limitInput) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetAllDoctor();
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllDoctorSuccess(res.allDoctor));
+            } else {
+                dispatch(
+                    fetchAllDoctorFailed({
+                        vi: 'Lấy dữ liệu người dùng không thành công',
+                        en: 'Get all users failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                fetchTopDoctorFailed({
+                    vi: 'Lấy dữ liệu người dùng không thành công',
+                    en: 'Get all users failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const fetchAllDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
+    data: data,
+});
+export const fetchAllDoctorFailed = (data) => ({
+    type: actionTypes.FETCH_ALL_DOCTOR_FAILED,
+    data: data,
+});
+
+export const postDetailInfoDoctorStart = (dataInput) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handlePostDetailInfoDoctor(dataInput);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    postDetailInfoDoctorSuccess({
+                        vi: 'Thêm thông tin bác sĩ thành công',
+                        en: 'Add info detail doctor success!',
+                        errType: 'success',
+                    })
+                );
+            } else {
+                dispatch(
+                    postDetailInfoDoctorFailed({
+                        vi: 'Thêm thông tin bác sĩ không thành công',
+                        en: 'Add info detail doctor failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                postDetailInfoDoctorFailed({
+                    vi: 'Thêm thông tin bác sĩ không thành công',
+                    en: 'Add info detail doctor failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const postDetailInfoDoctorSuccess = (dataInput) => ({
+    type: actionTypes.CREATE_DETAIL_INFO_DOCTOR_SUCCESS,
+    data: dataInput,
+});
+export const postDetailInfoDoctorFailed = (dataInput) => ({
+    type: actionTypes.CREATE_DETAIL_INFO_DOCTOR_FAILED,
+    data: dataInput,
 });

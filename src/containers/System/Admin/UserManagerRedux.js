@@ -16,7 +16,6 @@ import '../UserManage.scss';
 import './ModelUserRedux.scss';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Fragment } from 'react';
 
 class UserManageRedux extends Component {
     constructor(props) {

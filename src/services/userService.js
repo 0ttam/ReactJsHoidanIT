@@ -1,23 +1,29 @@
 import axios from '../axios';
 import { stringify } from 'react-auth-wrapper/helpers';
 
-let handleLoginApi = (email, password) => {
+const handleLoginApi = (email, password) => {
     return axios.post('/api/login', stringify({ email, password }));
 };
-let handleGetAllUsers = (userId) => {
+const handleGetAllUsers = (userId) => {
     return axios.get(`/api/get-all-users?id=${userId}`);
 };
-let handleCreateUser = (data) => {
+const handleCreateUser = (data) => {
     return axios.post('/api/create-new-user', stringify(data));
 };
-let handleDeleteUser = (userId) => {
+const handleDeleteUser = (userId) => {
     return axios.delete(`/api/delete-user?id=${userId}`);
 };
-let handleEditUser = (data) => {
+const handleEditUser = (data) => {
     return axios.put('/api/edit-user', stringify(data));
 };
-let handleGetTopDoctorHome = (limitInput = 10) => {
+const handleGetTopDoctorHome = (limitInput = 10) => {
     return axios.get(`/api/top-doctor-home?limit=${limitInput}`);
+};
+const handleGetAllDoctor = () => {
+    return axios.get('/api/get-all-doctor');
+};
+const handlePostDetailInfoDoctor = (inputData) => {
+    return axios.post('/api/post-info-doctor', stringify(inputData));
 };
 
 export {
@@ -27,4 +33,6 @@ export {
     handleDeleteUser,
     handleEditUser,
     handleGetTopDoctorHome,
+    handleGetAllDoctor,
+    handlePostDetailInfoDoctor,
 };
