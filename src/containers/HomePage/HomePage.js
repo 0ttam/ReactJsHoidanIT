@@ -11,6 +11,7 @@ import OutStandingDoctor from './Section/OutStandingDoctor';
 import Handbook from './Section/Handbook';
 import About from './Section/About';
 import Footer from './Footer';
+import HeaderBanner from './HeaderBanner';
 
 class HomePage extends Component {
     render() {
@@ -24,6 +25,7 @@ class HomePage extends Component {
         return (
             <Fragment>
                 <Header />
+                <HeaderBanner />
                 <Specialty settings={settings} />
                 <MedicalFacility settings={settings} />
                 <OutStandingDoctor settings={settings} />

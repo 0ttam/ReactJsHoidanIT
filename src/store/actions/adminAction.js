@@ -8,6 +8,7 @@ import {
     handleGetTopDoctorHome,
     handleGetAllDoctor,
     handlePostDetailInfoDoctor,
+    handleGetDetailInfoDoctor,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -359,11 +360,54 @@ export const postDetailInfoDoctorStart = (dataInput) => {
         }
     };
 };
-export const postDetailInfoDoctorSuccess = (dataInput) => ({
+export const postDetailInfoDoctorSuccess = (data) => ({
     type: actionTypes.CREATE_DETAIL_INFO_DOCTOR_SUCCESS,
-    data: dataInput,
+    data: data,
 });
-export const postDetailInfoDoctorFailed = (dataInput) => ({
+export const postDetailInfoDoctorFailed = (data) => ({
     type: actionTypes.CREATE_DETAIL_INFO_DOCTOR_FAILED,
-    data: dataInput,
+    data: data,
+});
+
+export const getDetailInfoDoctorStart = (idDoctor) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetDetailInfoDoctor(idDoctor);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    getDetailInfoDoctorSuccess({
+                        vi: 'Lấy thông tin bác sĩ thành công',
+                        en: 'Add info detail doctor success!',
+                        errType: 'success',
+                        doctor: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    getDetailInfoDoctorFailed({
+                        vi: 'Lấy thông tin bác sĩ không thành công',
+                        en: 'Add info detail doctor failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                getDetailInfoDoctorFailed({
+                    vi: 'Lấy thông tin bác sĩ không thành công',
+                    en: 'Add info detail doctor failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const getDetailInfoDoctorSuccess = (data) => ({
+    type: actionTypes.GET_DETAIL_INFO_DOCTOR_SUCCESS,
+    data: data.doctor,
+});
+export const getDetailInfoDoctorFailed = (data) => ({
+    type: actionTypes.GET_DETAIL_INFO_DOCTOR_FAILED,
+    data: data,
 });
