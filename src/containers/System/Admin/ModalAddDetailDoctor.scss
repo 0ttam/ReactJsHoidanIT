@@ -1,11 +1,48 @@
 .modal-add-detail-doctor-container {
     display: flex;
-    gap: 15px;
+    gap    : 15px;
 
-    .markdown-wrap {
-        height: 100px;
-        width: 100px;
+    .content-left {
+        margin-left: -16px;
+    }
+}
+
+.markdown-wrap {
+    // height: 100px;
+    // width : 100px;
+    margin-top: -38px;
+}
+
+.button-handle {
+    text-align   : center;
+    border       : none;
+    outline      : none;
+    justify-self : center;
+    align-content: center;
+    float        : right;
+    margin-right : 18px;
+    font-size    : 16px;
+
+    cursor: pointer;
+
+    .button-save {
+        color           : white;
+        background-color: blue;
+        height          : 28px;
+        width           : 85px;
+        border-radius   : 6px;
     }
 
-    
+    .button-update {
+        color           : white;
+        background-color: #ffc10e;
+        height          : 28px;
+        width           : 85px;
+        border-radius   : 6px;
+    }
+
+    .caution {
+        color    : red;
+        font-size: 14px;
+    }
 }

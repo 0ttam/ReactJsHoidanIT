@@ -7,6 +7,7 @@ const initialState = {
     deleteUserNotifications: {},
     updateUserNotifications: {},
     detailInfoDoctorNotifications: {},
+    updateDetailInfoDoctorNotifications: {}, 
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -129,6 +130,13 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.GET_DETAIL_INFO_DOCTOR_FAILED:
             state.detailInfoDoctor = action.data;
+            return { ...state };
+
+        case actionTypes.UPDATE_DETAIL_INFO_DOCTOR_SUCCESS:
+            state.updateDetailInfoDoctorNotifications = action.data;
+            return { ...state };
+        case actionTypes.UPDATE_DETAIL_INFO_DOCTOR_FAILED:
+            state.updateDetailInfoDoctorNotifications = action.data;
             return { ...state };
         default:
             return state;

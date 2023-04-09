@@ -22,7 +22,9 @@ class OutStandingDoctor extends Component {
         }
     }
     handleViewDoctor = (doctor) => {
-        this.props.history.push(`/detail-doctor/${doctor.id}`);
+        if (this.props.history) {
+            this.props.history.push(`/detail-doctor/${doctor.id}`);
+        }
     };
     render() {
         let arrTopDoctor = this.state.arrTopDoctorHome;

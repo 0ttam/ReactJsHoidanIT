@@ -9,6 +9,7 @@ import {
     handleGetAllDoctor,
     handlePostDetailInfoDoctor,
     handleGetDetailInfoDoctor,
+    handleUpdateDetailInfoDoctor,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -409,5 +410,48 @@ export const getDetailInfoDoctorSuccess = (data) => ({
 });
 export const getDetailInfoDoctorFailed = (data) => ({
     type: actionTypes.GET_DETAIL_INFO_DOCTOR_FAILED,
+    data: data,
+});
+
+export const updateDetailInfoDoctorStart = (dataInput) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleUpdateDetailInfoDoctor(dataInput);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    updateDetailInfoDoctorSuccess({
+                        vi: 'Cập nhật thông tin bác sĩ thành công',
+                        en: 'Update info detail doctor success!',
+                        errType: 'success',
+                        doctor: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    updateDetailInfoDoctorFailed({
+                        vi: 'Cập nhật tin bác sĩ không thành công',
+                        en: 'Update info detail doctor failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                updateDetailInfoDoctorFailed({
+                    vi: 'Cập nhật tin bác sĩ không thành công',
+                    en: 'Update info detail doctor failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const updateDetailInfoDoctorSuccess = (data) => ({
+    type: actionTypes.UPDATE_DETAIL_INFO_DOCTOR_SUCCESS,
+    data: data,
+});
+export const updateDetailInfoDoctorFailed = (data) => ({
+    type: actionTypes.UPDATE_DETAIL_INFO_DOCTOR_FAILED,
     data: data,
 });

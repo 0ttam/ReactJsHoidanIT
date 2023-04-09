@@ -28,6 +28,9 @@ const handlePostDetailInfoDoctor = (inputData) => {
 const handleGetDetailInfoDoctor = (idDoctor) => {
     return axios.get(`/api/get-detail-doctor?id=${idDoctor}`);
 };
+const handleUpdateDetailInfoDoctor = (inputData) => {
+    return axios.put('/api/put-info-doctor', stringify(inputData));
+};
 
 export {
     handleLoginApi,
@@ -39,4 +42,5 @@ export {
     handleGetAllDoctor,
     handlePostDetailInfoDoctor,
     handleGetDetailInfoDoctor,
+    handleUpdateDetailInfoDoctor,
 };

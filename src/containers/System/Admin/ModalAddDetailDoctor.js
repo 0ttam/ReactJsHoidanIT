@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { emitter } from '../../../utils/emitter';
 import { LANGUAGES } from '../../../utils/constant';
 import './ModelUserRedux.scss';
 import * as actions from '../../../store/actions/adminAction';
-import { isEmpty } from 'lodash';
-import CommonUtils from '../../../utils/CommonUtils';
 import './ModalAddDetailDoctor.scss';
 import Select from 'react-select';
 
@@ -31,6 +27,8 @@ class ModalAddDetailDoctor extends Component {
             contentHTML: '',
             description: '',
             detailInfoNotifications: {},
+            updateDetailInfoNotification: {},
+            isUpdate: false,
         };
     }
     componentDidMount() {
@@ -67,6 +65,32 @@ class ModalAddDetailDoctor extends Component {
                 detailInfoNotifications: this.props.detailInfoNotifications,
             });
         }
+        if (
+            prevProps.detailInfoDoctorRedux !== this.props.detailInfoDoctorRedux
+        ) {
+            let detailInfo = this.props.detailInfoDoctorRedux.Markdown;
+            if (detailInfo) {
+                this.setState({
+                    contentMarkdown: detailInfo.contentMarkdown,
+                    contentHTML: detailInfo.contentHTML,
+                    description: detailInfo.description,
+                    isUpdate: true,
+                });
+            }
+        }
+        if (
+            prevProps.updateDetailInfoNotificationRedux !==
+            this.props.updateDetailInfoNotificationRedux
+        ) {
+            console.log(
+                'update notification',
+                this.props.updateDetailInfoNotificationRedux
+            );
+            this.setState({
+                updateDetailInfoNotification:
+                    this.props.updateDetailInfoNotificationRedux,
+            });
+        }
     }
     handleEditorChange = ({ html, text }) => {
         console.log('handleEditorChange', html, text);
@@ -74,13 +98,20 @@ class ModalAddDetailDoctor extends Component {
     };
 
     handleChange = (selectedDoctor) => {
-        this.setState({ selectedDoctor }, () =>
-            console.log(`Option selected:`, this.state.selectedDoctor)
-        );
+        this.setState({ selectedDoctor }, async () => {
+            this.setState({
+                contentMarkdown: '',
+                description: '',
+                isUpdate: false,
+            });
+            if (this.state.selectedDoctor && this.state.selectedDoctor.id) {
+                let id = this.state.selectedDoctor.id;
+                await this.props.loadDetailDoctor(id);
+            }
+        });
     };
     handleOnChangeDesc = (event) => {
         this.setState({ description: event.target.value });
-        console.log('description', this.state.description);
     };
     handleSaveChangeDoctor = async () => {
         try {
@@ -91,14 +122,38 @@ class ModalAddDetailDoctor extends Component {
                 description: this.state.description,
             });
             this.setState({
-                id: '',
+                selectedDoctor: '',
                 contentMarkdown: '',
                 contentHTML: '',
                 description: '',
-            })
+                isUpdate: false,
+            });
             this.notify(
                 this.state.detailInfoNotifications.vi,
                 this.state.detailInfoNotifications.errType
+            );
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    handleUpdateDoctor = async () => {
+        try {
+            await this.props.updateDetailInfoDoctor({
+                id: this.state.selectedDoctor.id,
+                contentMarkdown: this.state.contentMarkdown,
+                contentHTML: this.state.contentHTML,
+                description: this.state.description,
+            });
+            this.setState({
+                selectedDoctor: '',
+                contentMarkdown: '',
+                contentHTML: '',
+                description: '',
+                isUpdate: false,
+            });
+            this.notify(
+                this.state.updateDetailInfoNotification.vi,
+                this.state.updateDetailInfoNotification.errType
             );
         } catch (e) {
             console.log(e);
@@ -120,31 +175,32 @@ class ModalAddDetailDoctor extends Component {
         }
         return result;
     };
-    toggle = () => {
-        this.props.toggle();
-    };
+    
     notify = (message, type) => toast(message, { autoClose: 2000, type: type });
 
     render() {
-        let option = this.state.selectedDoctor;
-        // console.log('arr', option);
-        console.log('doc arr ....', this.props.allDoctorRedux);
+        console.log('description redux', this.state.description);
         return (
             <Fragment>
                 <ToastContainer />
                 <div className='title'>Add more Info doctor</div>
                 <div className='modal-add-detail-doctor-container col-12'>
-                    <div className='content-left form-group col-5'>
-                        <label> Choose a Doctor </label>
+                    <div className='content-left form-group col-4'>
+                        <label>
+                            {' '}
+                            <b>Choose a Doctor:</b>{' '}
+                        </label>
                         <Select
                             options={this.state.doctorArray}
                             value={this.state.selectedDoctor}
                             onChange={this.handleChange}
                         />
                     </div>
-                    <div className='content-right form-group col-7'>
-                        <label>Description </label>
-                        <textArea
+                    <div className='content-right form-group col-8'>
+                        <label>
+                            <b>Description:</b>{' '}
+                        </label>
+                        <textarea
                             className='form-control'
                             rows='4'
                             value={this.state.description}
@@ -153,15 +209,42 @@ class ModalAddDetailDoctor extends Component {
                     </div>
                 </div>
                 <div className='markdown-wrap form-group col-12'>
-                    <label>Detail Doctor info</label>
+                    <label>
+                        <b>Detail Doctor info:</b>
+                    </label>
                     <MdEditor
-                        style={{ height: '330px' }}
+                        style={{ height: '346px' }}
+                        value={this.state.contentMarkdown}
                         renderHTML={(text) => mdParser.render(text)}
                         onChange={this.handleEditorChange}
                     />
                 </div>
-                <div>
-                    <button onClick={this.handleSaveChangeDoctor}>Save</button>
+                <div className='button-handle'>
+                    {this.state.selectedDoctor.id &&
+                    this.state.description &&
+                    this.state.contentMarkdown ? (
+                        this.state.isUpdate === false ? (
+                            <div
+                                className='button-save'
+                                onClick={this.handleSaveChangeDoctor}
+                            >
+                                Save
+                            </div>
+                        ) : (
+                            <div
+                                className='button-update'
+                                onClick={this.handleUpdateDoctor}
+                            >
+                                Update
+                            </div>
+                        )
+                    ) : (
+                        <div className='caution'>
+                            Bạn cần điền đủ 3 trường <b>Choose a Doctor</b>{' '}
+                            {','} <b>Description</b> {','}{' '}
+                            <b>Detail Doctor info</b> trước khi Save hoặc Update
+                        </div>
+                    )}
                 </div>
             </Fragment>
         );
@@ -172,15 +255,22 @@ const mapStateToProps = (state) => {
     return {
         language: state.app.language,
         allDoctorRedux: state.admin.allDoctor,
+        detailInfoDoctorRedux: state.admin.detailInfoDoctor,
         detailInfoNotifications: state.admin.detailInfoDoctorNotifications,
+        updateDetailInfoNotificationRedux:
+            state.admin.updateDetailInfoDoctorNotifications,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadAllDoctor: () => dispatch(actions.fetchAllDoctorStart()),
+        loadDetailDoctor: (idDoctor) =>
+            dispatch(actions.getDetailInfoDoctorStart(idDoctor)),
         saveDetailInfoDoctor: (dataInput) =>
             dispatch(actions.postDetailInfoDoctorStart(dataInput)),
+        updateDetailInfoDoctor: (dataInput) =>
+            dispatch(actions.updateDetailInfoDoctorStart(dataInput)),
     };
 };
 
