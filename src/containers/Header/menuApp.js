@@ -19,9 +19,9 @@ export const adminMenu = [
                 link: '/system/user-doctor',
             },
             {
-                // Quản lý admin
-                name: 'menu.admin.manage-admin',
-                link: '/system/user-admin',
+                // Quản lý Kế hoạch khám bệnh
+                name: 'menu.doctor.manage-schedule',
+                link: '/doctor/manage-schedule',
             },
         ],
 
@@ -53,14 +53,28 @@ export const adminMenu = [
         //Quản lý chuyên khoa
         name: 'menu.admin.specialty',
         menus: [
-            { name: 'menu.admin.manage-specialty', link: '/system/manage-specialty' },
+            {
+                name: 'menu.admin.manage-specialty',
+                link: '/system/manage-specialty',
+            },
         ],
     },
     {
         //Quản lý cẩm nang
         name: 'menu.admin.handbook',
         menus: [
-            { name: 'menu.admin.manage-handbook', link: '/system/manage-handbook' },
+            {
+                name: 'menu.admin.manage-handbook',
+                link: '/system/manage-handbook',
+            },
         ],
+    },
+];
+
+export const doctorMenu = [
+    {
+        // Quản lý người dùng
+        name: 'menu.doctor.manage-schedule',
+        link: '/doctor/manage-schedule',
     },
 ];
