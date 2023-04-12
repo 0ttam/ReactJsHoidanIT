@@ -33,7 +33,6 @@ class Header extends Component {
             }
             this.setState({ menuApp: menu });
         }
-        console.log('user info', this.props.userInfo);
     }
     render() {
         const { processLogout, language, userInfo } = this.props;
@@ -46,9 +45,13 @@ class Header extends Component {
                 <div className='languages'>
                     <span className='welcome'>
                         <FormattedMessage id='home-header.welcome' />{' '}
-                        {userInfo && userInfo.firstName && userInfo.lastName
+                        {userInfo &&
+                        userInfo.firstName &&
+                        userInfo.lastName &&
+                        language &&
+                        language === LANGUAGES.EN
                             ? `${userInfo.firstName} ${userInfo.lastName}`
-                            : ''}
+                            : `${userInfo.lastName} ${userInfo.firstName}`}
                         !
                     </span>
                     <span

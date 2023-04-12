@@ -455,3 +455,39 @@ export const updateDetailInfoDoctorFailed = (data) => ({
     type: actionTypes.UPDATE_DETAIL_INFO_DOCTOR_FAILED,
     data: data,
 });
+
+export const fetchAllScheduleHourStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeServices('TIME');
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllScheduleHourSuccess(res.data));
+            } else {
+                dispatch(
+                    fetchAllScheduleHourFailed({
+                        vi: 'Lấy dữ liệu thời gian không thành công',
+                        en: 'Get all users failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                fetchTopDoctorFailed({
+                    vi: 'Lấy dữ liệu thời gian không thành công',
+                    en: 'Get all users failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const fetchAllScheduleHourSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_CODE_SCHEDULE_TIME_SUCCESS,
+    data: data,
+});
+export const fetchAllScheduleHourFailed = (data) => ({
+    type: actionTypes.FETCH_ALL_CODE_SCHEDULE_TIME_FAILED,
+    data: data,
+});

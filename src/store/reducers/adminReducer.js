@@ -7,7 +7,8 @@ const initialState = {
     deleteUserNotifications: {},
     updateUserNotifications: {},
     detailInfoDoctorNotifications: {},
-    updateDetailInfoDoctorNotifications: {}, 
+    updateDetailInfoDoctorNotifications: {},
+    allScheduleTimeData: [],
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -137,6 +138,12 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.UPDATE_DETAIL_INFO_DOCTOR_FAILED:
             state.updateDetailInfoDoctorNotifications = action.data;
+            return { ...state };
+        case actionTypes.FETCH_ALL_CODE_SCHEDULE_TIME_SUCCESS:
+            state.allScheduleTimeData = action.data;
+            return { ...state };
+        case actionTypes.FETCH_ALL_CODE_SCHEDULE_TIME_FAILED:
+            state.allScheduleTimeData = action.data;
             return { ...state };
         default:
             return state;

@@ -36,6 +36,7 @@ class Login extends Component {
         this.setState({
             errMessage: '',
         });
+
         try {
             let data = await handleLoginApi(
                 this.state.username,
@@ -46,9 +47,9 @@ class Login extends Component {
                     errMessage: data.errMessage,
                 });
             }
-            if(data && data.errCode === 0) {
+            if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user);
-                console.log(data)
+                console.log(data);
             }
         } catch (error) {
             if (error.response) {
@@ -59,6 +60,11 @@ class Login extends Component {
                 }
             }
             console.log(error.response);
+        }
+    };
+    handleOnKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            this.handleLogin();
         }
     };
     handleHideShowEye = (event) => {
@@ -101,6 +107,9 @@ class Login extends Component {
                                         this.handleOnchangeInputPassword(event)
                                     }
                                     placeholder='Enter your password'
+                                    onKeyDown={(event) =>
+                                        this.handleOnKeyDown(event)
+                                    }
                                 />
                                 <span
                                     className='custom-password-eye'
@@ -157,7 +166,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         navigate: (path) => dispatch(push(path)),
         userLoginFail: () => dispatch(actions.userLoginFail()),
-        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
+        userLoginSuccess: (userInfo) =>
+            dispatch(actions.userLoginSuccess(userInfo)),
     };
 };
 

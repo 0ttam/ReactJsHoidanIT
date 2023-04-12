@@ -33,12 +33,6 @@ class ModalAddDetailDoctor extends Component {
     }
     componentDidMount() {
         this.props.loadAllDoctor();
-        let arrDoctor = this.handleConvertInputSelection(
-            this.props.allDoctorRedux
-        );
-        this.setState({
-            doctorArray: arrDoctor,
-        });
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allDoctorRedux !== this.props.allDoctorRedux) {
@@ -175,7 +169,7 @@ class ModalAddDetailDoctor extends Component {
         }
         return result;
     };
-    
+
     notify = (message, type) => toast(message, { autoClose: 2000, type: type });
 
     render() {
