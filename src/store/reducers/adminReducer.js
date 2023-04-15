@@ -9,6 +9,7 @@ const initialState = {
     detailInfoDoctorNotifications: {},
     updateDetailInfoDoctorNotifications: {},
     allScheduleTimeData: [],
+    scheduleDoctorNotifications: {},
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -144,6 +145,12 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.FETCH_ALL_CODE_SCHEDULE_TIME_FAILED:
             state.allScheduleTimeData = action.data;
+            return { ...state };
+        case actionTypes.SAVE_BULK_SCHEDULE_DOCTOR_SUCCESS:
+            state.scheduleDoctorNotifications = action.data;
+            return { ...state };
+        case actionTypes.SAVE_BULK_SCHEDULE_DOCTOR_FAILED:
+            state.scheduleDoctorNotifications = action.data;
             return { ...state };
         default:
             return state;

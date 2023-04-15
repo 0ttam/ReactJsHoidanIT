@@ -10,6 +10,7 @@ import {
     handlePostDetailInfoDoctor,
     handleGetDetailInfoDoctor,
     handleUpdateDetailInfoDoctor,
+    handleSaveBulkScheduleDoctor,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -473,7 +474,7 @@ export const fetchAllScheduleHourStart = () => {
             }
         } catch (e) {
             dispatch(
-                fetchTopDoctorFailed({
+                fetchAllScheduleHourFailed({
                     vi: 'Lấy dữ liệu thời gian không thành công',
                     en: 'Get all users failed!',
                     errType: 'error',
@@ -489,5 +490,48 @@ export const fetchAllScheduleHourSuccess = (data) => ({
 });
 export const fetchAllScheduleHourFailed = (data) => ({
     type: actionTypes.FETCH_ALL_CODE_SCHEDULE_TIME_FAILED,
+    data: data,
+});
+
+export const saveBulkScheduleDoctorStart = (data) => {
+    console.log('data nodejs', data);
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleSaveBulkScheduleDoctor(data);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    saveBulkScheduleDoctorSuccess({
+                        vi: 'Lưu dữ liệu lịch hẹn thành công',
+                        en: 'Save data schedule successfully!',
+                        errType: 'error',
+                    })
+                );
+            } else {
+                dispatch(
+                    saveBulkScheduleDoctorFailed({
+                        vi: 'Lưu dữ liệu lịch hẹn không thành công',
+                        en: 'Save data schedule failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                saveBulkScheduleDoctorFailed({
+                    vi: 'Lưu dữ liệu lịch hẹn không thành công',
+                    en: 'Save data schedule failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const saveBulkScheduleDoctorSuccess = (data) => ({
+    type: actionTypes.SAVE_BULK_SCHEDULE_DOCTOR_SUCCESS,
+    data: data,
+});
+export const saveBulkScheduleDoctorFailed = (data) => ({
+    type: actionTypes.SAVE_BULK_SCHEDULE_DOCTOR_FAILED,
     data: data,
 });

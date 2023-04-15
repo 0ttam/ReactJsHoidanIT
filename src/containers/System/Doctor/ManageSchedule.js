@@ -91,7 +91,7 @@ class ManageSchedule extends Component {
         });
         console.log('btn schedule', this.state.allScheduleTimeData);
     };
-    handleOnClickSave = () => {
+    handleOnClickSave = async () => {
         let { currentDate, selectedDoctor, allScheduleTimeData } = this.state;
         let result = [];
         if (!currentDate) {
@@ -102,7 +102,7 @@ class ManageSchedule extends Component {
             this.notify('Bạn chưa chọn bác sĩ', 'error');
             return;
         }
-        let formatDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        let formatDate = new Date(currentDate).getTime();
         if (allScheduleTimeData && allScheduleTimeData.length > 0) {
             let selectedTime = allScheduleTimeData.filter(
                 (item) => item.isSelected === true
@@ -113,18 +113,25 @@ class ManageSchedule extends Component {
                     'error'
                 );
             } else if (selectedTime && selectedTime.length > 0) {
+                // eslint-disable-next-line array-callback-return
                 selectedTime.map((schedule) => {
                     let Object = {};
                     Object.doctorId = selectedDoctor.id;
                     Object.date = formatDate;
-                    Object.time = schedule.keyMap;
+                    Object.timeType = schedule.keyMap;
                     result.push(Object);
                 });
             } else {
                 this.notify('Bạn chưa chọn giờ khám', 'error');
             }
         }
-        console.log('....', result);
+        console.log('result', result);
+        let res = await this.props.saveBulkScheduleDoctor({
+            arrSchedule: result,
+            doctorId: selectedDoctor.id,
+            date: formatDate,
+        });
+        console.log('res in react', res);
     };
 
     notify = (message, type) => toast(message, { autoClose: 2000, type: type });
@@ -219,6 +226,8 @@ const mapStateToProps = (state) => {
         isLoggedIn: state.user.isLoggedIn,
         allDoctorRedux: state.admin.allDoctor,
         allScheduleTimeDataRedux: state.admin.allScheduleTimeData,
+        scheduleDoctorNotificationsRedux:
+            state.admin.scheduleDoctorNotifications,
     };
 };
 
@@ -227,6 +236,8 @@ const mapDispatchToProps = (dispatch) => {
         loadAllDoctor: () => dispatch(actions.fetchAllDoctorStart()),
         loadAllScheduleTimeData: () =>
             dispatch(actions.fetchAllScheduleHourStart()),
+        saveBulkScheduleDoctor: (data) =>
+            dispatch(actions.saveBulkScheduleDoctorStart(data)),
     };
 };
 

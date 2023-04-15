@@ -31,6 +31,9 @@ const handleGetDetailInfoDoctor = (idDoctor) => {
 const handleUpdateDetailInfoDoctor = (inputData) => {
     return axios.put('/api/put-info-doctor', stringify(inputData));
 };
+const handleSaveBulkScheduleDoctor = (data) => {
+    return axios.post('/api/bulk-create-schedule', data);
+};
 
 export {
     handleLoginApi,
@@ -43,4 +46,5 @@ export {
     handlePostDetailInfoDoctor,
     handleGetDetailInfoDoctor,
     handleUpdateDetailInfoDoctor,
+    handleSaveBulkScheduleDoctor,
 };
