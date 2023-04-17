@@ -5,6 +5,7 @@ import HomeHeader from '../../HomePage/Header';
 import './DetailDoctor.scss';
 import * as actions from '../../../store/actions/adminAction';
 import { LANGUAGES } from '../../../utils';
+import DoctorSchedule from './DoctorSchedule';
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -35,7 +36,7 @@ class DetailDoctor extends Component {
     }
 
     render() {
-        let { languages } = this.props;
+        let { languages } = this.state;
         let { detailInfoDoctor } = this.state;
         let nameVi = '',
             nameEn = '';
@@ -43,8 +44,6 @@ class DetailDoctor extends Component {
             nameVi = `${detailInfoDoctor.positionData.valueVi} ${detailInfoDoctor.lastName} ${detailInfoDoctor.firstName}`;
             nameEn = `${detailInfoDoctor.positionData.valueEn} ${detailInfoDoctor.firstName} ${detailInfoDoctor.lastName}`;
         }
-
-        console.log('aaa', detailInfoDoctor);
 
         return (
             <Fragment>
@@ -84,7 +83,14 @@ class DetailDoctor extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='schedule-doctor'></div>
+                    <div className='schedule-doctor'>
+                        <div className='content-left'>
+                            <DoctorSchedule
+                                detailDoctorFromParent={this.state.detailInfoDoctor}
+                            />
+                        </div>
+                        <div className='content-right'></div>
+                    </div>
                     <div className='detail-info-doctor-wrapper'>
                         <div className='detail-info-doctor'>
                             {detailInfoDoctor &&

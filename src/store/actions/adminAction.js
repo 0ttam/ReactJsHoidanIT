@@ -11,6 +11,7 @@ import {
     handleGetDetailInfoDoctor,
     handleUpdateDetailInfoDoctor,
     handleSaveBulkScheduleDoctor,
+    handleGetScheduleByDate,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -494,7 +495,6 @@ export const fetchAllScheduleHourFailed = (data) => ({
 });
 
 export const saveBulkScheduleDoctorStart = (data) => {
-    console.log('data nodejs', data);
     return async (dispatch, getState) => {
         try {
             let res = await handleSaveBulkScheduleDoctor(data);
@@ -533,5 +533,49 @@ export const saveBulkScheduleDoctorSuccess = (data) => ({
 });
 export const saveBulkScheduleDoctorFailed = (data) => ({
     type: actionTypes.SAVE_BULK_SCHEDULE_DOCTOR_FAILED,
+    data: data,
+});
+
+export const getScheduleByDateStart = (doctorId, date) => {
+    console.log('data react', doctorId, date);
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetScheduleByDate(doctorId, date);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    getScheduleByDateSuccess({
+                        vi: 'Lấy dữ liệu lịch hẹn thành công',
+                        en: 'Fetch data schedule successfully!',
+                        errType: 'error',
+                        data: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    getScheduleByDateFailed({
+                        vi: 'Lấy dữ liệu lịch hẹn không thành công',
+                        en: 'Fetch data schedule failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                getScheduleByDateFailed({
+                    vi: 'Lấy dữ liệu lịch hẹn không thành công',
+                    en: 'Fetch data schedule failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const getScheduleByDateSuccess = (data) => ({
+    type: actionTypes.GET_SCHEDULE_BY_DATE_SUCCESS,
+    data: data,
+});
+export const getScheduleByDateFailed = (data) => ({
+    type: actionTypes.GET_SCHEDULE_BY_DATE_FAILED,
     data: data,
 });
