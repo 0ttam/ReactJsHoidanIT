@@ -31,15 +31,15 @@
     .schedule-doctor {
         margin : 0 100px;
         display: flex;
-        height : 200px;
-        border : 1px solid red;
+        height : 188px;
 
         .content-left {
-            width: 50%;
+            width : 60%;
+            border-right: 2px solid #49bce2;
         }
 
         .content-right {
-            width: 50%;
+            width: 40%;
         }
     }
 

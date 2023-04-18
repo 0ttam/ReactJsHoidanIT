@@ -21,6 +21,7 @@ class ManageSchedule extends Component {
             selectedDoctor: '',
             currentDate: '',
             allScheduleTimeData: '',
+            scheduleDoctorNotifications: '',
         };
     }
     componentDidMount() {
@@ -51,6 +52,15 @@ class ManageSchedule extends Component {
                 allScheduleTimeData: arrScheduleTimeData,
             });
             console.log('arrScheduleTimeData', this.state.allScheduleTimeData);
+        }
+        if (
+            prevProps.scheduleDoctorNotificationsRedux !==
+            this.props.scheduleDoctorNotificationsRedux
+        ) {
+            this.setState({
+                scheduleDoctorNotifications:
+                    this.props.scheduleDoctorNotificationsRedux,
+            });
         }
     }
     handleConvertInputSelection = (dataInput) => {
@@ -89,7 +99,6 @@ class ManageSchedule extends Component {
         this.setState({
             allScheduleTimeData: allScheduleTimeData,
         });
-        console.log('btn schedule', this.state.allScheduleTimeData);
     };
     handleOnClickSave = async () => {
         let { currentDate, selectedDoctor, allScheduleTimeData } = this.state;
@@ -125,13 +134,15 @@ class ManageSchedule extends Component {
                 this.notify('Bạn chưa chọn giờ khám', 'error');
             }
         }
-        console.log('result', result);
-        let res = await this.props.saveBulkScheduleDoctor({
+        await this.props.saveBulkScheduleDoctor({
             arrSchedule: result,
             doctorId: selectedDoctor.id,
             date: formatDate,
         });
-        console.log('res in react', res);
+        this.notify(
+            this.state.scheduleDoctorNotifications.vi,
+            this.state.scheduleDoctorNotifications.errType
+        );
     };
 
     notify = (message, type) => toast(message, { autoClose: 2000, type: type });

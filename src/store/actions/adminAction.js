@@ -503,7 +503,7 @@ export const saveBulkScheduleDoctorStart = (data) => {
                     saveBulkScheduleDoctorSuccess({
                         vi: 'Lưu dữ liệu lịch hẹn thành công',
                         en: 'Save data schedule successfully!',
-                        errType: 'error',
+                        errType: 'success',
                     })
                 );
             } else {
@@ -537,7 +537,6 @@ export const saveBulkScheduleDoctorFailed = (data) => ({
 });
 
 export const getScheduleByDateStart = (doctorId, date) => {
-    console.log('data react', doctorId, date);
     return async (dispatch, getState) => {
         try {
             let res = await handleGetScheduleByDate(doctorId, date);
