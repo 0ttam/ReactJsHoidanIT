@@ -19,7 +19,7 @@ class ManageSchedule extends Component {
         this.state = {
             doctorArray: '',
             selectedDoctor: '',
-            currentDate: '',
+            currentDate: new Date(),
             allScheduleTimeData: '',
             scheduleDoctorNotifications: '',
         };
@@ -149,7 +149,7 @@ class ManageSchedule extends Component {
 
     render() {
         let _currentDate = new Date();
-        let allScheduleTimeData = this.state.allScheduleTimeData;
+        let { allScheduleTimeData, currentDate } = this.state;
         let { language } = this.props;
         console.log('allScheduleTimeData', this.state.allScheduleTimeData);
         return (
@@ -179,9 +179,9 @@ class ManageSchedule extends Component {
                                     className='form-control'
                                     onChange={this.handleOnChangeDate}
                                     minDate={_currentDate.setDate(
-                                        _currentDate.getDate() + 0
+                                        _currentDate.getDate() - 1
                                     )}
-                                    value={this.state.currentDate}
+                                    value={currentDate}
                                 />
                             </div>
                             <label>

@@ -31,23 +31,41 @@
 
         }
 
-        .time-content {
-            display  : flex;
-            gap      : 15px;
-            flex-wrap: wrap;
-            padding  : 5px;
+        .time-content-container {
 
-            button {
-                min-width       : 120px;
-                padding         : 8px 10px;
-                border          : none;
-                border-radius   : 4px;
-                background-color: #fff04b;
+            padding: 5px;
 
-                &:hover {
-                    background-color: #49bce2;
-                    color           : white
+            .time-content {
+                display  : flex;
+                gap      : 15px;
+                flex-wrap: wrap;
+
+                button {
+
+                    padding         : 8px 10px;
+                    border          : none;
+                    border-radius   : 4px;
+                    background-color: #fff04b;
+
+                    &:hover {
+                        background-color: #49bce2;
+                        color           : white
+                    }
                 }
+            }
+
+
+            .btn-vi {
+                min-width: 120px;
+            }
+
+            .btn-en {
+                min-width: 160px;
+            }
+
+            .free-book {
+                margin-top: 5px;
+                display   : block;
             }
         }
     }

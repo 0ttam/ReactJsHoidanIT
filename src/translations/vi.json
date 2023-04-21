@@ -181,5 +181,13 @@
         "choose-date": "Chọn ngày",
         "choose-time": "Chọn giờ",
         "save": "Lưu thông tin"
+    },
+    "patient": {
+        "detail-doctor": {
+            "schedule": "Lịch khám",
+            "non-schedule": "Bác sĩ không có lịch khám vào ngày này",
+            "free-book-1": "Chọn",
+            "free-book-2": "và đặt miễn phí(0 đồng)"
+        }
     }
 }

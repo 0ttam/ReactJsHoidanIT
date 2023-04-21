@@ -13,11 +13,20 @@ class DetailDoctor extends Component {
         this.state = {
             detailInfoDoctor: {},
             languages: '',
+            currentDoctorId: -1,
         };
     }
     async componentDidMount() {
-        if (this.props.match.params.id) {
-            this.props.loadDetailDoctor(this.props.match.params.id);
+        if (
+            this.props.match &&
+            this.props.match.params &&
+            this.props.match.params.id
+        ) {
+            let id = this.props.match.params.id;
+            this.setState({
+                currentDoctorId: id,
+            });
+            this.props.loadDetailDoctor(id);
         }
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -86,7 +95,9 @@ class DetailDoctor extends Component {
                     <div className='schedule-doctor'>
                         <div className='content-left'>
                             <DoctorSchedule
-                                detailDoctorFromParent={this.state.detailInfoDoctor}
+                                currentDoctorId={
+                                    this.state.currentDoctorId
+                                }
                             />
                         </div>
                         <div className='content-right'></div>
