@@ -189,5 +189,13 @@
             "free-book-1": "Chọn",
             "free-book-2": "và đặt miễn phí(0 đồng)"
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Thêm thông tin bác sĩ",
+            "choose-a-doctor": "Chọn bác sĩ",
+            "description": "Mô tả",
+            "detail-doctor-info": "Chi tiết bác sĩ"
+        }
     }
 }

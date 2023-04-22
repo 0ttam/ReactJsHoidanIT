@@ -578,3 +578,75 @@ export const getScheduleByDateFailed = (data) => ({
     type: actionTypes.GET_SCHEDULE_BY_DATE_FAILED,
     data: data,
 });
+
+export const fetchPriceDoctorStart = (key) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeServices(key);
+            if (res && res.errCode === 0) {
+                dispatch(fetchPriceDoctorSuccess(res.data));
+            } else {
+                dispatch(fetchPriceDoctorFailed());
+            }
+        } catch (e) {
+            dispatch(fetchPriceDoctorFailed());
+            console.log(e);
+        }
+    };
+};
+export const fetchPriceDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_PRICE_DOCTOR_SUCCESS,
+    data: data,
+});
+export const fetchPriceDoctorFailed = () => ({
+    type: actionTypes.FETCH_PRICE_DOCTOR_FAILED,
+    data: {},
+});
+
+export const fetchProvinceDoctorStart = (key) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeServices(key);
+            if (res && res.errCode === 0) {
+                dispatch(fetchProvinceDoctorSuccess(res.data));
+            } else {
+                dispatch(fetchProvinceDoctorFailed());
+            }
+        } catch (e) {
+            dispatch(fetchProvinceDoctorFailed());
+            console.log(e);
+        }
+    };
+};
+export const fetchProvinceDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_PROVINCE_DOCTOR_SUCCESS,
+    data: data,
+});
+export const fetchProvinceDoctorFailed = () => ({
+    type: actionTypes.FETCH_PROVINCE_DOCTOR_FAILED,
+    data: {},
+});
+
+export const fetchPaymentDoctorStart = (key) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeServices(key);
+            if (res && res.errCode === 0) {
+                dispatch(fetchPaymentDoctorSuccess(res.data));
+            } else {
+                dispatch(fetchPaymentDoctorFailed());
+            }
+        } catch (e) {
+            dispatch(fetchPaymentDoctorFailed());
+            console.log(e);
+        }
+    };
+};
+export const fetchPaymentDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_PAYMENT_DOCTOR_SUCCESS,
+    data: data,
+});
+export const fetchPaymentDoctorFailed = () => ({
+    type: actionTypes.FETCH_PAYMENT_DOCTOR_FAILED,
+    data: {},
+});

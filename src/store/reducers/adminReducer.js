@@ -20,6 +20,10 @@ const initialState = {
     isLoadingGender: false,
     isLoadingPosition: false,
     isLoadingRole: false,
+
+    listPriceDoctor: {},
+    listProvinceDoctor: {},
+    listPaymentDoctor: {},
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -153,12 +157,25 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.SAVE_BULK_SCHEDULE_DOCTOR_FAILED:
             state.scheduleDoctorNotifications = action.data;
             return { ...state };
-        case actionTypes.GET_SCHEDULE_BY_DATE_SUCCESS:
-            state.scheduleByDate = action.data;
+        case actionTypes.FETCH_PRICE_DOCTOR_SUCCESS:
+            state.listPriceDoctor = action.data;
             return { ...state };
-        case actionTypes.GET_SCHEDULE_BY_DATE_FAILED:
-            state.scheduleByDate = action.data;
+        case actionTypes.FETCH_PRICE_DOCTOR_FAILED:
+            state.listPriceDoctor = action.data;
             return { ...state };
+        case actionTypes.FETCH_PROVINCE_DOCTOR_SUCCESS:
+            state.listProvinceDoctor = action.data;
+            return { ...state };
+        case actionTypes.FETCH_PROVINCE_DOCTOR_FAILED:
+            state.listProvinceDoctor = action.data;
+            return { ...state };
+        case actionTypes.FETCH_PAYMENT_DOCTOR_SUCCESS:
+            state.listPaymentDoctor = action.data;
+            return { ...state };
+        case actionTypes.FETCH_PAYMENT_DOCTOR_FAILED:
+            state.listPaymentDoctor = action.data;
+            return { ...state };
+
         default:
             return state;
     }

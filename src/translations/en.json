@@ -187,5 +187,13 @@
             "free-book-1": "Choose",
             "free-book-2": "and book (Free)"
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Add more doctor information",
+            "choose-a-doctor": "Choose a Doctor",
+            "description": "Description",
+            "detail-doctor-info": "Detail Doctor info"
+        }
     }
 }

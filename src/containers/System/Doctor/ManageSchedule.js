@@ -19,7 +19,7 @@ class ManageSchedule extends Component {
         this.state = {
             doctorArray: '',
             selectedDoctor: '',
-            currentDate: new Date(),
+            currentDate: '',
             allScheduleTimeData: '',
             scheduleDoctorNotifications: '',
         };
@@ -51,7 +51,6 @@ class ManageSchedule extends Component {
             this.setState({
                 allScheduleTimeData: arrScheduleTimeData,
             });
-            console.log('arrScheduleTimeData', this.state.allScheduleTimeData);
         }
         if (
             prevProps.scheduleDoctorNotificationsRedux !==
@@ -112,6 +111,7 @@ class ManageSchedule extends Component {
             return;
         }
         let formatDate = new Date(currentDate).getTime();
+        console.log('formatDate', formatDate);
         if (allScheduleTimeData && allScheduleTimeData.length > 0) {
             let selectedTime = allScheduleTimeData.filter(
                 (item) => item.isSelected === true
@@ -151,7 +151,6 @@ class ManageSchedule extends Component {
         let _currentDate = new Date();
         let { allScheduleTimeData, currentDate } = this.state;
         let { language } = this.props;
-        console.log('allScheduleTimeData', this.state.allScheduleTimeData);
         return (
             <Fragment>
                 <ToastContainer />

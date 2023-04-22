@@ -21,7 +21,8 @@ class ModalAddDetailDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            doctorArray: '',
+            //Save to Markdown table
+            listDoctor: '',
             selectedDoctor: '',
             contentMarkdown: '',
             contentHTML: '',
@@ -29,10 +30,26 @@ class ModalAddDetailDoctor extends Component {
             detailInfoNotifications: {},
             updateDetailInfoNotification: {},
             isUpdate: false,
+
+            // Save Doctor_info table
+            listPrice: [],
+            listProvince: [],
+            listPayment: [],
+
+            selectedPrice: '',
+            selectedProvince: '',
+            selectedPayment: '',
+
+            nameClinic: '',
+            addressClinic: '',
+            note: '',
         };
     }
     componentDidMount() {
         this.props.loadAllDoctor();
+        this.props.fetchPriceDoctor();
+        this.props.fetchProvinceDoctor();
+        this.props.fetchPaymentDoctor();
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allDoctorRedux !== this.props.allDoctorRedux) {
@@ -40,15 +57,27 @@ class ModalAddDetailDoctor extends Component {
                 this.props.allDoctorRedux
             );
             this.setState({
-                doctorArray: arrDoctor,
+                listDoctor: arrDoctor,
             });
         }
         if (prevProps.language !== this.props.language) {
             let arrDoctor = this.handleConvertInputSelection(
                 this.props.allDoctorRedux
             );
+            let dataSelectPrice = this.handleBuiltSelection(
+                this.props.listPriceDoctorRedux
+            );
+            let dataSelectProvince = this.handleBuiltSelection(
+                this.props.listProvinceDoctorRedux
+            );
+            let dataSelectPayment = this.handleBuiltSelection(
+                this.props.listPaymentDoctorRedux
+            );
             this.setState({
-                doctorArray: arrDoctor,
+                listDoctor: arrDoctor,
+                listPrice: dataSelectPrice,
+                listProvince: dataSelectProvince,
+                listPayment: dataSelectPayment,
             });
         }
         if (
@@ -76,13 +105,41 @@ class ModalAddDetailDoctor extends Component {
             prevProps.updateDetailInfoNotificationRedux !==
             this.props.updateDetailInfoNotificationRedux
         ) {
-            console.log(
-                'update notification',
-                this.props.updateDetailInfoNotificationRedux
-            );
             this.setState({
                 updateDetailInfoNotification:
                     this.props.updateDetailInfoNotificationRedux,
+            });
+        }
+        if (
+            prevProps.listPriceDoctorRedux !== this.props.listPriceDoctorRedux
+        ) {
+            let dataSelectPrice = this.handleBuiltSelection(
+                this.props.listPriceDoctorRedux
+            );
+            this.setState({
+                listPrice: dataSelectPrice,
+            });
+        }
+        if (
+            prevProps.listProvinceDoctorRedux !==
+            this.props.listProvinceDoctorRedux
+        ) {
+            let dataSelectProvince = this.handleBuiltSelection(
+                this.props.listProvinceDoctorRedux
+            );
+            this.setState({
+                listProvince: dataSelectProvince,
+            });
+        }
+        if (
+            prevProps.listPaymentDoctorRedux !==
+            this.props.listPaymentDoctorRedux
+        ) {
+            let dataSelectPayment = this.handleBuiltSelection(
+                this.props.listPaymentDoctorRedux
+            );
+            this.setState({
+                listPayment: dataSelectPayment,
             });
         }
     }
@@ -169,30 +226,64 @@ class ModalAddDetailDoctor extends Component {
         }
         return result;
     };
+    handleBuiltSelection = (dataInput) => {
+        let result = [];
+        let language = this.props.language;
+        if (dataInput && dataInput.length > 0) {
+            // eslint-disable-next-line array-callback-return
+            dataInput.map((item, index) => {
+                let Object = {};
+                let nameVi = `${item.valueVi}`;
+                let nameEn = `${item.valueEn}`;
+                Object.label = language === LANGUAGES.EN ? nameEn : nameVi;
+                Object.id = item.id;
+                result.push(Object);
+            });
+        }
+        return result;
+    };
 
     notify = (message, type) => toast(message, { autoClose: 2000, type: type });
 
     render() {
-        console.log('description redux', this.state.description);
+        console.log('listPrice', this.state.listPrice);
+        console.log('listPayment', this.state.listPayment);
+        console.log('listProvince', this.state.listProvince);
+        let {
+            listPrice,
+            listPayment,
+            listProvince,
+            selectedPrice,
+            selectedProvince,
+            selectedPayment,
+        } = this.state;
         return (
-            <Fragment>
+            <div className='modal-add-detail-doctor-container'>
                 <ToastContainer />
-                <div className='title'>Add more Info doctor</div>
-                <div className='modal-add-detail-doctor-container col-12'>
+                <div className='title'>
+                    <FormattedMessage id='admin.manage-doctor.title' />
+                </div>
+                <div className='modal-add-detail-doctor col-12'>
                     <div className='content-left form-group col-4'>
                         <label>
-                            {' '}
-                            <b>Choose a Doctor:</b>{' '}
+                            <b>
+                                <FormattedMessage id='admin.manage-doctor.choose-a-doctor' />
+                                :
+                            </b>
                         </label>
                         <Select
-                            options={this.state.doctorArray}
+                            options={this.state.listDoctor}
                             value={this.state.selectedDoctor}
                             onChange={this.handleChange}
+                            placeholder='Chọn bác sĩ'
                         />
                     </div>
                     <div className='content-right form-group col-8'>
                         <label>
-                            <b>Description:</b>{' '}
+                            <b>
+                                <FormattedMessage id='admin.manage-doctor.description' />
+                                :
+                            </b>{' '}
                         </label>
                         <textarea
                             className='form-control'
@@ -202,9 +293,53 @@ class ModalAddDetailDoctor extends Component {
                         />
                     </div>
                 </div>
+                <div className='more-info-extra col-12 row'>
+                    <div className='form-group col-4'>
+                        <label>Chon gia</label>
+                        <Select
+                            options={listPrice}
+                            value={selectedPrice}
+                            onChange={this.handleChange}
+                            placeholder='Chọn giá khám'
+                        />
+                    </div>
+                    <div className='form-group col-4'>
+                        <label>Chon phuong thuc thanh toan</label>
+                        <Select
+                            options={listPayment}
+                            value={selectedPayment}
+                            onChange={this.handleChange}
+                            placeholder='Chọn phương thức thanh toán'
+                        />
+                    </div>
+                    <div className='form-group col-4'>
+                        <label>Chon tinh thanh</label>
+                        <Select
+                            options={listProvince}
+                            value={selectedProvince}
+                            onChange={this.handleChange}
+                            placeholder='Chọn tỉnh/thành'
+                        />
+                    </div>
+                    <div className='form-group col-4'>
+                        <label>Ten phong kham</label>
+                        <input className='form-control'></input>
+                    </div>
+                    <div className='form-group col-4'>
+                        <label>Dia chi phong kham</label>
+                        <input className='form-control'></input>
+                    </div>
+                    <div className='form-group col-4'>
+                        <label>Note</label>
+                        <input className='form-control'></input>
+                    </div>
+                </div>
                 <div className='markdown-wrap form-group col-12'>
                     <label>
-                        <b>Detail Doctor info:</b>
+                        <b>
+                            <FormattedMessage id='admin.manage-doctor.detail-doctor-info' />
+                            :
+                        </b>
                     </label>
                     <MdEditor
                         style={{ height: '346px' }}
@@ -240,7 +375,7 @@ class ModalAddDetailDoctor extends Component {
                         </div>
                     )}
                 </div>
-            </Fragment>
+            </div>
         );
     }
 }
@@ -253,6 +388,9 @@ const mapStateToProps = (state) => {
         detailInfoNotifications: state.admin.detailInfoDoctorNotifications,
         updateDetailInfoNotificationRedux:
             state.admin.updateDetailInfoDoctorNotifications,
+        listPriceDoctorRedux: state.admin.listPriceDoctor,
+        listProvinceDoctorRedux: state.admin.listProvinceDoctor,
+        listPaymentDoctorRedux: state.admin.listPaymentDoctor,
     };
 };
 
@@ -265,6 +403,12 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(actions.postDetailInfoDoctorStart(dataInput)),
         updateDetailInfoDoctor: (dataInput) =>
             dispatch(actions.updateDetailInfoDoctorStart(dataInput)),
+        fetchPriceDoctor: () =>
+            dispatch(actions.fetchPriceDoctorStart('PRICE')),
+        fetchProvinceDoctor: () =>
+            dispatch(actions.fetchProvinceDoctorStart('PROVINCE')),
+        fetchPaymentDoctor: () =>
+            dispatch(actions.fetchPaymentDoctorStart('PAYMENT')),
     };
 };
 
