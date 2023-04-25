@@ -195,7 +195,13 @@
             "title": "Thêm thông tin bác sĩ",
             "choose-a-doctor": "Chọn bác sĩ",
             "description": "Mô tả",
-            "detail-doctor-info": "Chi tiết bác sĩ"
+            "detail-doctor-info": "Chi tiết bác sĩ",
+            "price": "Giá khám bệnh",
+            "payment": "Phương thức thanh toán",
+            "province": "Tỉnh/ thành",
+            "clinic-name": "Tên phòng khám",
+            "clinic-address": "Địa chỉ phòng khám",
+            "note": "Ghi chú"
         }
     }
 }

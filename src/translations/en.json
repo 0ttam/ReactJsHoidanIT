@@ -193,7 +193,13 @@
             "title": "Add more doctor information",
             "choose-a-doctor": "Choose a Doctor",
             "description": "Description",
-            "detail-doctor-info": "Detail Doctor info"
+            "detail-doctor-info": "Detail Doctor info",
+            "price": "Price of medical examination",
+            "payment": "Payment",
+            "province": "Province/city",
+            "clinic-name": "Clinic name",
+            "clinic-address": "Clinic address",
+            "note": "Note"
         }
     }
 }

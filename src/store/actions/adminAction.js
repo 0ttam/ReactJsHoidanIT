@@ -333,6 +333,7 @@ export const fetchAllDoctorFailed = (data) => ({
 export const postDetailInfoDoctorStart = (dataInput) => {
     return async (dispatch, getState) => {
         try {
+            console.log('data post detail doctor', dataInput);
             let res = await handlePostDetailInfoDoctor(dataInput);
             if (res && res.errCode === 0) {
                 dispatch(
