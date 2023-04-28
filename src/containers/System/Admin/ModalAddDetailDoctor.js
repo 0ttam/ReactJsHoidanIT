@@ -92,12 +92,53 @@ class ModalAddDetailDoctor extends Component {
             prevProps.detailInfoDoctorRedux !== this.props.detailInfoDoctorRedux
         ) {
             let detailInfo = this.props.detailInfoDoctorRedux.Markdown;
+            let doctorInfo = this.props.detailInfoDoctorRedux.Doctor_Info;
+            let stateCopy = this.state;
             if (detailInfo) {
+                stateCopy['contentMarkdown'] = detailInfo.contentMarkdown;
+                stateCopy['contentHTML'] = detailInfo.contentHTML;
+                stateCopy['description'] = detailInfo.description;
+                stateCopy['isUpdate'] = true;
                 this.setState({
-                    contentMarkdown: detailInfo.contentMarkdown,
-                    contentHTML: detailInfo.contentHTML,
-                    description: detailInfo.description,
-                    isUpdate: true,
+                    ...stateCopy,
+                });
+            } else {
+                stateCopy['contentMarkdown'] = '';
+                stateCopy['contentHTML'] = '';
+                stateCopy['description'] = '';
+                this.setState({
+                    ...stateCopy,
+                });
+            }
+            if (doctorInfo) {
+                let { listPrice, listPayment, listProvince } = this.state;
+                let findItemPriceId = listPrice.find((item) => {
+                    if (item.value === doctorInfo.priceId) return item.value;
+                });
+                let findItemPaymentId = listPayment.find((item) => {
+                    if (item.value === doctorInfo.paymentId) return item.value;
+                });
+                let findItemProvinceId = listProvince.find((item) => {
+                    if (item.value === doctorInfo.provinceId) return item.value;
+                });
+                let nameClinic = doctorInfo.nameClinic;
+                let addressClinic = doctorInfo.addressClinic;
+                let note = doctorInfo.note;
+                stateCopy['nameClinic'] = nameClinic;
+                stateCopy['addressClinic'] = addressClinic;
+                stateCopy['note'] = note;
+                stateCopy['priceId'] = findItemPriceId;
+                stateCopy['paymentId'] = findItemPaymentId;
+                stateCopy['provinceId'] = findItemProvinceId;
+                this.setState({
+                    ...stateCopy,
+                });
+            } else {
+                this.setState({
+                    nameClinic: '',
+                    addressClinic: '',
+                    note: '',
+                    priceId: '',
                 });
             }
         }
@@ -291,6 +332,9 @@ class ModalAddDetailDoctor extends Component {
             priceId,
             paymentId,
             provinceId,
+            nameClinic,
+            addressClinic,
+            note,
         } = this.state;
         return (
             <div className='modal-add-detail-doctor-container'>
@@ -387,7 +431,7 @@ class ModalAddDetailDoctor extends Component {
                         </label>
                         <input
                             className='form-control'
-                            value={this.state.nameClinic}
+                            value={nameClinic}
                             onChange={(event) =>
                                 this.handleOnChangeText(event, 'nameClinic')
                             }
@@ -401,7 +445,7 @@ class ModalAddDetailDoctor extends Component {
                         </label>
                         <input
                             className='form-control'
-                            value={this.state.addressClinic}
+                            value={addressClinic}
                             onChange={(event) =>
                                 this.handleOnChangeText(event, 'addressClinic')
                             }
@@ -415,7 +459,7 @@ class ModalAddDetailDoctor extends Component {
                         </label>
                         <input
                             className='form-control'
-                            value={this.state.note}
+                            value={note}
                             onChange={(event) =>
                                 this.handleOnChangeText(event, 'note')
                             }

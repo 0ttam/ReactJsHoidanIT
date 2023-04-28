@@ -6,6 +6,7 @@ import './DetailDoctor.scss';
 import * as actions from '../../../store/actions/adminAction';
 import { LANGUAGES } from '../../../utils';
 import DoctorSchedule from './DoctorSchedule';
+import DoctorExtraInfo from './DoctorExtraInfo';
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -53,7 +54,6 @@ class DetailDoctor extends Component {
             nameVi = `${detailInfoDoctor.positionData.valueVi} ${detailInfoDoctor.lastName} ${detailInfoDoctor.firstName}`;
             nameEn = `${detailInfoDoctor.positionData.valueEn} ${detailInfoDoctor.firstName} ${detailInfoDoctor.lastName}`;
         }
-
         return (
             <Fragment>
                 <HomeHeader />
@@ -95,12 +95,12 @@ class DetailDoctor extends Component {
                     <div className='schedule-doctor'>
                         <div className='content-left'>
                             <DoctorSchedule
-                                currentDoctorId={
-                                    this.state.currentDoctorId
-                                }
+                                currentDoctorId={this.state.currentDoctorId}
                             />
                         </div>
-                        <div className='content-right'></div>
+                        <div className='content-right'>
+                            <DoctorExtraInfo />
+                        </div>
                     </div>
                     <div className='detail-info-doctor-wrapper'>
                         <div className='detail-info-doctor'>

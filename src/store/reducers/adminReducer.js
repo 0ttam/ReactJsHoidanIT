@@ -157,6 +157,14 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.SAVE_BULK_SCHEDULE_DOCTOR_FAILED:
             state.scheduleDoctorNotifications = action.data;
             return { ...state };
+
+        case actionTypes.GET_SCHEDULE_BY_DATE_SUCCESS:
+            state.scheduleByDate = action.data;
+            return { ...state };
+        case actionTypes.GET_SCHEDULE_BY_DATE_FAILED:
+            state.scheduleByDate = action.data;
+            return { ...state };
+
         case actionTypes.FETCH_PRICE_DOCTOR_SUCCESS:
             state.listPriceDoctor = action.data;
             return { ...state };

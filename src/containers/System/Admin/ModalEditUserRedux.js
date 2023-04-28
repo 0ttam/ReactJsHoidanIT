@@ -53,7 +53,7 @@ class ModalEditUserRedux extends Component {
     componentDidMount() {
         let imageBase64 = '';
         if (this.props.currentUser.avatar) {
-            imageBase64 = new Buffer(
+            imageBase64 = Buffer.from(
                 this.props.currentUser.avatar,
                 'base64'
             ).toString('binary');
@@ -72,7 +72,7 @@ class ModalEditUserRedux extends Component {
         if (prevProps.currentUser !== this.props.currentUser) {
             let imageBase64 = '';
             if (this.props.currentUser.avatar) {
-                imageBase64 = new Buffer(
+                imageBase64 = Buffer.from(
                     this.props.currentUser.avatar,
                     'base64'
                 ).toString('binary');

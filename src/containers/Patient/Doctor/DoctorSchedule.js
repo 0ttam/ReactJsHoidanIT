@@ -31,11 +31,13 @@ class DoctorSchedule extends Component {
             });
         }
         if (prevProps.scheduleByDateRedux !== this.props.scheduleByDateRedux) {
+            console.log('.............', this.props.scheduleByDateRedux);
             this.setState({
                 allScheduleByDate: this.props.scheduleByDateRedux.data,
             });
         }
         if (prevProps.currentDoctorId !== this.props.currentDoctorId) {
+            console.log('.............', this.props.scheduleByDateRedux);
             this.props.loadScheduleByDate(
                 this.props.currentDoctorId,
                 this.state.allDays[0].value
@@ -97,6 +99,7 @@ class DoctorSchedule extends Component {
     render() {
         let { allDays, allScheduleByDate } = this.state;
         let languages = this.props.languages;
+        // console.log('allScheduleByDate', this.props.scheduleByDateRedux);
         return (
             <Fragment>
                 <div className='doctor-schedule-container'>
@@ -154,8 +157,9 @@ class DoctorSchedule extends Component {
                                         )}
                                     </div>
                                     <div className='free-book'>
-                                    <FormattedMessage id='patient.detail-doctor.free-book-1' />{' '}
-                                        <i class='fas fa-hand-point-up'></i> <FormattedMessage id='patient.detail-doctor.free-book-2' />
+                                        <FormattedMessage id='patient.detail-doctor.free-book-1' />{' '}
+                                        <i class='fas fa-hand-point-up'></i>{' '}
+                                        <FormattedMessage id='patient.detail-doctor.free-book-2' />
                                     </div>
                                 </Fragment>
                             ) : (
