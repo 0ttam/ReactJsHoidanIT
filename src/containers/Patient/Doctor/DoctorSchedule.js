@@ -31,13 +31,11 @@ class DoctorSchedule extends Component {
             });
         }
         if (prevProps.scheduleByDateRedux !== this.props.scheduleByDateRedux) {
-            console.log('.............', this.props.scheduleByDateRedux);
             this.setState({
                 allScheduleByDate: this.props.scheduleByDateRedux.data,
             });
         }
         if (prevProps.currentDoctorId !== this.props.currentDoctorId) {
-            console.log('.............', this.props.scheduleByDateRedux);
             this.props.loadScheduleByDate(
                 this.props.currentDoctorId,
                 this.state.allDays[0].value

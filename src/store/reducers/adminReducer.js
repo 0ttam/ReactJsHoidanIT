@@ -11,6 +11,7 @@ const initialState = {
     allScheduleTimeData: [],
     scheduleDoctorNotifications: {},
     scheduleByDate: {},
+    doctorExtraInfo: {},
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -182,6 +183,13 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.FETCH_PAYMENT_DOCTOR_FAILED:
             state.listPaymentDoctor = action.data;
+            return { ...state };
+
+        case actionTypes.GET_DOCTOR_EXTRA_INFO_BY_ID_SUCCESS:
+            state.doctorExtraInfo = action.data;
+            return { ...state };
+        case actionTypes.GET_DOCTOR_EXTRA_INFO_BY_ID_FAILED:
+            state.doctorExtraInfo = action.data;
             return { ...state };
 
         default:

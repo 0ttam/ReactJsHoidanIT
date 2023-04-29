@@ -188,6 +188,13 @@
             "non-schedule": "Bác sĩ không có lịch khám vào ngày này",
             "free-book-1": "Chọn",
             "free-book-2": "và đặt miễn phí(0 đồng)"
+        },
+        "doctor-extra-info": {
+            "address": "Địa chỉ khám",
+            "price": "Giá khám",
+            "view-details": "Xem chi tiết",
+            "hide-details": "Ẩn chi tiết",
+            "patient-payment": "Người bệnh có thể thanh toán chi phí bằng hình thức"
         }
     },
     "admin": {
