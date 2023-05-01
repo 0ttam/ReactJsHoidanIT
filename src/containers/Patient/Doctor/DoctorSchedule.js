@@ -7,6 +7,7 @@ import moment from 'moment/moment';
 import localization from 'moment/locale/vi';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
+import ModalBooking from './Modal/ModalBooking';
 
 class DoctorSchedule extends Component {
     constructor(props) {
@@ -15,6 +16,8 @@ class DoctorSchedule extends Component {
             languages: '',
             allDays: [],
             allScheduleByDate: [],
+            isOpenModalBooking: false,
+            scheduleSelected: '',
         };
     }
     componentDidMount() {
@@ -94,12 +97,22 @@ class DoctorSchedule extends Component {
             await this.props.loadScheduleByDate(doctorId, date);
         }
     };
+    handleOnclickAvailableTime = (item) => {
+        this.setState({ isOpenModalBooking: true, scheduleSelected: item });
+    };
+    handleToggleModalBooking = () => {
+        this.setState({ isOpenModalBooking: !this.state.isOpenModalBooking });
+    };
     render() {
         let { allDays, allScheduleByDate } = this.state;
         let languages = this.props.languages;
-        // console.log('allScheduleByDate', this.props.scheduleByDateRedux);
         return (
             <Fragment>
+                <ModalBooking
+                    isOpen={this.state.isOpenModalBooking}
+                    toggle={this.handleToggleModalBooking}
+                    scheduleSelected={this.state.scheduleSelected}
+                />
                 <div className='doctor-schedule-container'>
                     <div className='all-schedule'>
                         <select
@@ -146,6 +159,11 @@ class DoctorSchedule extends Component {
                                                             LANGUAGES.VI
                                                                 ? 'btn-vi'
                                                                 : 'btn-en'
+                                                        }
+                                                        onClick={() =>
+                                                            this.handleOnclickAvailableTime(
+                                                                item
+                                                            )
                                                         }
                                                     >
                                                         <b>{availableTime}</b>
