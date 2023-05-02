@@ -13,6 +13,8 @@ import {
     handleSaveBulkScheduleDoctor,
     handleGetScheduleByDate,
     handleGetDoctorExtraInfoById,
+    handleGetProfileDoctorById,
+    handleGetExaminationPriceById,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -693,5 +695,91 @@ export const getDoctorExtraInfoByIdSuccess = (data) => ({
 });
 export const getDoctorExtraInfoByIdFailed = (data) => ({
     type: actionTypes.GET_DOCTOR_EXTRA_INFO_BY_ID_FAILED,
+    data: data,
+});
+
+export const getProfileDoctorByIdStart = (doctorId) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetProfileDoctorById(doctorId);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    getProfileDoctorByIdSuccess({
+                        vi: 'Lấy dữ liệu bác sĩ thành công',
+                        en: 'Fetch data doctor successfully!',
+                        errType: 'error',
+                        data: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    getProfileDoctorByIdFailed({
+                        vi: 'Lấy dữ liệu bác sĩ không thành công',
+                        en: 'Fetch data doctor failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                getProfileDoctorByIdFailed({
+                    vi: 'Lấy dữ liệu bác sĩ không thành công',
+                    en: 'Fetch data doctor failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const getProfileDoctorByIdSuccess = (data) => ({
+    type: actionTypes.GET_PROFILE_DOCTOR_BY_ID_SUCCESS,
+    data: data,
+});
+export const getProfileDoctorByIdFailed = (data) => ({
+    type: actionTypes.GET_PROFILE_DOCTOR_BY_ID_FAILED,
+    data: data,
+});
+
+export const getExaminationPriceByIdStart = (doctorId) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetExaminationPriceById(doctorId);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    getExaminationPriceByIdSuccess({
+                        vi: 'Lấy dữ liệu giá khám thành công',
+                        en: 'Fetch data Examination Price successfully!',
+                        errType: 'error',
+                        data: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    getExaminationPriceByIdFailed({
+                        vi: 'Lấy dữ liệu giá khám không thành công',
+                        en: 'Fetch data Examination Price failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                getExaminationPriceByIdFailed({
+                    vi: 'Lấy dữ liệu giá khám không thành công',
+                    en: 'Fetch data Examination Price failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const getExaminationPriceByIdSuccess = (data) => ({
+    type: actionTypes.GET_EXAMINATION_PRICE_BY_ID_SUCCESS,
+    data: data,
+});
+export const getExaminationPriceByIdFailed = (data) => ({
+    type: actionTypes.GET_EXAMINATION_PRICE_BY_ID_FAILED,
     data: data,
 });

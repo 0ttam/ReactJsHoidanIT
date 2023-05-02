@@ -42,6 +42,12 @@ const handleGetScheduleByDate = (doctorId, date) => {
 const handleGetDoctorExtraInfoById = (doctorId) => {
     return axios.get(`/api/get-doctor-extra-info-by-id?doctorId=${doctorId}`);
 };
+const handleGetProfileDoctorById = (doctorId) => {
+    return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
+};
+const handleGetExaminationPriceById = (doctorId) => {
+    return axios.get(`/api/get-examination-price-by-id?doctorId=${doctorId}`);
+};
 
 export {
     handleLoginApi,
@@ -57,4 +63,6 @@ export {
     handleSaveBulkScheduleDoctor,
     handleGetScheduleByDate,
     handleGetDoctorExtraInfoById,
+    handleGetProfileDoctorById,
+    handleGetExaminationPriceById,
 };

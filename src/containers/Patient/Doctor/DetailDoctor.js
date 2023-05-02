@@ -46,7 +46,7 @@ class DetailDoctor extends Component {
     }
 
     render() {
-        let { languages } = this.state;
+        let { languages } = this.props;
         let { detailInfoDoctor } = this.state;
         let nameVi = '',
             nameEn = '';

@@ -12,9 +12,11 @@ const initialState = {
     scheduleDoctorNotifications: {},
     scheduleByDate: {},
     doctorExtraInfo: {},
+    examinationPriceById: {},
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
+    profileDoctorById: {},
     genders: [],
     roles: [],
     positions: [],
@@ -190,6 +192,20 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.GET_DOCTOR_EXTRA_INFO_BY_ID_FAILED:
             state.doctorExtraInfo = action.data;
+            return { ...state };
+
+        case actionTypes.GET_PROFILE_DOCTOR_BY_ID_SUCCESS:
+            state.profileDoctorById = action.data;
+            return { ...state };
+        case actionTypes.GET_PROFILE_DOCTOR_BY_ID_FAILED:
+            state.profileDoctorById = action.data;
+            return { ...state };
+
+        case actionTypes.GET_EXAMINATION_PRICE_BY_ID_SUCCESS:
+            state.examinationPriceById = action.data;
+            return { ...state };
+        case actionTypes.GET_EXAMINATION_PRICE_BY_ID_FAILED:
+            state.examinationPriceById = action.data;
             return { ...state };
 
         default:

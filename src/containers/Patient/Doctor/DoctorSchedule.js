@@ -18,6 +18,7 @@ class DoctorSchedule extends Component {
             allScheduleByDate: [],
             isOpenModalBooking: false,
             scheduleSelected: '',
+            currentDoctorId: '',
         };
     }
     componentDidMount() {
@@ -43,6 +44,9 @@ class DoctorSchedule extends Component {
                 this.props.currentDoctorId,
                 this.state.allDays[0].value
             );
+            this.setState({
+                currentDoctorId: this.props.currentDoctorId,
+            });
         }
     }
     getArrDay = (languages) => {
@@ -112,6 +116,7 @@ class DoctorSchedule extends Component {
                     isOpen={this.state.isOpenModalBooking}
                     toggle={this.handleToggleModalBooking}
                     scheduleSelected={this.state.scheduleSelected}
+                    currentDoctorId={this.state.currentDoctorId}
                 />
                 <div className='doctor-schedule-container'>
                     <div className='all-schedule'>
