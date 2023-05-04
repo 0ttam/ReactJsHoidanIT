@@ -87,6 +87,8 @@ class ModalBooking extends Component {
                         <div className='doctor-info'>
                             <ProfileDoctor
                                 currentDoctorId={this.props.currentDoctorId}
+                                isOpenDescription={false}
+                                scheduleSelected={this.props.scheduleSelected}
                             />
                         </div>
                         <div className='price'>

@@ -5,6 +5,9 @@ import * as actions from '../../../store/actions/adminAction';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
 import './ProfileDoctor.scss';
+import _ from 'lodash';
+import moment from 'moment';
+import localization from 'moment/locale/vi';
 
 class ProfileDoctor extends Component {
     constructor(props) {
@@ -18,10 +21,37 @@ class ProfileDoctor extends Component {
         this.setState({ profileDoctorById: this.props.profileDoctorByIdRedux });
     }
     async componentDidUpdate(prevProps, prevState, snapshot) {}
+    renderTimeBooking = (dataTime) => {
+        let languages = this.props.languages;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let date =
+                languages === LANGUAGES.VI
+                    ? moment
+                          .unix(+dataTime.date / 1000)
+                          .format('dddd - DD/MM/YY')
+                    : moment
+                          .unix(+dataTime.date / 1000)
+                          .locale('en')
+                          .format('dddd - MM/DD/YY');
+            let time =
+                languages === LANGUAGES.VI
+                    ? dataTime.availableTime.valueVi
+                    : dataTime.availableTime.valueEn;
+            return (
+                <>
+                    <div>
+                        {time} - {date}
+                    </div>
+                    <div> Miễn phí đặt lịch</div>
+                </>
+            );
+        }
+        return <></>;
+    };
 
     render() {
-        let languages = this.props.languages;
         let { profileDoctorById } = this.state;
+        let { languages, scheduleSelected, isOpenDescription } = this.props;
         let nameVi = '',
             nameEn = '';
         if (
@@ -46,7 +76,7 @@ class ProfileDoctor extends Component {
                             height: '80px',
                             width: '80px',
                             borderRadius: '50%',
-                            backgroundPosition: 'center center',
+                            backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat',
                             backgroundSize: 'cover',
                             backgroundColor: '#eee',
@@ -60,17 +90,19 @@ class ProfileDoctor extends Component {
                                 : nameVi}
                         </div>
                         <div className='content-right-down'>
-                            <div className='doctor-name'>{nameVi}</div>
-                            {profileDoctorById &&
-                                profileDoctorById.data &&
-                                profileDoctorById.data.Markdown && (
-                                    <span>
-                                        {
-                                            profileDoctorById.data.Markdown
-                                                .description
-                                        }
-                                    </span>
-                                )}
+                            {isOpenDescription === true &&
+                            profileDoctorById &&
+                            profileDoctorById.data &&
+                            profileDoctorById.data.Markdown ? (
+                                <span>
+                                    {
+                                        profileDoctorById.data.Markdown
+                                            .description
+                                    }
+                                </span>
+                            ) : (
+                                this.renderTimeBooking(scheduleSelected)
+                            )}
                         </div>
                     </div>
                 </div>
