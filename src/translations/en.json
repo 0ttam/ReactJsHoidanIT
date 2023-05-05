@@ -193,6 +193,24 @@
             "view-details": "View details",
             "hide-details": "Hide detail ",
             "patient-payment": "The patient can pay the cost in the form of"
+        },
+        "profile-doctor": {
+            "free-book": "Free booking"
+        },
+        "booking-modal": {
+            "information-book-medical-appointment": "Information to book a medical appointment",
+            "last-name": "Last Name",
+            "first-name": "First name",
+            "address": "Address",
+            "email": "Email",
+            "phone-number": "Phone Number",
+            "birthday": "Birthday",
+            "gender": "Gender",
+            "choose-gender": "Choose a gender",
+            "reason": "Reasons for medical examination",
+            "cancel": "Cancel",
+            "confirm": "Confirm"
+            
         }
     },
     "admin": {

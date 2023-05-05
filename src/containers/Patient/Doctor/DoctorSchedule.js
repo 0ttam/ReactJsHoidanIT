@@ -9,6 +9,7 @@ import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
 import ModalBooking from './Modal/ModalBooking';
 
+
 class DoctorSchedule extends Component {
     constructor(props) {
         super(props);
@@ -107,6 +108,9 @@ class DoctorSchedule extends Component {
     handleToggleModalBooking = () => {
         this.setState({ isOpenModalBooking: !this.state.isOpenModalBooking });
     };
+    showNotification = (data) => {
+        this.props.showNotification(data);
+    };
     render() {
         let { allDays, allScheduleByDate } = this.state;
         let languages = this.props.languages;
@@ -117,8 +121,10 @@ class DoctorSchedule extends Component {
                     toggle={this.handleToggleModalBooking}
                     scheduleSelected={this.state.scheduleSelected}
                     currentDoctorId={this.state.currentDoctorId}
+                    showNotification={(data) => this.showNotification(data)}
                 />
                 <div className='doctor-schedule-container'>
+                    
                     <div className='all-schedule'>
                         <select
                             onChange={(event) => this.handleOnChangeDate(event)}

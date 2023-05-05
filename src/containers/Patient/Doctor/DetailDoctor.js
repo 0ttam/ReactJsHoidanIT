@@ -7,6 +7,8 @@ import * as actions from '../../../store/actions/adminAction';
 import { LANGUAGES } from '../../../utils';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfo from './DoctorExtraInfo';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -44,7 +46,10 @@ class DetailDoctor extends Component {
             });
         }
     }
-
+    showNotification = (data) => {
+        this.notify(data.msg, data.errType);
+    };
+    notify = (message, type) => toast(message, { autoClose: 2000, type: type });
     render() {
         let { languages } = this.props;
         let { detailInfoDoctor } = this.state;
@@ -56,6 +61,7 @@ class DetailDoctor extends Component {
         }
         return (
             <Fragment>
+                <ToastContainer />
                 <HomeHeader />
                 <div className='doctor-detail-container'>
                     <div className='intro-doctor'>
@@ -96,6 +102,9 @@ class DetailDoctor extends Component {
                         <div className='content-left'>
                             <DoctorSchedule
                                 currentDoctorId={this.state.currentDoctorId}
+                                showNotification={(data) =>
+                                    this.showNotification(data)
+                                }
                             />
                         </div>
                         <div className='content-right'>

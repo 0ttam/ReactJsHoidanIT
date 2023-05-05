@@ -48,6 +48,9 @@ const handleGetProfileDoctorById = (doctorId) => {
 const handleGetExaminationPriceById = (doctorId) => {
     return axios.get(`/api/get-examination-price-by-id?doctorId=${doctorId}`);
 };
+const handlePostPatientBookAppointment = (data) => {
+    return axios.post('/api/patient-book-appointment', data);
+};
 
 export {
     handleLoginApi,
@@ -65,4 +68,5 @@ export {
     handleGetDoctorExtraInfoById,
     handleGetProfileDoctorById,
     handleGetExaminationPriceById,
+    handlePostPatientBookAppointment,
 };

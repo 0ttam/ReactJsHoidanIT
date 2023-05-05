@@ -15,6 +15,7 @@ import {
     handleGetDoctorExtraInfoById,
     handleGetProfileDoctorById,
     handleGetExaminationPriceById,
+    handlePostPatientBookAppointment,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -664,7 +665,7 @@ export const getDoctorExtraInfoByIdStart = (doctorId) => {
                     getDoctorExtraInfoByIdSuccess({
                         vi: 'Lấy dữ liệu bác sĩ thành công',
                         en: 'Fetch data doctor successfully!',
-                        errType: 'error',
+                        errType: 'success',
                         data: res.data,
                     })
                 );
@@ -707,7 +708,7 @@ export const getProfileDoctorByIdStart = (doctorId) => {
                     getProfileDoctorByIdSuccess({
                         vi: 'Lấy dữ liệu bác sĩ thành công',
                         en: 'Fetch data doctor successfully!',
-                        errType: 'error',
+                        errType: 'success',
                         data: res.data,
                     })
                 );
@@ -750,7 +751,7 @@ export const getExaminationPriceByIdStart = (doctorId) => {
                     getExaminationPriceByIdSuccess({
                         vi: 'Lấy dữ liệu giá khám thành công',
                         en: 'Fetch data Examination Price successfully!',
-                        errType: 'error',
+                        errType: 'success',
                         data: res.data,
                     })
                 );
@@ -781,5 +782,47 @@ export const getExaminationPriceByIdSuccess = (data) => ({
 });
 export const getExaminationPriceByIdFailed = (data) => ({
     type: actionTypes.GET_EXAMINATION_PRICE_BY_ID_FAILED,
+    data: data,
+});
+
+export const postPatientBookAppointment = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handlePostPatientBookAppointment(data);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    postPatientBookAppointmentSuccess({
+                        vi: 'Tạo dữ liệu đặt lịch khám thành công',
+                        en: 'Create appointment booking data successfully',
+                        errType: 'success',
+                    })
+                );
+            } else {
+                dispatch(
+                    postPatientBookAppointmentFailed({
+                        vi: 'Tạo dữ liệu đặt lịch khám không thành công',
+                        en: 'Appointment data creation failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                postPatientBookAppointmentFailed({
+                    vi: 'Tạo dữ dữ liệu đặt lịch khám không thành công',
+                    en: 'Appointment data creation failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const postPatientBookAppointmentSuccess = (data) => ({
+    type: actionTypes.POST_PATIENT_BOOK_APPOINTMENT_SUCCESS,
+    data: data,
+});
+export const postPatientBookAppointmentFailed = (data) => ({
+    type: actionTypes.POST_PATIENT_BOOK_APPOINTMENT_FAILED,
     data: data,
 });
