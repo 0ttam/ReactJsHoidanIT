@@ -9,7 +9,6 @@ import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
 import ModalBooking from './Modal/ModalBooking';
 
-
 class DoctorSchedule extends Component {
     constructor(props) {
         super(props);
@@ -52,10 +51,6 @@ class DoctorSchedule extends Component {
     }
     getArrDay = (languages) => {
         let arrDate = [];
-        // console.log(
-        //     'moment en:',
-        //     moment(new Date()).locale('en').format('dddd - DD/MM')
-        // );
         for (let i = 0; i < 7; i++) {
             let object = {};
             if (languages === LANGUAGES.VI) {
@@ -114,6 +109,7 @@ class DoctorSchedule extends Component {
     render() {
         let { allDays, allScheduleByDate } = this.state;
         let languages = this.props.languages;
+        console.log('scheduleSelected', this.state.scheduleSelected);
         return (
             <Fragment>
                 <ModalBooking
@@ -124,7 +120,6 @@ class DoctorSchedule extends Component {
                     showNotification={(data) => this.showNotification(data)}
                 />
                 <div className='doctor-schedule-container'>
-                    
                     <div className='all-schedule'>
                         <select
                             onChange={(event) => this.handleOnChangeDate(event)}

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Fragment } from 'react';
+
 import * as actions from '../../../../store/actions/adminAction';
 import { LANGUAGES } from '../../../../utils';
 import { FormattedMessage } from 'react-intl';
 import './ModalBooking.scss';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { stringify } from 'react-auth-wrapper/helpers';
+
 import ProfileDoctor from '../ProfileDoctor';
 import { NumericFormat } from 'react-number-format';
 import DatePicker from '../../../../components/Input/DatePicker';
 import Select from 'react-select';
+import moment from 'moment/moment';
+import localization from 'moment/locale/vi';
 
 class ModalBooking extends Component {
     constructor(props) {
@@ -18,7 +20,7 @@ class ModalBooking extends Component {
         this.state = {
             examinationPrice: '',
             currentDoctorId: '',
-            timeType: '',
+            scheduleSelected: '',
 
             lastName: '',
             firstName: '',
@@ -62,7 +64,7 @@ class ModalBooking extends Component {
                 this.setState({
                     examinationPrice: this.props.examinationPriceByIdRedux,
                     currentDoctorId: this.props.currentDoctorId,
-                    timeType: this.props.scheduleSelected.timeType,
+                    scheduleSelected: this.props.scheduleSelected,
                 });
             }
         }
@@ -92,7 +94,6 @@ class ModalBooking extends Component {
         this.setState({ genderId });
     };
     handleBuiltSelection = (dataInput) => {
-        console.log('dataInput', dataInput);
         let result = [];
         let language = this.props.languages;
         if (dataInput && dataInput.length > 0) {
@@ -108,8 +109,30 @@ class ModalBooking extends Component {
         }
         return result;
     };
+    getArrDay = (languages, date) => {
+        let showDate = '';
+        if (languages === LANGUAGES.VI) {
+            let labelVi = moment.unix(+date / 1000).format('dddd - DD/MM/YYYY');
+            showDate = this.capitalizeFirstLetter(labelVi);
+        } else {
+            showDate = moment
+                .unix(+date / 1000)
+                .locale('en')
+                .format('dddd - DD/MM/YYYY');
+        }
+
+        return showDate;
+    };
+    capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
     handleClickConfirmButton = async () => {
         let date = new Date(this.state.birthDay).getTime();
+        let dayDisplay = this.getArrDay(
+            this.props.languages,
+            this.state.scheduleSelected.date
+        );
+        console.log('daydisplay', dayDisplay);
         let data = {
             lastName: this.state.lastName,
             firstName: this.state.firstName,
@@ -119,8 +142,12 @@ class ModalBooking extends Component {
             date: date,
             gender: this.state.genderId.value,
             reason: this.state.medicalExaminationReason,
-            timeType: this.state.timeType,
+            timeType: this.state.scheduleSelected.timeType,
             doctorId: this.state.currentDoctorId,
+            firstNameDoctor: this.state.examinationPrice.data.firstName,
+            lastNameDoctor: this.state.examinationPrice.data.lastName,
+            timeDisplay: this.state.scheduleSelected.availableTime.valueVi,
+            dayDisplay: dayDisplay,
         };
         await this.props.createPatientBookAppointment(data);
         this.props.showNotification({
@@ -146,7 +173,6 @@ class ModalBooking extends Component {
         console.log('confirm', this.state);
     };
     render() {
-        console.log('arrGenders here', this.state.arrGenders);
         let languages = this.props.languages;
         let {
             lastName,
@@ -158,9 +184,8 @@ class ModalBooking extends Component {
             genderId,
             medicalExaminationReason,
             arrGenders,
+            examinationPrice,
         } = this.state;
-        console.log('examinationPrice', this.state.examinationPrice);
-        let { examinationPrice } = this.state;
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -235,20 +260,9 @@ class ModalBooking extends Component {
                         </div>
                         <div className='row'>
                             <div className='col-6 form-group'>
-                                <label><FormattedMessage id='patient.booking-modal.last-name' /></label>
-                                <input
-                                    className='form-control'
-                                    value={lastName}
-                                    onChange={(event) =>
-                                        this.handleOnchangeInput(
-                                            event,
-                                            'lastName'
-                                        )
-                                    }
-                                />
-                            </div>
-                            <div className='col-6 form-group'>
-                                <label><FormattedMessage id='patient.booking-modal.first-name' /></label>
+                                <label>
+                                    <FormattedMessage id='patient.booking-modal.first-name' />
+                                </label>
                                 <input
                                     className='form-control'
                                     value={firstName}
@@ -260,8 +274,25 @@ class ModalBooking extends Component {
                                     }
                                 />
                             </div>
+                            <div className='col-6 form-group'>
+                                <label>
+                                    <FormattedMessage id='patient.booking-modal.last-name' />
+                                </label>
+                                <input
+                                    className='form-control'
+                                    value={lastName}
+                                    onChange={(event) =>
+                                        this.handleOnchangeInput(
+                                            event,
+                                            'lastName'
+                                        )
+                                    }
+                                />
+                            </div>
                             <div className='col-3 form-group'>
-                                <label><FormattedMessage id='patient.booking-modal.phone-number' /></label>
+                                <label>
+                                    <FormattedMessage id='patient.booking-modal.phone-number' />
+                                </label>
                                 <input
                                     className='form-control'
                                     value={phoneNumber}
@@ -274,7 +305,9 @@ class ModalBooking extends Component {
                                 />
                             </div>
                             <div className='col-9 form-group'>
-                                <label><FormattedMessage id='patient.booking-modal.address' /></label>
+                                <label>
+                                    <FormattedMessage id='patient.booking-modal.address' />
+                                </label>
                                 <input
                                     className='form-control'
                                     value={address}
@@ -287,7 +320,9 @@ class ModalBooking extends Component {
                                 />
                             </div>
                             <div className='col-6 form-group'>
-                                <label><FormattedMessage id='patient.booking-modal.email' /></label>
+                                <label>
+                                    <FormattedMessage id='patient.booking-modal.email' />
+                                </label>
                                 <input
                                     className='form-control'
                                     value={email}
@@ -298,7 +333,9 @@ class ModalBooking extends Component {
                             </div>
 
                             <div className='col-3 form-group'>
-                                <label><FormattedMessage id='patient.booking-modal.birthday' /></label>
+                                <label>
+                                    <FormattedMessage id='patient.booking-modal.birthday' />
+                                </label>
                                 <DatePicker
                                     className='form-control'
                                     onChange={this.handleOnChangeDate}
@@ -306,16 +343,22 @@ class ModalBooking extends Component {
                                 />
                             </div>
                             <div className='col-3 form-group'>
-                                <label><FormattedMessage id='patient.booking-modal.gender' /></label>
+                                <label>
+                                    <FormattedMessage id='patient.booking-modal.gender' />
+                                </label>
                                 <Select
                                     options={arrGenders}
                                     value={genderId}
                                     onChange={this.handleGenderChange}
-                                    placeholder={<FormattedMessage id='patient.booking-modal.choose-gender' />}
+                                    placeholder={
+                                        <FormattedMessage id='patient.booking-modal.choose-gender' />
+                                    }
                                 />
                             </div>
                             <div className='col-12 form-group'>
-                                <label><FormattedMessage id='patient.booking-modal.reason' /></label>
+                                <label>
+                                    <FormattedMessage id='patient.booking-modal.reason' />
+                                </label>
                                 <input
                                     className='form-control'
                                     value={medicalExaminationReason}
@@ -330,7 +373,9 @@ class ModalBooking extends Component {
                         </div>
                     </div>
                     <div className='modal-booking-footer'>
-                        <button className='btn-booking-cancel'><FormattedMessage id='patient.booking-modal.cancel' /></button>
+                        <button className='btn-booking-cancel'>
+                            <FormattedMessage id='patient.booking-modal.cancel' />
+                        </button>
                         <button
                             className='btn-booking-confirm'
                             onClick={() => this.handleClickConfirmButton()}
