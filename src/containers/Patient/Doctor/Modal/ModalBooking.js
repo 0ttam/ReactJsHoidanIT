@@ -30,6 +30,7 @@ class ModalBooking extends Component {
             birthDay: '',
             genderId: '',
             medicalExaminationReason: '',
+            reason: '',
 
             arrGenders: [],
         };
@@ -132,7 +133,10 @@ class ModalBooking extends Component {
             this.props.languages,
             this.state.scheduleSelected.date
         );
-        console.log('daydisplay', dayDisplay);
+        let timeDisplay =
+            this.props.languages === 'en'
+                ? this.state.scheduleSelected.availableTime.valueEn
+                : this.state.scheduleSelected.availableTime.valueVi;
         let data = {
             lastName: this.state.lastName,
             firstName: this.state.firstName,
@@ -146,8 +150,10 @@ class ModalBooking extends Component {
             doctorId: this.state.currentDoctorId,
             firstNameDoctor: this.state.examinationPrice.data.firstName,
             lastNameDoctor: this.state.examinationPrice.data.lastName,
-            timeDisplay: this.state.scheduleSelected.availableTime.valueVi,
+            timeDisplay: timeDisplay,
             dayDisplay: dayDisplay,
+            languages: this.props.languages,
+            linkRedirect: 'https://youtu.be/DajQQcPDjrM',
         };
         await this.props.createPatientBookAppointment(data);
         this.props.showNotification({
@@ -164,8 +170,9 @@ class ModalBooking extends Component {
                 phoneNumber: '',
                 address: '',
                 email: '',
-                date: '',
-                reason: '',
+                birthDay: '',
+                medicalExaminationReason: '',
+                genderId: '',
             });
             this.props.toggle();
         }
