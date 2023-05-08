@@ -6,6 +6,7 @@ export const path = {
     SYSTEM: '/system',
     DOCTOR: '/doctor/manage-schedule',
     DETAIL_DOCTOR: '/detail-doctor/:id',
+    VERIFY_EMAIL_BOOKING: '/verify-book-appointment',
 };
 
 export const LANGUAGES = {
@@ -31,5 +32,5 @@ export const YesNoObj = {
 export const USER_ROLE = {
     ADMIN: 'R1',
     DOCTOR: 'R2',
-    PATIENT: 'R3'
+    PATIENT: 'R3',
 };

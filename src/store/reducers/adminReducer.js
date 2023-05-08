@@ -14,6 +14,7 @@ const initialState = {
     doctorExtraInfo: {},
     examinationPriceById: {},
     patientBookAppointmentNotifications: {},
+    verifyBookAppointmentNotifications: {},
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -214,6 +215,12 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.POST_PATIENT_BOOK_APPOINTMENT_FAILED:
             state.patientBookAppointmentNotifications = action.data;
+            return { ...state };
+        case actionTypes.POST_VERIFY_BOOK_APPOINTMENT_SUCCESS:
+            state.verifyBookAppointmentNotifications = action.data;
+            return { ...state };
+        case actionTypes.POST_VERIFY_BOOK_APPOINTMENT_FAILED:
+            state.verifyBookAppointmentNotifications = action.data;
             return { ...state };
         default:
             return state;

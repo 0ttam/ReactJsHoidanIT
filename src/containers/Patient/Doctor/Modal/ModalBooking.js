@@ -153,7 +153,6 @@ class ModalBooking extends Component {
             timeDisplay: timeDisplay,
             dayDisplay: dayDisplay,
             languages: this.props.languages,
-            linkRedirect: 'https://youtu.be/DajQQcPDjrM',
         };
         await this.props.createPatientBookAppointment(data);
         this.props.showNotification({
@@ -412,7 +411,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(actions.getExaminationPriceByIdStart(doctorId)),
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
         createPatientBookAppointment: (data) =>
-            dispatch(actions.postPatientBookAppointment(data)),
+            dispatch(actions.postPatientBookAppointmentStart(data)),
     };
 };
 

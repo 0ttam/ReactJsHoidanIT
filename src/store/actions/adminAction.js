@@ -16,6 +16,7 @@ import {
     handleGetProfileDoctorById,
     handleGetExaminationPriceById,
     handlePostPatientBookAppointment,
+    handleVerifyBookingEmail,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -785,7 +786,7 @@ export const getExaminationPriceByIdFailed = (data) => ({
     data: data,
 });
 
-export const postPatientBookAppointment = (data) => {
+export const postPatientBookAppointmentStart = (data) => {
     return async (dispatch, getState) => {
         try {
             let res = await handlePostPatientBookAppointment(data);
@@ -809,7 +810,7 @@ export const postPatientBookAppointment = (data) => {
         } catch (e) {
             dispatch(
                 postPatientBookAppointmentFailed({
-                    vi: 'Tạo dữ dữ liệu đặt lịch khám không thành công',
+                    vi: 'Tạo dữ liệu đặt lịch khám không thành công',
                     en: 'Appointment data creation failed!',
                     errType: 'error',
                 })
@@ -824,5 +825,55 @@ export const postPatientBookAppointmentSuccess = (data) => ({
 });
 export const postPatientBookAppointmentFailed = (data) => ({
     type: actionTypes.POST_PATIENT_BOOK_APPOINTMENT_FAILED,
+    data: data,
+});
+
+export const verifyBookingEmailStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleVerifyBookingEmail(data);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    handleVerifyBookingEmailSuccess({
+                        vi: 'Xác nhận đặt lịch khám thành công',
+                        en: 'Create appointment booking data successfully',
+                        errType: 'success',
+                    })
+                );
+            } else if (res && res.errCode === 2) {
+                dispatch(
+                    handleVerifyBookingEmailSuccess({
+                        vi: 'Xác nhận đặt lịch khám thành công',
+                        en: 'Create appointment booking data successfully',
+                        errType: 'success',
+                    })
+                );
+            } else {
+                dispatch(
+                    handleVerifyBookingEmailFailed({
+                        vi: 'Đặt lịch khám thất bại. Vui lòng thử lại',
+                        en: 'Appointment failed. Please try again',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                handleVerifyBookingEmailFailed({
+                    vi: 'Đặt lịch khám thất bại. Vui lòng thử lại',
+                    en: 'Appointment failed. Please try again',
+                    errType: 'error',
+                })
+            );
+            console.log('fetch all user redux failed', e);
+        }
+    };
+};
+export const handleVerifyBookingEmailSuccess = (data) => ({
+    type: actionTypes.POST_VERIFY_BOOK_APPOINTMENT_SUCCESS,
+    data: data,
+});
+export const handleVerifyBookingEmailFailed = (data) => ({
+    type: actionTypes.POST_VERIFY_BOOK_APPOINTMENT_FAILED,
     data: data,
 });
