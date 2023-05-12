@@ -15,6 +15,10 @@ const initialState = {
     examinationPriceById: {},
     patientBookAppointmentNotifications: {},
     verifyBookAppointmentNotifications: {},
+    createNewSpecialtyNotify: {},
+    updateSpecialtyNotify: {},
+    getSpecialtyById: [],
+    deleteSpecialtyNotify: {},
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -221,6 +225,30 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.POST_VERIFY_BOOK_APPOINTMENT_FAILED:
             state.verifyBookAppointmentNotifications = action.data;
+            return { ...state };
+        case actionTypes.CREATE_NEW_SPECIALTY_SUCCESS:
+            state.createNewSpecialtyNotify = action.data;
+            return { ...state };
+        case actionTypes.CREATE_NEW_SPECIALTY_FAILED:
+            state.createNewSpecialtyNotify = action.data;
+            return { ...state };
+        case actionTypes.GET_SPECIALTY_BY_ID_SUCCESS:
+            state.getSpecialtyById = action.data;
+            return { ...state };
+        case actionTypes.GET_SPECIALTY_BY_ID_FAILED:
+            state.getSpecialtyById = action.data;
+            return { ...state };
+        case actionTypes.EDIT_SPECIALTY_SUCCESS:
+            state.updateSpecialtyNotify = action.data;
+            return { ...state };
+        case actionTypes.EDIT_SPECIALTY_FAILED:
+            state.updateSpecialtyNotify = action.data;
+            return { ...state };
+        case actionTypes.DELETE_SPECIALTY_SUCCESS:
+            state.deleteSpecialtyNotify = action.data;
+            return { ...state };
+        case actionTypes.DELETE_SPECIALTY_FAILED:
+            state.deleteSpecialtyNotify = action.data;
             return { ...state };
         default:
             return state;

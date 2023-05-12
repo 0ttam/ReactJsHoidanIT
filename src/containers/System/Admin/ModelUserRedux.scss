@@ -3,36 +3,36 @@
     
     .user-redux-body {
 
-        .image-container {
-            display: flex;
-            width: 200px;
-            .upload-image {
-                width: 20px;
-                .fa-upload {
-                    margin-left: 5px;
-                }
-                .btn-upload {
-                    padding: 0 5px;
-                    background-color: #007bff;
-                    color: #fff;
-                    justify-content: center;
-                    text-align: center;
-                    cursor: pointer;
-                    float: left;
-                }
-            }
-            .preview {
-                // height: 58px;
-                // width: 120px;
-                //margin-top: -24px;
-               // margin-left: 20px;
-                background-repeat: no-repeat;
-                background-size: contain;
-                cursor: pointer;
-                //background-color: #007bff;
-                float: right;
-            }
-        }
+        // .image-container {
+        //     display: flex;
+        //     width: 200px;
+        //     .upload-image {
+        //         width: 20px;
+        //         .fa-upload {
+        //             margin-left: 5px;
+        //         }
+        //         .btn-upload {
+        //             padding: 0 5px;
+        //             background-color: #007bff;
+        //             color: #fff;
+        //             justify-content: center;
+        //             text-align: center;
+        //             cursor: pointer;
+        //             float: left;
+        //         }
+        //     }
+        //     .preview {
+        //         // height: 58px;
+        //         // width: 120px;
+        //         //margin-top: -24px;
+        //        // margin-left: 20px;
+        //         background-repeat: no-repeat;
+        //         background-size: contain;
+        //         cursor: pointer;
+        //         //background-color: #007bff;
+        //         float: right;
+        //     }
+        // }
         
     }
 }

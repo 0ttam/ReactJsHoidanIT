@@ -17,6 +17,10 @@ import {
     handleGetExaminationPriceById,
     handlePostPatientBookAppointment,
     handleVerifyBookingEmail,
+    handleCreateNewSpecialty,
+    handleGetSpecialtyById,
+    handleEditSpecialty,
+    handleDeleteSpecialty,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -875,5 +879,176 @@ export const handleVerifyBookingEmailSuccess = (data) => ({
 });
 export const handleVerifyBookingEmailFailed = (data) => ({
     type: actionTypes.POST_VERIFY_BOOK_APPOINTMENT_FAILED,
+    data: data,
+});
+
+export const createNewSpecialtyStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleCreateNewSpecialty(data);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    createNewSpecialtySuccess({
+                        vi: 'Tạo mới chuyên khoa thành công',
+                        en: 'Create new specialty successfully!',
+                        errType: 'success',
+                    })
+                );
+            } else {
+                dispatch(
+                    createNewSpecialtyFailed({
+                        vi: 'Tạo mới chuyên khoa thất bại',
+                        en: 'Create new specialty failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                createNewSpecialtyFailed({
+                    vi: 'Tạo mới chuyên khoa thất bại',
+                    en: 'Create new specialty failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('create new user failed', e);
+        }
+    };
+};
+export const createNewSpecialtySuccess = (data) => ({
+    type: actionTypes.CREATE_NEW_SPECIALTY_SUCCESS,
+    data: data,
+});
+export const createNewSpecialtyFailed = (data) => ({
+    type: actionTypes.CREATE_NEW_SPECIALTY_FAILED,
+    data: data,
+});
+
+export const getSpecialtyByIdStart = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetSpecialtyById(id);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    getSpecialtyByIdSuccess({
+                        vi: 'Lấy dữ liệu chuyên khoa thành công',
+                        en: 'Get all specialty successfully!',
+                        errType: 'success',
+                        data: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    getSpecialtyByIdFailed({
+                        vi: 'Lấy dữ liệu chuyên khoa thất bại',
+                        en: 'Get all specialty failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                getSpecialtyByIdFailed({
+                    vi: 'Lấy dữ liệu chuyên khoa thất bại',
+                    en: 'Get all specialty failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('Get all user failed', e);
+        }
+    };
+};
+export const getSpecialtyByIdSuccess = (data) => ({
+    type: actionTypes.GET_SPECIALTY_BY_ID_SUCCESS,
+    data: data,
+});
+export const getSpecialtyByIdFailed = (data) => ({
+    type: actionTypes.GET_SPECIALTY_BY_ID_FAILED,
+    data: data,
+});
+
+export const editSpecialtyStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleEditSpecialty(data);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    editSpecialtySuccess({
+                        vi: 'Cập nhật chuyên khoa thành công',
+                        en: 'Update specialty successfully!',
+                        errType: 'success',
+                    })
+                );
+                dispatch(getSpecialtyByIdStart('ALL'));
+            } else {
+                dispatch(
+                    editSpecialtyFailed({
+                        vi: 'Cập nhật chuyên khoa thất bại',
+                        en: 'Update specialty failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                editSpecialtyFailed({
+                    vi: 'Cập nhật chuyên khoa thất bại',
+                    en: 'Update specialty failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('Update specialty failed', e);
+        }
+    };
+};
+export const editSpecialtySuccess = (data) => ({
+    type: actionTypes.EDIT_SPECIALTY_SUCCESS,
+    data: data,
+});
+export const editSpecialtyFailed = (data) => ({
+    type: actionTypes.EDIT_SPECIALTY_FAILED,
+    data: data,
+});
+
+export const deleteSpecialtyStart = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleDeleteSpecialty(id);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    deleteSpecialtySuccess({
+                        vi: 'Xóa chuyên khoa thành công',
+                        en: 'Delete specialty successfully!',
+                        errType: 'success',
+                    })
+                );
+                dispatch(getSpecialtyByIdStart('ALL'));
+            } else {
+                dispatch(
+                    deleteSpecialtyFailed({
+                        vi: 'Xóa chuyên khoa thất bại',
+                        en: 'Delete specialty failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                deleteSpecialtyFailed({
+                    vi: 'Xóa chuyên khoa thất bại',
+                    en: 'Delete specialty failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('Delete specialty failed', e);
+        }
+    };
+};
+export const deleteSpecialtySuccess = (data) => ({
+    type: actionTypes.DELETE_SPECIALTY_SUCCESS,
+    data: data,
+});
+export const deleteSpecialtyFailed = (data) => ({
+    type: actionTypes.DELETE_SPECIALTY_FAILED,
     data: data,
 });

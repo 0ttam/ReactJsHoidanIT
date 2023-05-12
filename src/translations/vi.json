@@ -25,6 +25,7 @@
     },
     "manage-user": {
         "add": "Thêm mới người dùng",
+        "delete": "Xóa người dùng",
         "email": "Email",
         "password": "Mật khẩu",
         "first-name": "Tên",

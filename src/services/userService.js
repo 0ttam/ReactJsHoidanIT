@@ -54,6 +54,18 @@ const handlePostPatientBookAppointment = (data) => {
 const handleVerifyBookingEmail = (data) => {
     return axios.post('/api/verify-book-appointment', data);
 };
+const handleCreateNewSpecialty = (data) => {
+    return axios.post('/api/create-new-specialty', stringify(data));
+};
+const handleGetSpecialtyById = (id) => {
+    return axios.get(`/api/get-specialty-by-id?id=${id}`);
+};
+const handleEditSpecialty = (data) => {
+    return axios.put('/api/edit-specialty-by-id', stringify(data));
+};
+const handleDeleteSpecialty = (userId) => {
+    return axios.delete(`/api/delete-specialty?id=${userId}`);
+};
 
 export {
     handleLoginApi,
@@ -73,4 +85,8 @@ export {
     handleGetExaminationPriceById,
     handlePostPatientBookAppointment,
     handleVerifyBookingEmail,
+    handleCreateNewSpecialty,
+    handleGetSpecialtyById,
+    handleEditSpecialty,
+    handleDeleteSpecialty,
 };

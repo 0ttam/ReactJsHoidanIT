@@ -4,7 +4,8 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/System/UserManage';
 import UserManagerRedux from '../containers/System/Admin/UserManagerRedux';
 import Header from '../containers/Header/Header';
-import ModalAddDetailDoctor from '../containers/System/Admin/ModalAddDetailDoctor'
+import ModalAddDetailDoctor from '../containers/System/Admin/ModalAddDetailDoctor';
+import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 
 class System extends Component {
     render() {
@@ -27,6 +28,10 @@ class System extends Component {
                             <Route
                                 path='/system/user-doctor'
                                 component={ModalAddDetailDoctor}
+                            />
+                            <Route
+                                path='/system/manage-specialty'
+                                component={ManageSpecialty}
                             />
                             <Route
                                 component={() => {

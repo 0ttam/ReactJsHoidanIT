@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { emitter } from '../../../utils/emitter';
 import { LANGUAGES } from '../../../utils/constant';
-import './ModelUserRedux.scss';
 import * as actions from '../../../store/actions/adminAction';
 
-class ModalDeleteUserRedux extends Component {
+class ModalDeleteSpecialty extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,16 +38,16 @@ class ModalDeleteUserRedux extends Component {
             <Modal
                 isOpen={this.props.isOpen}
                 toggle={() => this.toggle()}
-                deleteUser={() => this.deleteUser()}
+                deleteSpecialty={() => this.deleteSpecialty()}
                 className={'modal-user-container'}
                 size='lg'
             >
                 <ModalHeader toggle={() => this.toggle()}>
-                    <FormattedMessage id='manage-user.delete' />
+                    <FormattedMessage id='manage-user.add' />
                 </ModalHeader>
                 <ModalBody>
                     <div className='modal-user-body col-12'>
-                        Bạn chắc chắn xóa người dùng:
+                        Bạn chắc chắn xóa chuyên khoa:
                         <b>
                             {' '}
                             {this.props.user.firstName}{' '}
@@ -61,7 +60,7 @@ class ModalDeleteUserRedux extends Component {
                     <Button
                         color='primary'
                         className='px-3'
-                        onClick={() => this.props.deleteUser()}
+                        onClick={() => this.props.deleteSpecialty()}
                     >
                         Vẫn xóa
                     </Button>{' '}
@@ -91,4 +90,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ModalDeleteUserRedux);
+)(ModalDeleteSpecialty);
