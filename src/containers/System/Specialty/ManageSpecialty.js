@@ -231,20 +231,27 @@ class UserManageRedux extends Component {
                     user={this.state.specialtyDelete}
                 />
 
-                <div className='title text-center'>Manage Specialty</div>
+                <div className='title text-center'>
+                    <FormattedMessage id='admin.manage-specialty.manage-specialty' />
+                </div>
                 <div className='mx-4'>
                     <button
                         className='btn btn-primary px-3'
                         onClick={() => this.handleAddNewUser()}
                     >
-                        <i className='fas fa-plus'></i> Add new specialty
+                        <i className='fas fa-plus'></i>{' '}
+                        <FormattedMessage id='admin.manage-specialty.add-new-specialty' />
                     </button>
                 </div>
                 <div className='users-table mt-4 mx-4'>
                     <table>
                         <tr>
-                            <th>Specialty Name</th>
-                            <th>Action</th>
+                            <th>
+                                <FormattedMessage id='admin.manage-specialty.name-specialty' />
+                            </th>
+                            <th>
+                                <FormattedMessage id='admin.manage-specialty.actions' />
+                            </th>
                         </tr>
                         {arrSpecialty &&
                             arrSpecialty.map((item, index) => {

@@ -9,8 +9,12 @@ class MedicalFacility extends Component {
             <div className='section-share section-hand-book'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span className='section-title'>Cẩm nang</span>
-                        <button className='btn-view-more'>XEM TẤT CẢ</button>
+                        <span className='section-title'>
+                            <FormattedMessage id='homepage.handbook' />
+                        </span>
+                        <button className='btn-view-more'>
+                            <FormattedMessage id='homepage.more-info' />
+                        </button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>

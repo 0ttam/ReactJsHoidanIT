@@ -156,13 +156,13 @@ class ManageSchedule extends Component {
                 <ToastContainer />
                 <div className='manage-schedule-container'>
                     <div className='manage-schedule-title title'>
-                        <FormattedMessage id='manage-schedule.title' />
+                        <FormattedMessage id='admin.manage-schedule.title' />
                     </div>
                     <div className='container'>
                         <div className='row'>
                             <div className='col-6 form-group'>
                                 <label>
-                                    <FormattedMessage id='manage-schedule.choose-doctor' />
+                                    <FormattedMessage id='admin.manage-schedule.choose-doctor' />
                                 </label>
                                 <Select
                                     options={this.state.doctorArray}
@@ -172,7 +172,7 @@ class ManageSchedule extends Component {
                             </div>
                             <div className='col-6 form-group'>
                                 <label>
-                                    <FormattedMessage id='manage-schedule.choose-date' />
+                                    <FormattedMessage id='admin.manage-schedule.choose-date' />
                                 </label>
                                 <DatePicker
                                     className='form-control'
@@ -184,7 +184,7 @@ class ManageSchedule extends Component {
                                 />
                             </div>
                             <label>
-                                <FormattedMessage id='manage-schedule.choose-time' />
+                                <FormattedMessage id='admin.manage-schedule.choose-time' />
                             </label>
                             <div className='col-12 pick-hour-container'>
                                 {allScheduleTimeData &&
@@ -219,7 +219,7 @@ class ManageSchedule extends Component {
                                     this.handleOnClickSave();
                                 }}
                             >
-                                <FormattedMessage id='manage-schedule.save' />
+                                <FormattedMessage id='admin.manage-schedule.save' />
                             </button>
                         </div>
                     </div>

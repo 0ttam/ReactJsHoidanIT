@@ -44,13 +44,13 @@ class ModalDeleteUserRedux extends Component {
                 size='lg'
             >
                 <ModalHeader toggle={() => this.toggle()}>
-                    <FormattedMessage id='manage-user.delete' />
+                    <FormattedMessage id='admin.manage-user.delete-user' />
                 </ModalHeader>
                 <ModalBody>
                     <div className='modal-user-body col-12'>
-                        Bạn chắc chắn xóa người dùng:
+                        <FormattedMessage id='admin.manage-user.confirm-delete' />
+                        {': '}
                         <b>
-                            {' '}
                             {this.props.user.firstName}{' '}
                             {this.props.user.lastName}
                         </b>
@@ -63,14 +63,14 @@ class ModalDeleteUserRedux extends Component {
                         className='px-3'
                         onClick={() => this.props.deleteUser()}
                     >
-                        Vẫn xóa
+                        <FormattedMessage id='admin.manage-user.delete' />
                     </Button>{' '}
                     <Button
                         color='secondary'
                         className='px-3'
                         onClick={() => this.toggle()}
                     >
-                        Cancel
+                        <FormattedMessage id='admin.manage-user.cancel' />
                     </Button>
                 </ModalFooter>
             </Modal>

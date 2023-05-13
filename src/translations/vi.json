@@ -23,23 +23,16 @@
         "mental-health": "Sức khỏe tinh thần",
         "dental-examination": "Khám nha khoa"
     },
-    "manage-user": {
-        "add": "Thêm mới người dùng",
-        "delete": "Xóa người dùng",
-        "email": "Email",
-        "password": "Mật khẩu",
-        "first-name": "Tên",
-        "last-name": "Họ",
-        "address": "Địa chỉ",
-        "phone": "Số điện thoại",
-        "image": "Hình ảnh",
-        "gender": "Giới tính",
-        "role-id":"Vai trò",
-        "position-id": "Chức vụ",
-        "save": "Lưu",
-        "edit": "Thay đổi thông tin người dùng"
+    
+    "homepage":{
+        "outstanding-doctor":"Bác sĩ nổi bật tuần qua", 
+        "more-info": "Xem thêm",
+        "popular-specialties": "Chuyên khoa phổ biến",
+        "outstanding-medical-facility": "Cơ sở y tế nổi bật",
+        "handbook": "Cẩm nang",
+        "media-talk-about-us" : "Truyền thông nói về BookingCare",
+        "content-intro": "Chương trình cà phê khởi nghiệp của VTV1 - Đài truyền hình Việt Nam giới thiệu Nền tảng đặt khám bác sĩ chuyên khoa BookingCare. Chương trình phát vào 06h30 và phát lại vào 13h05 ngày 21/02/2018."
     },
-    "homepage":{"outstanding-doctor":"Bác sĩ nổi bật tuần qua", "more-infor": "Xem thêm"},
   
     "menu": {
         "system": {
@@ -176,13 +169,6 @@
             "sure-delete-assign": "Bạn có chắc chắn muốn bỏ gán gói dịch vụ cho khách hàng?"
         }
     },
-    "manage-schedule": {
-        "title": "Quản lí kế hoạch khám bệnh",
-        "choose-doctor": "Chọn bác sĩ",
-        "choose-date": "Chọn ngày",
-        "choose-time": "Chọn giờ",
-        "save": "Lưu thông tin"
-    },
     "patient": {
         "detail-doctor": {
             "schedule": "Lịch khám",
@@ -217,6 +203,29 @@
         }
     },
     "admin": {
+        "manage-user": {
+            "manage-user": "Quản lý người dùng",
+            "add-user": "Thêm mới người dùng",
+            "update-user": "Cập nhật người dùng",
+            "delete-user": "Xóa người dùng",
+            "email": "Email",
+            "password": "Mật khẩu",
+            "first-name": "Tên",
+            "last-name": "Họ",
+            "address": "Địa chỉ",
+            "phone": "Số điện thoại",
+            "image": "Hình ảnh",
+            "gender": "Giới tính",
+            "role-id":"Vai trò",
+            "position-id": "Chức vụ",
+            "save": "Lưu",
+            "delete": "Xóa",
+            "add-new": "Thêm mới",
+            "cancel": "Hủy bỏ",
+            "update": "Cập nhật",
+            "confirm-delete": "Bạn chắc chắn xóa người dùng",
+            "actions": "Hành động"
+        },
         "manage-doctor": {
             "title": "Thêm thông tin bác sĩ",
             "choose-a-doctor": "Chọn bác sĩ",
@@ -228,6 +237,21 @@
             "clinic-name": "Tên phòng khám",
             "clinic-address": "Địa chỉ phòng khám",
             "note": "Ghi chú"
+        }
+        ,
+        "manage-schedule": {
+            "title": "Quản lí kế hoạch khám bệnh",
+            "choose-doctor": "Chọn bác sĩ",
+            "choose-date": "Chọn ngày",
+            "choose-time": "Chọn giờ",
+            "save": "Lưu thông tin"
+        },
+        "manage-specialty": {
+            "manage-specialty": "Quản lý chuyên khoa",
+            "add-new-specialty": "Thêm mới chuyên khoa",
+            "name-specialty": "Tên chuyên khoa",
+            "actions": "Hành động"
+
         }
     }
 }

@@ -9,16 +9,15 @@ class About extends Component {
                 <div className='section-container'>
                     <div className='section-header'>
                         <div className='section-title'>
-                            Truyền thông nói về BookingCare
+                            <FormattedMessage id='homepage.media-talk-about-us' />
                         </div>
                     </div>
                     <div className='section-body'>
-                        <div className='about-video'><iframe src='https://www.youtube.com/embed/7tiR7SI4CkI'></iframe></div>
+                        <div className='about-video'>
+                            <iframe src='https://www.youtube.com/embed/7tiR7SI4CkI'></iframe>
+                        </div>
                         <div className='about-description'>
-                            Chương trình cà phê khởi nghiệp của VTV1 - Đài
-                            truyền hình Việt Nam giới thiệu Nền tảng đặt khám
-                            bác sĩ chuyên khoa BookingCare. Chương trình phát
-                            vào 06h30 và phát lại vào 13h05 ngày 21/02/2018.
+                            <FormattedMessage id='homepage.content-intro' />
                         </div>
                     </div>
                 </div>

@@ -10,9 +10,11 @@ class Handbook extends Component {
                 <div className='section-container'>
                     <div className='section-header'>
                         <span className='section-title'>
-                            Cơ sở y tế nổi bật
+                            <FormattedMessage id='homepage.outstanding-medical-facility' />
                         </span>
-                        <button className='btn-view-more'>XEM THÊM</button>
+                        <button className='btn-view-more'>
+                            <FormattedMessage id='homepage.more-info' />
+                        </button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>

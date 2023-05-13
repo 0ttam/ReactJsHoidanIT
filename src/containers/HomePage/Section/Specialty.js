@@ -4,48 +4,77 @@ import { FormattedMessage } from 'react-intl';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import * as actions from '../../../store/actions/adminAction';
 
 class Specialty extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            arrSpecialty: [],
+        };
+    }
+    async componentDidMount() {
+        await this.props.getAllSpecialty();
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.arrSpecialtyRedux !== this.props.arrSpecialtyRedux) {
+            if (
+                this.props.arrSpecialtyRedux &&
+                this.props.arrSpecialtyRedux.data
+            ) {
+                let arrSpecialty = this.props.arrSpecialtyRedux.data;
+                this.setState({
+                    arrSpecialty: arrSpecialty,
+                });
+            }
+        }
+    }
     render() {
+        let { arrSpecialty } = this.state;
         return (
             <div className='section-share section-specialty'>
                 <div className='section-container'>
                     <div className='section-header'>
                         <span className='section-title'>
-                            Chuyên khoa phổ biến
+                            <FormattedMessage id='homepage.popular-specialties' />
                         </span>
-                        <button className='btn-view-more'>XEM THÊM</button>
+                        <button className='btn-view-more'>
+                            <FormattedMessage id='homepage.more-info' />
+                        </button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
-                            <div className='specialty-item'>
-                                <div className='specialty-img'></div>
-                                <div className='specialty-name'>
-                                    Sản phụ khoa
-                                </div>
-                            </div>
-                            <div className='specialty-item'>
-                                <div className='specialty-img'></div>
-                                <div className='specialty-name'>Nam khoa</div>
-                            </div>
-                            <div className='specialty-item'>
-                                <div className='specialty-img'></div>
-                                <div className='specialty-name'>Cột sống</div>
-                            </div>
-                            <div className='specialty-item'>
-                                <div className='specialty-img'></div>
-                                <div className='specialty-name'>Tiêu hóa</div>
-                            </div>
-                            <div className='specialty-item'>
-                                <div className='specialty-img'></div>
-                                <div className='specialty-name'>Tim mạch</div>
-                            </div>
-                            <div className='specialty-item'>
-                                <div className='specialty-img'></div>
-                                <div className='specialty-name'>
-                                    Cơ Xương khớp
-                                </div>
-                            </div>
+                            {arrSpecialty &&
+                                arrSpecialty.map((item) => {
+                                    let imageBase64 = '';
+                                    if (item.image) {
+                                        imageBase64 = new Buffer(
+                                            item.image,
+                                            'base64'
+                                        ).toString('binary');
+                                    }
+                                    return (
+                                        <div className='specialty-item'>
+                                            <div
+                                                className='specialty-img'
+                                                style={{
+                                                    background: `url(${imageBase64})`,
+                                                    // height: '150px',
+                                                    // backgroundPosition:
+                                                    //     'center center',
+                                                    // backgroundRepeat:
+                                                    //     'no-repeat',
+                                                    // backgroundSize: 'cover',
+                                                    // backgroundColor: '#eee',
+                                                    // margin: '0 auto',
+                                                }}
+                                            ></div>
+                                            <div className='specialty-name'>
+                                                {item.name}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                         </Slider>
                     </div>
                 </div>
@@ -57,11 +86,15 @@ class Specialty extends Component {
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        languages: state.app.language,
+        arrSpecialtyRedux: state.admin.getSpecialtyById,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        getAllSpecialty: () => dispatch(actions.getSpecialtyByIdStart('ALL')),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Specialty);

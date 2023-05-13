@@ -282,7 +282,9 @@ class UserManageRedux extends Component {
                     user={this.state.userDelete}
                 />
 
-                <div className='title text-center'>Manage users redux</div>
+                <div className='title text-center'>
+                    <FormattedMessage id='admin.manage-user.manage-user' />
+                </div>
                 <div className='mx-4'>
                     {this.state.arrGenders &&
                         this.state.arrGenders.length > 0 && (
@@ -290,18 +292,19 @@ class UserManageRedux extends Component {
                                 className='btn btn-primary px-3'
                                 onClick={() => this.handleAddNewUser()}
                             >
-                                <i className='fas fa-plus'></i> Add new users
+                                <i className='fas fa-plus'></i>{' '}
+                                <FormattedMessage id='admin.manage-user.add-user' />
                             </button>
                         )}
                 </div>
                 <div className='users-table mt-4 mx-4'>
                     <table>
                         <tr>
-                            <th>Email</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Address</th>
-                            <th>Action</th>
+                            <th><FormattedMessage id='admin.manage-user.email' /></th>
+                            <th><FormattedMessage id='admin.manage-user.first-name' /></th>
+                            <th><FormattedMessage id='admin.manage-user.last-name' /></th>
+                            <th><FormattedMessage id='admin.manage-user.address' /></th>
+                            <th><FormattedMessage id='admin.manage-user.actions' /></th>
                         </tr>
                         {arrUsers &&
                             arrUsers.map((item, index) => {

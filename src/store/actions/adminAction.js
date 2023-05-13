@@ -894,6 +894,7 @@ export const createNewSpecialtyStart = (data) => {
                         errType: 'success',
                     })
                 );
+                dispatch(getSpecialtyByIdStart('ALL'));
             } else {
                 dispatch(
                     createNewSpecialtyFailed({

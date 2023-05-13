@@ -213,13 +213,13 @@ class ModalEditUserRedux extends Component {
                 size='lg'
             >
                 <ModalHeader toggle={() => this.toggle()}>
-                    <FormattedMessage id='manage-user.edit' />
+                    <FormattedMessage id='admin.manage-user.update-user' />
                 </ModalHeader>
                 <ModalBody>
                     <div className='modal-user-body col-12'>
                         <div class='input-container col-6 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.email' />
+                                <FormattedMessage id='admin.manage-user.email' />
                             </label>
                             <input
                                 type='email'
@@ -235,7 +235,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div class='input-container col-6 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.password' />
+                                <FormattedMessage id='admin.manage-user.password' />
                             </label>
                             <input
                                 type='password'
@@ -251,7 +251,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div class='input-container col-6 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.first-name' />
+                                <FormattedMessage id='admin.manage-user.first-name' />
                             </label>
                             <input
                                 type='text'
@@ -266,7 +266,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div class='input-container col-6 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.last-name' />
+                                <FormattedMessage id='admin.manage-user.last-name' />
                             </label>
                             <input
                                 type='text'
@@ -281,7 +281,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div class='input-container col-4 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.phone' />
+                                <FormattedMessage id='admin.manage-user.phone' />
                             </label>
                             <input
                                 type='text'
@@ -299,7 +299,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div class='input-container col-8 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.address' />
+                                <FormattedMessage id='admin.manage-user.address' />
                             </label>
                             <input
                                 type='text'
@@ -314,7 +314,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div class='input-container col-2 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.gender' />
+                                <FormattedMessage id='admin.manage-user.gender' />
                             </label>
                             <select
                                 className='form-control'
@@ -346,7 +346,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div class='input-container col-3 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.role-id' />
+                                <FormattedMessage id='admin.manage-user.role-id' />
                             </label>
                             <select
                                 className='form-control'
@@ -378,7 +378,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div class='input-container col-3 mb-2'>
                             <label>
-                                <FormattedMessage id='manage-user.position-id' />
+                                <FormattedMessage id='admin.manage-user.position-id' />
                             </label>
                             <select
                                 className='form-control'
@@ -414,7 +414,7 @@ class ModalEditUserRedux extends Component {
 
                         <div class='input-container col-4'>
                             <label>
-                                <FormattedMessage id='manage-user.image' />
+                                <FormattedMessage id='admin.manage-user.image' />
                             </label>
                             <div className='image-container'>
                                 <span className='upload-image'>
@@ -462,14 +462,14 @@ class ModalEditUserRedux extends Component {
                         className='px-3'
                         onClick={() => this.handleUpdateUser()}
                     >
-                        Cập nhật
+                        <FormattedMessage id='admin.manage-user.update' />
                     </Button>{' '}
                     <Button
                         color='secondary'
                         className='px-3'
                         onClick={() => this.toggle()}
                     >
-                        Cancel
+                        <FormattedMessage id='admin.manage-user.cancel' />
                     </Button>
                 </ModalFooter>
             </Modal>

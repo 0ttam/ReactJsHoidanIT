@@ -1,25 +1,31 @@
 // CSS Specialty
 .section-specialty {
     background: #ffffff;
-    .section-body{
-            
-        .specialty-item {
-            height: 200px;
-            padding: 0 5px;
-            
 
-            .specialty-img{
-                background: url('../../assets/specialty/121305-cham-cuu.jpg');
-                height: 150px;
-                background-position:  center center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-color: #eee;
-            } 
+    .section-body {
+
+        .specialty-item {
+            height : 200px;
+            padding: 0 5px;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+
+            .specialty-img {
+                background         : url('../../assets/specialty/121305-cham-cuu.jpg');
+                height             : 150px;
+                background-position: center center;
+                background-repeat  : no-repeat;
+                background-size    : cover;
+                background-color   : #eee;
+            }
+
             .specialty-name {
-                font-size: 15px;
+                font-size : 15px;
                 text-align: center;
-                padding: 10px 0;
+                padding   : 10px 0;
             }
         }
     }
@@ -28,25 +34,27 @@
 // CSS Medical
 .section-medical {
     background: #f5f5f5;
-    .section-body{
-            
-        .medical-item {
-            height: 200px;
-            padding: 0 5px;
-            
 
-            .medical-img{
-                background: url('../../assets/medical/152704logo-bvcr-moi.jpg');
-                height: 150px;
-                background-position:  center center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-color: #eee;
-            } 
+    .section-body {
+
+        .medical-item {
+            height : 200px;
+            padding: 0 5px;
+
+
+            .medical-img {
+                background         : url('../../assets/medical/152704logo-bvcr-moi.jpg');
+                height             : 150px;
+                background-position: center center;
+                background-repeat  : no-repeat;
+                background-size    : cover;
+                background-color   : #eee;
+            }
+
             .medical-name {
-                font-size: 15px;
+                font-size : 15px;
                 text-align: center;
-                padding: 10px 0;
+                padding   : 10px 0;
             }
         }
     }
@@ -55,12 +63,13 @@
 // CSS Doctor
 .section-outstanding-doctor {
     background: #ffffff;
-    .section-body{
-            
+
+    .section-body {
+
         .outstanding-doctor-item {
-            height: 200px;
+            height : 200px;
             padding: 0 5px;
-            cursor: pointer;
+            cursor : pointer;
 
             // .outstanding-doctor-img{
             //     background: url('../../assets/doctor/bsckii-tran-minh-khuyen.jpg');
@@ -74,13 +83,14 @@
             //     margin: 0 auto;
             // } 
             .outstanding-doctor-name {
-                font-size: 15px;
+                font-size : 15px;
                 text-align: center;
-                padding: 10px 0;
+                padding   : 10px 0;
             }
+
             .outstanding-doctor-facility {
                 text-align: center;
-                font-size: 12px;
+                font-size : 12px;
             }
         }
     }
@@ -89,40 +99,42 @@
 // CSS Handbook
 .section-hand-book {
     background: #f5f5f5;
-    .section-body{
-            
+
+    .section-body {
+
         .hand-book-item {
-            height: 200px;
-            display: flex;
+            height        : 200px;
+            display       : flex;
             flex-direction: column;
-            
+
 
             .hand-book-back-ground {
                 background: #ffcb34;
-                margin: 0 10px;
-                height: 190px;
+                margin    : 0 10px;
+                height    : 190px;
 
-                .hand-book-img{
-                    background: url('../../assets/handbook/151433-thumbnail-1.png');
-                    height: 190px;
-                    width: 333px;
-                    background-position:  center center;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    background-color: #eee;
-                    float: left;
-                } 
+                .hand-book-img {
+                    background         : url('../../assets/handbook/151433-thumbnail-1.png');
+                    height             : 190px;
+                    width              : 333px;
+                    background-position: center center;
+                    background-repeat  : no-repeat;
+                    background-size    : cover;
+                    background-color   : #eee;
+                    float              : left;
+                }
+
                 .hand-book-name {
-                    font-size: 16px;
-                    text-align: center;
-                    float: right;
-                    width: 167px;
+                    font-size  : 16px;
+                    text-align : center;
+                    float      : right;
+                    width      : 167px;
                     font-weight: 600;
-                    padding: 10px 18px 0  0;
+                    padding    : 10px 18px 0 0;
                 }
             }
 
-            
+
         }
     }
 }
@@ -130,18 +142,23 @@
 // CSS About
 .section-about {
     height: 450px !important;
+
     .about-video {
         height: 300px;
-        width: 70%;;
+        width : 70%;
+        ;
         float: left;
+
         iframe {
             height: 340px;
-            width: 560px;;
+            width : 560px;
+            ;
         }
     }
+
     .about-description {
-        float: right;
-        width: 30%;
+        float  : right;
+        width  : 30%;
         padding: auto;
     }
 }
@@ -152,72 +169,77 @@
 
 
     .section-container {
-        margin: 20px 100px;
-        display: flex;
+        margin        : 20px 100px;
+        display       : flex;
         flex-direction: column;
 
         .section-header {
-            margin: 10px 4px;
+            margin : 10px 4px;
             padding: 20px 0;
 
             .section-title {
-                font-size: 20px;
+                font-size  : 20px;
                 font-weight: 600;
             }
+
             .btn-view-more {
-                font-size: 14px;
+                font-size     : 14px;
                 text-transform: uppercase;
-                float: right;
-                padding: 5px 10px;
-                border: none;
-                outline: none;
-                background: #ebebeb;
-                cursor: pointer;
+                float         : right;
+                padding       : 5px 10px;
+                border        : none;
+                outline       : none;
+                background    : #ebebeb;
+                cursor        : pointer;
 
                 &:hover {
-                    color: #fff;
+                    color           : #fff;
                     background-color: #f7d800;
                 }
             }
         }
-        .section-body {
-        }
-        
+
+        .section-body {}
+
     }
 }
 
 // Reset slick slider css
 .slick-prev {
-    border: 2px solid #d7d7d7 !important;
-    left: -10px !important;
-    height: 48px !important;
-    width: 44px !important;
+    border    : 2px solid #d7d7d7 !important;
+    left      : -10px !important;
+    height    : 48px !important;
+    width     : 44px !important;
     background: #000 url('../../assets/images/arrow-left.png') center center no-repeat !important;
-    z-index: 1000 !important;
-    opacity: .3;
+    z-index   : 1000 !important;
+    opacity   : .3;
 }
+
 .slick-prev:before {
-    color: transparent !important;
+    color     : transparent !important;
     background: #000 url('../../assets/images/arrow-left.png') center center no-repeat !important;
-    content: '';
+    content   : '';
 }
+
 .slick-next:before {
     font-family: FontAwesome !important;
-    color: transparent !important;
-    background: #000 url('../../assets/images/arrow.png') center center no-repeat !important;
-    
+    color      : transparent !important;
+    background : #000 url('../../assets/images/arrow.png') center center no-repeat !important;
+
     content: '';
 }
+
 .slick-next {
-    border: 2px solid #d7d7d7 !important;
+    border    : 2px solid #d7d7d7 !important;
     background: #000 url('../../assets/images/arrow.png') center center no-repeat !important;
-    height: 48px !important;
-    width: 44px !important;
-    right: -10px !important;
-    z-index: 1000 !important;
-    opacity: .3;
+    height    : 48px !important;
+    width     : 44px !important;
+    right     : -10px !important;
+    z-index   : 1000 !important;
+    opacity   : .3;
 
 }
+
 .slick-disabled {
     display: none !important;
 }
