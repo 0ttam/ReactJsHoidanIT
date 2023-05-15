@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import * as actions from '../../../store/actions/adminAction';
+import { withRouter } from 'react-router';
 
 class Specialty extends Component {
     constructor(props) {
@@ -29,6 +30,11 @@ class Specialty extends Component {
             }
         }
     }
+    onClickItemSpecialty = (specialty) => {
+        if (this.props.history) {
+            this.props.history.push(`/detail-specialty/${specialty.id}`);
+        }
+    };
     render() {
         let { arrSpecialty } = this.state;
         return (
@@ -54,7 +60,12 @@ class Specialty extends Component {
                                         ).toString('binary');
                                     }
                                     return (
-                                        <div className='specialty-item'>
+                                        <div
+                                            className='specialty-item'
+                                            onClick={() =>
+                                                this.onClickItemSpecialty(item)
+                                            }
+                                        >
                                             <div
                                                 className='specialty-img'
                                                 style={{
@@ -70,7 +81,7 @@ class Specialty extends Component {
                                                 }}
                                             ></div>
                                             <div className='specialty-name'>
-                                                {item.name}
+                                                {item.nameVi}
                                             </div>
                                         </div>
                                     );
@@ -97,4 +108,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(Specialty)
+);

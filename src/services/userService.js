@@ -66,7 +66,6 @@ const handleEditSpecialty = (data) => {
 const handleDeleteSpecialty = (userId) => {
     return axios.delete(`/api/delete-specialty?id=${userId}`);
 };
-
 export {
     handleLoginApi,
     handleGetAllUsers,

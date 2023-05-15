@@ -175,8 +175,15 @@ class DoctorExtraInfo extends Component {
                                             doctorExtraInfo.data.paymentTypeData
                                                 ? doctorExtraInfo.data
                                                       .paymentTypeData.valueVi
-                                                : doctorExtraInfo.data
-                                                      .paymentTypeData.valueEn}
+                                                : ''}
+
+                                            {languages === LANGUAGES.EN &&
+                                            doctorExtraInfo &&
+                                            doctorExtraInfo.data &&
+                                            doctorExtraInfo.data.paymentTypeData
+                                                ? doctorExtraInfo.data
+                                                      .paymentTypeData.valueEn
+                                                : ''}
                                         </b>
                                     </div>
                                 </div>

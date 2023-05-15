@@ -35,13 +35,18 @@ class ModalAddDetailDoctor extends Component {
             listPrice: [],
             listProvince: [],
             listPayment: [],
+            listClinic: [],
+            listSpecialty: [],
 
             priceId: '',
             provinceId: '',
             paymentId: '',
+            specialtyId: '',
 
             nameClinic: '',
             addressClinic: '',
+            selectedClinic: '',
+            selectedSpecialty: '',
             note: '',
         };
     }
@@ -50,6 +55,7 @@ class ModalAddDetailDoctor extends Component {
         this.props.fetchPriceDoctor();
         this.props.fetchProvinceDoctor();
         this.props.fetchPaymentDoctor();
+        this.props.fetchSpecialty();
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allDoctorRedux !== this.props.allDoctorRedux) {
@@ -183,6 +189,14 @@ class ModalAddDetailDoctor extends Component {
                 listPayment: dataSelectPayment,
             });
         }
+        if (prevProps.listSpecialtyRedux !== this.props.listSpecialtyRedux) {
+            let dataSelectSpecialty = this.handleBuiltSelection(
+                this.props.listSpecialtyRedux.data
+            );
+            this.setState({
+                listSpecialty: dataSelectSpecialty,
+            });
+        }
     }
     handleEditorChange = ({ html, text }) => {
         console.log('handleEditorChange', html, text);
@@ -207,15 +221,14 @@ class ModalAddDetailDoctor extends Component {
         let stateCopy = this.state;
         stateCopy[stateName] = selectedOption;
         this.setState({ ...stateCopy });
-        console.log('handle select on change', selectedOption, stateCopy);
     };
     handleOnChangeText = (event, id) => {
         let stateCopy = { ...this.state };
         stateCopy[id] = event.target.value;
         this.setState({ ...stateCopy });
-        console.log('handle text on change', stateCopy);
     };
     handleSaveChangeDoctor = async () => {
+        console.log('specialtyId======>', this.state.specialtyId.value);
         try {
             await this.props.saveDetailInfoDoctor({
                 id: this.state.selectedDoctor.id,
@@ -229,6 +242,7 @@ class ModalAddDetailDoctor extends Component {
                 nameClinic: this.state.nameClinic,
                 addressClinic: this.state.addressClinic,
                 note: this.state.note,
+                specialtyId: this.state.specialtyId.value,
             });
             this.setState({
                 selectedDoctor: '',
@@ -243,6 +257,7 @@ class ModalAddDetailDoctor extends Component {
                 nameClinic: '',
                 addressClinic: '',
                 note: '',
+                specialtyId: '',
             });
             this.notify(
                 this.state.detailInfoNotifications.vi,
@@ -253,6 +268,7 @@ class ModalAddDetailDoctor extends Component {
         }
     };
     handleUpdateDoctor = async () => {
+        console.log('specialtyId======>', +this.state.specialtyId.value);
         try {
             await this.props.updateDetailInfoDoctor({
                 id: this.state.selectedDoctor.id,
@@ -266,6 +282,7 @@ class ModalAddDetailDoctor extends Component {
                 nameClinic: this.state.nameClinic,
                 addressClinic: this.state.addressClinic,
                 note: this.state.note,
+                specialtyId: +this.state.specialtyId.value,
             });
             this.setState({
                 selectedDoctor: '',
@@ -280,6 +297,7 @@ class ModalAddDetailDoctor extends Component {
                 nameClinic: '',
                 addressClinic: '',
                 note: '',
+                specialtyId: '',
             });
             this.notify(
                 this.state.updateDetailInfoNotification.vi,
@@ -312,10 +330,22 @@ class ModalAddDetailDoctor extends Component {
             // eslint-disable-next-line array-callback-return
             dataInput.map((item, index) => {
                 let Object = {};
-                let nameVi = `${item.valueVi}`;
-                let nameEn = `${item.valueEn}`;
+                let nameVi = '',
+                    nameEn = '';
+                if (item.valueVi && item.valueEn) {
+                    nameVi = `${item.valueVi}`;
+                    nameEn = `${item.valueEn}`;
+                } else {
+                    nameVi = `${item.nameVi}`;
+                    nameEn = `${item.nameEn}`;
+                }
+
                 Object.label = language === LANGUAGES.EN ? nameEn : nameVi;
-                Object.value = item.keyMap;
+                if (item.keyMap) {
+                    Object.value = item.keyMap;
+                } else {
+                    Object.value = item.id;
+                }
                 result.push(Object);
             });
         }
@@ -335,7 +365,14 @@ class ModalAddDetailDoctor extends Component {
             nameClinic,
             addressClinic,
             note,
+            listSpecialty,
+            specialtyId,
         } = this.state;
+        console.log('listSpecialtyRedux', this.props.listSpecialtyRedux.data);
+        console.log(
+            'listPaymentDoctorRedux',
+            this.props.listPaymentDoctorRedux
+        );
         return (
             <div className='modal-add-detail-doctor-container'>
                 <ToastContainer />
@@ -375,7 +412,7 @@ class ModalAddDetailDoctor extends Component {
                     </div>
                 </div>
                 <div className='more-info-extra col-12 row'>
-                    <div className='form-group col-4'>
+                    <div className='form-group col-3'>
                         <label>
                             <b>
                                 <FormattedMessage id='admin.manage-doctor.price' />
@@ -391,7 +428,7 @@ class ModalAddDetailDoctor extends Component {
                             name='priceId'
                         />
                     </div>
-                    <div className='form-group col-4'>
+                    <div className='form-group col-3'>
                         <label>
                             <b>
                                 <FormattedMessage id='admin.manage-doctor.payment' />
@@ -407,7 +444,7 @@ class ModalAddDetailDoctor extends Component {
                             name='paymentId'
                         />
                     </div>
-                    <div className='form-group col-4'>
+                    <div className='form-group col-3'>
                         <label>
                             <b>
                                 <FormattedMessage id='admin.manage-doctor.province' />
@@ -423,7 +460,7 @@ class ModalAddDetailDoctor extends Component {
                             name='provinceId'
                         />
                     </div>
-                    <div className='form-group col-4'>
+                    <div className='form-group col-3'>
                         <label>
                             <b>
                                 <FormattedMessage id='admin.manage-doctor.clinic-name' />
@@ -437,7 +474,7 @@ class ModalAddDetailDoctor extends Component {
                             }
                         />
                     </div>
-                    <div className='form-group col-4'>
+                    <div className='form-group col-3'>
                         <label>
                             <b>
                                 <FormattedMessage id='admin.manage-doctor.clinic-address' />
@@ -451,7 +488,7 @@ class ModalAddDetailDoctor extends Component {
                             }
                         />
                     </div>
-                    <div className='form-group col-4'>
+                    <div className='form-group col-3'>
                         <label>
                             <b>
                                 <FormattedMessage id='admin.manage-doctor.note' />
@@ -464,6 +501,22 @@ class ModalAddDetailDoctor extends Component {
                                 this.handleOnChangeText(event, 'note')
                             }
                         />
+                    </div>
+                    <div className='form-group col-3'>
+                        <label>
+                            <b>Chon chuyen khoa</b>
+                        </label>
+                        <Select
+                            options={listSpecialty}
+                            value={specialtyId}
+                            onChange={this.handleChange}
+                            placeholder={'chon chuyen khoa'}
+                            name='specialtyId'
+                        />
+                    </div>
+                    <div className='form-group col-3'>
+                        <label>Chon phong kham</label>
+                        <input className='form-control'></input>
                     </div>
                 </div>
                 <div className='markdown-wrap form-group col-12'>
@@ -522,6 +575,7 @@ const mapStateToProps = (state) => {
         listPriceDoctorRedux: state.admin.listPriceDoctor,
         listProvinceDoctorRedux: state.admin.listProvinceDoctor,
         listPaymentDoctorRedux: state.admin.listPaymentDoctor,
+        listSpecialtyRedux: state.admin.getSpecialtyById,
     };
 };
 
@@ -540,6 +594,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(actions.fetchProvinceDoctorStart('PROVINCE')),
         fetchPaymentDoctor: () =>
             dispatch(actions.fetchPaymentDoctorStart('PAYMENT')),
+        fetchSpecialty: () => dispatch(actions.getSpecialtyByIdStart('ALL')),
+        // fetchClinic: () => dispatch(actions.fetchClinicStart),
     };
 };
 

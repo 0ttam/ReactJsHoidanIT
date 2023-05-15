@@ -17,7 +17,7 @@ class ModalAddNewSpecialty extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            nameVi: '',
             contentHTML: '',
             contentMarkdown: '',
             image: Blob,
@@ -29,7 +29,7 @@ class ModalAddNewSpecialty extends Component {
         emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
             //reset state
             this.setState({
-                name: '',
+                nameVi: '',
                 contentHTML: '',
                 contentMarkdown: '',
                 image: '',
@@ -60,7 +60,7 @@ class ModalAddNewSpecialty extends Component {
             this.state.previewImageUrl,
             'isOpenModalUser',
             {
-                name: this.state.name,
+                nameVi: this.state.nameVi,
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
                 image: this.state.image,
@@ -75,7 +75,7 @@ class ModalAddNewSpecialty extends Component {
     };
     handleValidateInput = () => {
         let isValid = true;
-        let arrInput = ['name', 'contentHTML', 'contentMarkdown', 'image'];
+        let arrInput = ['nameVi', 'contentHTML', 'contentMarkdown', 'image'];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false;
@@ -90,7 +90,7 @@ class ModalAddNewSpecialty extends Component {
         if (isValid === true) {
             // call Api request modal
             this.props.createNewSpecialty({
-                name: this.state.name,
+                nameVi: this.state.nameVi,
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
                 image: this.state.image,
@@ -128,9 +128,9 @@ class ModalAddNewSpecialty extends Component {
                             </label>
                             <input
                                 className='form-control'
-                                value={this.state.name}
+                                value={this.state.nameVi}
                                 onChange={(event) =>
-                                    this.handleOnChangeText(event, 'name')
+                                    this.handleOnChangeText(event, 'nameVi')
                                 }
                             ></input>
                         </div>

@@ -7,6 +7,7 @@ export const path = {
     DOCTOR: '/doctor/manage-schedule',
     DETAIL_DOCTOR: '/detail-doctor/:id',
     VERIFY_EMAIL_BOOKING: '/verify-book-appointment',
+    DETAIL_SPECIALTY: '/detail-specialty/:id',
 };
 
 export const LANGUAGES = {

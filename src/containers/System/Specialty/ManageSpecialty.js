@@ -257,7 +257,7 @@ class UserManageRedux extends Component {
                             arrSpecialty.map((item, index) => {
                                 return (
                                     <tr>
-                                        <td>{item.name}</td>
+                                        <td>{item.nameVi}</td>
                                         <td>
                                             <button
                                                 className='pencil'

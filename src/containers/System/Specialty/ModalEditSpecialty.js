@@ -21,7 +21,7 @@ class ModalEditUserRedux extends Component {
         this.state = {
             isOpen: false,
             previewImageUrl: '',
-            name: '',
+            nameVi: '',
             contentHTML: '',
             contentMarkdown: '',
             image: Blob,
@@ -56,7 +56,7 @@ class ModalEditUserRedux extends Component {
             ).toString('binary');
         }
         this.setState({
-            name: this.props.currentSpecialty.name,
+            nameVi: this.props.currentSpecialty.nameVi,
             contentHTML: this.props.currentSpecialty.contentHTML,
             contentMarkdown: this.props.currentSpecialty.contentMarkdown,
             previewImageUrl: imageBase64,
@@ -72,7 +72,7 @@ class ModalEditUserRedux extends Component {
                 ).toString('binary');
             }
             this.setState({
-                name: this.props.currentSpecialty.name,
+                nameVi: this.props.currentSpecialty.nameVi,
                 contentHTML: this.props.currentSpecialty.contentHTML,
                 contentMarkdown: this.props.currentSpecialty.contentMarkdown,
                 previewImageUrl: imageBase64,
@@ -118,7 +118,7 @@ class ModalEditUserRedux extends Component {
     };
     handleValidateInput = () => {
         let isValid = true;
-        let arrInput = ['name', 'image', 'contentMarkdown', 'contentHTML'];
+        let arrInput = ['nameVi', 'image', 'contentMarkdown', 'contentHTML'];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false;
@@ -134,7 +134,7 @@ class ModalEditUserRedux extends Component {
             // call Api request modal
             this.props.updateSpecialty({
                 id: this.props.currentSpecialty.id,
-                name: this.state.name,
+                nameVi: this.state.nameVi,
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
                 image: this.state.image,
@@ -154,7 +154,7 @@ class ModalEditUserRedux extends Component {
 
     render() {
         let languages = this.props.languages;
-        let { previewImageUrl, name } = this.state;
+        let { previewImageUrl, nameVi } = this.state;
 
         return (
             <Modal
@@ -174,9 +174,9 @@ class ModalEditUserRedux extends Component {
                             </label>
                             <input
                                 className='form-control'
-                                value={name}
+                                value={nameVi}
                                 onChange={(event) =>
-                                    this.handleOnChangeText(event, 'name')
+                                    this.handleOnChangeText(event, 'nameVi')
                                 }
                             ></input>
                         </div>
