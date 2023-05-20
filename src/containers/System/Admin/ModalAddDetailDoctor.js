@@ -79,11 +79,15 @@ class ModalAddDetailDoctor extends Component {
             let dataSelectPayment = this.handleBuiltSelection(
                 this.props.listPaymentDoctorRedux
             );
+            let dataSelectSpecialty = this.handleBuiltSelection(
+                this.props.listSpecialtyRedux.data
+            );
             this.setState({
                 listDoctor: arrDoctor,
                 listPrice: dataSelectPrice,
                 listProvince: dataSelectProvince,
                 listPayment: dataSelectPayment,
+                listSpecialty: dataSelectSpecialty,
             });
         }
         if (
@@ -228,7 +232,6 @@ class ModalAddDetailDoctor extends Component {
         this.setState({ ...stateCopy });
     };
     handleSaveChangeDoctor = async () => {
-        console.log('specialtyId======>', this.state.specialtyId.value);
         try {
             await this.props.saveDetailInfoDoctor({
                 id: this.state.selectedDoctor.id,
@@ -268,7 +271,6 @@ class ModalAddDetailDoctor extends Component {
         }
     };
     handleUpdateDoctor = async () => {
-        console.log('specialtyId======>', +this.state.specialtyId.value);
         try {
             await this.props.updateDetailInfoDoctor({
                 id: this.state.selectedDoctor.id,
@@ -282,7 +284,7 @@ class ModalAddDetailDoctor extends Component {
                 nameClinic: this.state.nameClinic,
                 addressClinic: this.state.addressClinic,
                 note: this.state.note,
-                specialtyId: +this.state.specialtyId.value,
+                specialtyId: this.state.specialtyId.value,
             });
             this.setState({
                 selectedDoctor: '',
@@ -367,12 +369,10 @@ class ModalAddDetailDoctor extends Component {
             note,
             listSpecialty,
             specialtyId,
+            selectedDoctor,
+            listDoctor,
+            description,
         } = this.state;
-        console.log('listSpecialtyRedux', this.props.listSpecialtyRedux.data);
-        console.log(
-            'listPaymentDoctorRedux',
-            this.props.listPaymentDoctorRedux
-        );
         return (
             <div className='modal-add-detail-doctor-container'>
                 <ToastContainer />
@@ -387,8 +387,8 @@ class ModalAddDetailDoctor extends Component {
                             </b>
                         </label>
                         <Select
-                            options={this.state.listDoctor}
-                            value={this.state.selectedDoctor}
+                            options={listDoctor}
+                            value={selectedDoctor}
                             onChange={this.handleDoctorChange}
                             placeholder={
                                 <FormattedMessage id='admin.manage-doctor.choose-a-doctor' />
@@ -404,7 +404,7 @@ class ModalAddDetailDoctor extends Component {
                         <textarea
                             className='form-control'
                             rows='4'
-                            value={this.state.description}
+                            value={description}
                             onChange={(event) =>
                                 this.handleOnChangeText(event, 'description')
                             }

@@ -21,6 +21,7 @@ import {
     handleGetSpecialtyById,
     handleEditSpecialty,
     handleDeleteSpecialty,
+    handleGetListDoctorBySpecialty,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -1054,4 +1055,45 @@ export const deleteSpecialtyFailed = (data) => ({
     data: data,
 });
 
-
+export const getListDoctorBySpecialtyStart = (specialtyId) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetListDoctorBySpecialty(specialtyId);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    getListDoctorBySpecialtySuccess({
+                        vi: 'Lấy danh sách bác sĩ theo chuyên khoa thành công',
+                        en: 'Get list Doctor by Specialty successfully!',
+                        errType: 'success',
+                        data: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    getListDoctorBySpecialtyFailed({
+                        vi: 'Lấy danh sách bác sĩ theo chuyên khoa thất bại',
+                        en: 'Get list Doctor by Specialty failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                getListDoctorBySpecialtyFailed({
+                    vi: 'Lấy danh sách bác sĩ theo chuyên khoa thất bại',
+                    en: 'Get list Doctor by Specialty failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('get Detail Doctor By Specialty failed', e);
+        }
+    };
+};
+export const getListDoctorBySpecialtySuccess = (data) => ({
+    type: actionTypes.GET_LIST_DOCTOR_BY_SPECIALTY_ID_SUCCESS,
+    data: data,
+});
+export const getListDoctorBySpecialtyFailed = (data) => ({
+    type: actionTypes.GET_LIST_DOCTOR_BY_SPECIALTY_ID_FAILED,
+    data: data,
+});

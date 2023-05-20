@@ -7,14 +7,17 @@ import * as actions from '../../../store/actions/adminAction';
 import { LANGUAGES } from '../../../utils';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
+import DoctorSchedule from '../Doctor/DoctorSchedule';
+import { handleGetListDoctorBySpecialty } from '../../../services/userService';
 
 class DetailSpecialty extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            detailInfoDoctor: {},
+            listDoctorBySpecialtyId: [],
             languages: '',
-            currentDoctorId: -1,
+            currentSpecialtyId: -1,
         };
     }
     async componentDidMount() {
@@ -25,19 +28,17 @@ class DetailSpecialty extends Component {
         ) {
             let id = this.props.match.params.id;
             this.setState({
-                currentDoctorId: id,
+                currentSpecialtyId: id,
             });
-            this.props.loadDetailDoctor(id);
+            let res = await handleGetListDoctorBySpecialty(id);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    listDoctorBySpecialtyId: res.data,
+                });
+            }
         }
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (
-            prevProps.detailInfoDoctorRedux !== this.props.detailInfoDoctorRedux
-        ) {
-            this.setState({
-                detailInfoDoctor: this.props.detailInfoDoctorRedux,
-            });
-        }
         if (prevProps.languages !== this.props.languages) {
             this.setState({
                 languages: this.props.languages,
@@ -48,85 +49,98 @@ class DetailSpecialty extends Component {
         this.notify(data.msg, data.errType);
     };
     notify = (message, type) => toast(message, { autoClose: 2000, type: type });
+
     render() {
-        let { languages } = this.props;
-        let { detailInfoDoctor } = this.state;
-        let nameVi = '',
-            nameEn = '';
-        if (detailInfoDoctor && detailInfoDoctor.positionData) {
-            nameVi = `${detailInfoDoctor.positionData.valueVi} ${detailInfoDoctor.lastName} ${detailInfoDoctor.firstName}`;
-            nameEn = `${detailInfoDoctor.positionData.valueEn} ${detailInfoDoctor.firstName} ${detailInfoDoctor.lastName}`;
-        }
+        let languages = this.props.languages;
+        let { listDoctorBySpecialtyId } = this.state;
+
         return (
             <Fragment>
                 <ToastContainer />
                 <HomeHeader />
-                {/* <div className='doctor-detail-container'>
-                    <div className='intro-doctor'>
-                        <div
-                            className='content-left'
-                            style={{
-                                backgroundImage: `url(${detailInfoDoctor.avatar})`,
-                                height: '120px',
-                                width: '120px',
-                                borderRadius: '50%',
-                                backgroundPosition: 'center center',
-                                backgroundRepeat: 'no-repeat',
-                                backgroundSize: 'cover',
-                                backgroundColor: '#eee',
-                                margin: '0 auto',
-                            }}
-                        ></div>
-                        <div className='content-right'>
-                            <div className='content-right-up'>
-                                {languages && languages === LANGUAGES.EN
-                                    ? nameEn
-                                    : nameVi}
-                            </div>
-                            <div className='content-right-down'>
-                                {detailInfoDoctor &&
-                                    detailInfoDoctor.Markdown && (
-                                        <span>
-                                            {
-                                                detailInfoDoctor.Markdown
-                                                    .description
+                <div> Cơ xương khớp</div>
+                {listDoctorBySpecialtyId &&
+                    listDoctorBySpecialtyId.length > 0 &&
+                    listDoctorBySpecialtyId.map((item, index) => {
+                        let nameVi = '',
+                            nameEn = '';
+                        if (item.User && item.User.positionData) {
+                            nameVi = `${item.User.positionData.valueVi} ${item.User.lastName} ${item.User.firstName}`;
+                            nameEn = `${item.User.positionData.valueEn} ${item.User.firstName} ${item.User.lastName}`;
+                        }
+                        let imageBase64 = '';
+                        if (item.User.avatar) {
+                            imageBase64 = new Buffer(
+                                item.User.avatar,
+                                'base64'
+                            ).toString('binary');
+                        }
+                        return (
+                            <div
+                                className='specialty-detail-container'
+                                key={index}
+                            >
+                                <div className='doctor-detail'>
+                                    <div className='content-left'>
+                                        <div className='intro-doctor'>
+                                            <div
+                                                className='content-img'
+                                                style={{
+                                                    backgroundImage: `url(${imageBase64})`,
+                                                    height: '80px',
+                                                    width: '80px',
+                                                    borderRadius: '50%',
+                                                    backgroundPosition:
+                                                        'center center',
+                                                    backgroundRepeat:
+                                                        'no-repeat',
+                                                    backgroundSize: 'cover',
+                                                    backgroundColor: '#eee',
+                                                }}
+                                            ></div>
+                                            <div className='content-right'>
+                                                <div className='content-right-up'>
+                                                    {languages &&
+                                                    languages === LANGUAGES.EN
+                                                        ? nameEn
+                                                        : nameVi}
+                                                </div>
+                                                <div className='content-right-down'>
+                                                    {item &&
+                                                        item.User.Markdown && (
+                                                            <span>
+                                                                {
+                                                                    item.User
+                                                                        .Markdown
+                                                                        .description
+                                                                }
+                                                            </span>
+                                                        )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='content-right' key={index}>
+                                        <DoctorSchedule
+                                            currentDoctorId={item.doctorId}
+                                            key={index}
+                                            showNotification={(data) =>
+                                                this.showNotification(data)
                                             }
-                                        </span>
-                                    )}
+                                        />
+                                        <DoctorExtraInfo
+                                            currentDoctorId={item.doctorId}
+                                            key={index}
+                                        />
+                                    </div>
+                                </div>
+                                <div className='detail-info-doctor-wrapper'>
+                                    <div className='detail-info-doctor'></div>
+                                </div>
+                                <div className='comment-doctor'></div>
                             </div>
-                        </div>
-                    </div>
-                    <div className='schedule-doctor'>
-                        <div className='content-left'>
-                            <DoctorSchedule
-                                currentDoctorId={this.state.currentDoctorId}
-                                showNotification={(data) =>
-                                    this.showNotification(data)
-                                }
-                            />
-                        </div>
-                        <div className='content-right'>
-                            <DoctorExtraInfo
-                                currentDoctorId={this.state.currentDoctorId}
-                            />
-                        </div>
-                    </div>
-                    <div className='detail-info-doctor-wrapper'>
-                        <div className='detail-info-doctor'>
-                            {detailInfoDoctor &&
-                                detailInfoDoctor.Markdown &&
-                                detailInfoDoctor.Markdown.contentHTML && (
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: detailInfoDoctor.Markdown
-                                                .contentHTML,
-                                        }}
-                                    ></div>
-                                )}
-                        </div>
-                    </div>
-                    <div className='comment-doctor'></div>
-                </div> */}
+                        );
+                    })}
             </Fragment>
         );
     }
@@ -135,14 +149,14 @@ class DetailSpecialty extends Component {
 const mapStateToProps = (state) => {
     return {
         languages: state.app.language,
-        detailInfoDoctorRedux: state.admin.detailInfoDoctor,
+        // listDoctorBySpecialtyIdRedux: state.admin.listDoctorBySpecialtyId,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadDetailDoctor: (idDoctor) =>
-            dispatch(actions.getDetailInfoDoctorStart(idDoctor)),
+        // loadDetailDoctorBySpecialty: (idSpecialty) =>
+        //     dispatch(actions.getListDoctorBySpecialtyStart(idSpecialty)),
     };
 };
 

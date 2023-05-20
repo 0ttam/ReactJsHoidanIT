@@ -8,6 +8,7 @@ import localization from 'moment/locale/vi';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
 import ModalBooking from './Modal/ModalBooking';
+import { handleGetScheduleByDate } from '../../../services/userService';
 
 class DoctorSchedule extends Component {
     constructor(props) {
@@ -18,14 +19,32 @@ class DoctorSchedule extends Component {
             allScheduleByDate: [],
             isOpenModalBooking: false,
             scheduleSelected: '',
-            currentDoctorId: '',
         };
     }
-    componentDidMount() {
-        let arrDate = this.getArrDay(this.props.languages);
-        this.setState({
-            allDays: arrDate,
-        });
+    async componentDidMount() {
+        let arrDate = [];
+        if (this.props.languages) {
+            arrDate = this.getArrDay(this.props.languages);
+            this.setState({
+                allDays: arrDate,
+            });
+            if (
+                this.props.currentDoctorId &&
+                arrDate &&
+                arrDate[0] &&
+                arrDate[0].value
+            ) {
+                let res = await handleGetScheduleByDate(
+                    this.props.currentDoctorId,
+                    arrDate[0].value
+                );
+                if (res && res.errCode === 0) {
+                    this.setState({
+                        allScheduleByDate: res.data,
+                    });
+                }
+            }
+        }
     }
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.languages !== this.props.languages) {
@@ -34,19 +53,20 @@ class DoctorSchedule extends Component {
                 allDays: arrDate,
             });
         }
-        if (prevProps.scheduleByDateRedux !== this.props.scheduleByDateRedux) {
-            this.setState({
-                allScheduleByDate: this.props.scheduleByDateRedux.data,
-            });
-        }
-        if (prevProps.currentDoctorId !== this.props.currentDoctorId) {
-            this.props.loadScheduleByDate(
+        if (
+            prevProps.currentDoctorId !== this.props.currentDoctorId &&
+            this.state.allDays[0] &&
+            this.state.allDays[0].value
+        ) {
+            let res = await handleGetScheduleByDate(
                 this.props.currentDoctorId,
                 this.state.allDays[0].value
             );
-            this.setState({
-                currentDoctorId: this.props.currentDoctorId,
-            });
+            if (res && res.errCode === 0) {
+                this.setState({
+                    allScheduleByDate: res.data,
+                });
+            }
         }
     }
     getArrDay = (languages) => {
@@ -94,7 +114,12 @@ class DoctorSchedule extends Component {
         ) {
             let doctorId = this.props.currentDoctorId;
             let date = event.target.value;
-            await this.props.loadScheduleByDate(doctorId, date);
+            let res = await handleGetScheduleByDate(doctorId, date);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    allScheduleByDate: res.data,
+                });
+            }
         }
     };
     handleOnclickAvailableTime = (item) => {
@@ -109,14 +134,13 @@ class DoctorSchedule extends Component {
     render() {
         let { allDays, allScheduleByDate } = this.state;
         let languages = this.props.languages;
-        console.log('scheduleSelected', this.state.scheduleSelected);
         return (
             <Fragment>
                 <ModalBooking
                     isOpen={this.state.isOpenModalBooking}
                     toggle={this.handleToggleModalBooking}
                     scheduleSelected={this.state.scheduleSelected}
-                    currentDoctorId={this.state.currentDoctorId}
+                    currentDoctorId={this.props.currentDoctorId}
                     showNotification={(data) => this.showNotification(data)}
                 />
                 <div className='doctor-schedule-container'>
@@ -148,7 +172,7 @@ class DoctorSchedule extends Component {
                             allScheduleByDate &&
                             allScheduleByDate.length > 0 ? (
                                 <Fragment>
-                                    <div className='time-content'>
+                                    <div className='time-content '>
                                         {allScheduleByDate.map(
                                             (item, index) => {
                                                 let availableTime =
@@ -202,14 +226,14 @@ class DoctorSchedule extends Component {
 const mapStateToProps = (state) => {
     return {
         languages: state.app.language,
-        scheduleByDateRedux: state.admin.scheduleByDate,
+        // scheduleByDateRedux: state.admin.scheduleByDate,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadScheduleByDate: (doctorId, date) =>
-            dispatch(actions.getScheduleByDateStart(doctorId, date)),
+        // loadScheduleByDate: (doctorId, date) =>
+        //     dispatch(actions.getScheduleByDateStart(doctorId, date)),
     };
 };
 

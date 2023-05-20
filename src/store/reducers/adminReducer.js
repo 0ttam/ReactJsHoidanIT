@@ -19,6 +19,7 @@ const initialState = {
     updateSpecialtyNotify: {},
     getSpecialtyById: [],
     deleteSpecialtyNotify: {},
+    listDoctorBySpecialtyId: [],
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -249,6 +250,12 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.DELETE_SPECIALTY_FAILED:
             state.deleteSpecialtyNotify = action.data;
+            return { ...state };
+        case actionTypes.GET_LIST_DOCTOR_BY_SPECIALTY_ID_SUCCESS:
+            state.listDoctorBySpecialtyId = action.data;
+            return { ...state };
+        case actionTypes.GET_LIST_DOCTOR_BY_SPECIALTY_ID_FAILED:
+            state.listDoctorBySpecialtyId = action.data;
             return { ...state };
         default:
             return state;

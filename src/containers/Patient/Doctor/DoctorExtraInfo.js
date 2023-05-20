@@ -6,6 +6,7 @@ import './DoctorExtraInfo.scss';
 import { NumericFormat } from 'react-number-format';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
+import { handleGetDoctorExtraInfoById } from '../../../services/userService';
 
 class DoctorExtraInfo extends Component {
     constructor(props) {
@@ -15,17 +16,28 @@ class DoctorExtraInfo extends Component {
             doctorExtraInfo: {},
         };
     }
-    componentDidMount() {}
+    async componentDidMount() {
+        if (this.props.currentDoctorId) {
+            let res = await handleGetDoctorExtraInfoById(
+                this.props.currentDoctorId
+            );
+            if (res) {
+                this.setState({
+                    doctorExtraInfo: res,
+                });
+            }
+        }
+    }
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.currentDoctorId !== this.props.currentDoctorId) {
-            await this.props.getDoctorExtraInfo(this.props.currentDoctorId);
-        }
-        if (
-            prevProps.doctorExtraInfoRedux !== this.props.doctorExtraInfoRedux
-        ) {
-            this.setState({
-                doctorExtraInfo: this.props.doctorExtraInfoRedux,
-            });
+            let res = await handleGetDoctorExtraInfoById(
+                this.props.currentDoctorId
+            );
+            if (res) {
+                this.setState({
+                    doctorExtraInfo: res,
+                });
+            }
         }
     }
     showHiddenDetailInfo = () => {
@@ -207,14 +219,14 @@ class DoctorExtraInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         languages: state.app.language,
-        doctorExtraInfoRedux: state.admin.doctorExtraInfo,
+        // doctorExtraInfoRedux: state.admin.doctorExtraInfo,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDoctorExtraInfo: (doctorId) =>
-            dispatch(actions.getDoctorExtraInfoByIdStart(doctorId)),
+        // getDoctorExtraInfo: (doctorId) =>
+        //     dispatch(actions.getDoctorExtraInfoByIdStart(doctorId)),
     };
 };
 

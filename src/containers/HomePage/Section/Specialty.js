@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import * as actions from '../../../store/actions/adminAction';
 import { withRouter } from 'react-router';
 
-class Specialty extends Component {
+class Specialty extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,7 +51,8 @@ class Specialty extends Component {
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
                             {arrSpecialty &&
-                                arrSpecialty.map((item) => {
+                                arrSpecialty.length > 0 &&
+                                arrSpecialty.map((item, index) => {
                                     let imageBase64 = '';
                                     if (item.image) {
                                         imageBase64 = new Buffer(
@@ -62,6 +63,7 @@ class Specialty extends Component {
                                     return (
                                         <div
                                             className='specialty-item'
+                                            key={index}
                                             onClick={() =>
                                                 this.onClickItemSpecialty(item)
                                             }

@@ -45,55 +45,61 @@ class App extends Component {
 
     render() {
         return (
-            <Fragment>
-                <Router history={history}>
-                    <div className='main-container'>
-                        <div className='content-container'>
-                            <Scrollbars
-                                style={{ height: '100vh', width: '100%' }}
-                            >
-                                <Switch>
-                                    <Route
-                                        path={path.HOME}
-                                        exact
-                                        component={Home}
-                                    />
-                                    <Route
-                                        path={path.LOGIN}
-                                        component={userIsNotAuthenticated(
-                                            Login
-                                        )}
-                                    />
-                                    <Route
-                                        path={path.SYSTEM}
-                                        component={userIsAuthenticated(System)}
-                                    />
-                                    <Route
-                                        path={path.DOCTOR}
-                                        component={userIsAuthenticated(Doctor)}
-                                    />
-                                    <Route
-                                        path={path.HOMEPAGE}
-                                        component={HomePage}
-                                    />
-                                    <Route
-                                        path={path.DETAIL_DOCTOR}
-                                        component={DetailDoctor}
-                                    />
-                                    <Route
-                                        path={path.DETAIL_SPECIALTY}
-                                        component={DetailSpecialty}
-                                    />
-                                    <Route
-                                        path={path.VERIFY_EMAIL_BOOKING}
-                                        component={VerifyEmail}
-                                    />
-                                </Switch>
-                            </Scrollbars>
+            <React.StrictMode>
+                <Fragment>
+                    <Router history={history}>
+                        <div className='main-container'>
+                            <div className='content-container'>
+                                <Scrollbars
+                                    style={{ height: '100vh', width: '100%' }}
+                                >
+                                    <Switch>
+                                        <Route
+                                            path={path.HOME}
+                                            exact
+                                            component={Home}
+                                        />
+                                        <Route
+                                            path={path.LOGIN}
+                                            component={userIsNotAuthenticated(
+                                                Login
+                                            )}
+                                        />
+                                        <Route
+                                            path={path.SYSTEM}
+                                            component={userIsAuthenticated(
+                                                System
+                                            )}
+                                        />
+                                        <Route
+                                            path={path.DOCTOR}
+                                            component={userIsAuthenticated(
+                                                Doctor
+                                            )}
+                                        />
+                                        <Route
+                                            path={path.HOMEPAGE}
+                                            component={HomePage}
+                                        />
+                                        <Route
+                                            path={path.DETAIL_DOCTOR}
+                                            component={DetailDoctor}
+                                        />
+                                        <Route
+                                            path={path.DETAIL_SPECIALTY}
+                                            component={DetailSpecialty}
+                                        />
+                                        <Route
+                                            path={path.VERIFY_EMAIL_BOOKING}
+                                            component={VerifyEmail}
+                                        />
+                                    </Switch>
+                                </Scrollbars>
+                            </div>
                         </div>
-                    </div>
-                </Router>
-            </Fragment>
+                    </Router>
+                </Fragment>
+            </React.StrictMode>
         );
     }
 }
