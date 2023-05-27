@@ -161,7 +161,7 @@ class DoctorSchedule extends Component {
                     </div>
                     <div className='all-available-time'>
                         <div className='text-calendar'>
-                            <i className='fas fa-calendar-alt'>
+                            <i className='fas fa-calendar-alt icon'>
                                 <span>
                                     <FormattedMessage id='patient.detail-doctor.schedule' />
                                 </span>
@@ -204,7 +204,7 @@ class DoctorSchedule extends Component {
                                     </div>
                                     <div className='free-book'>
                                         <FormattedMessage id='patient.detail-doctor.free-book-1' />{' '}
-                                        <i class='fas fa-hand-point-up'></i>{' '}
+                                        <i className='fas fa-hand-point-up'></i>{' '}
                                         <FormattedMessage id='patient.detail-doctor.free-book-2' />
                                     </div>
                                 </Fragment>

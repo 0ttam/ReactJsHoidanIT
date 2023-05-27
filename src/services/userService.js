@@ -66,9 +66,9 @@ const handleEditSpecialty = (data) => {
 const handleDeleteSpecialty = (userId) => {
     return axios.delete(`/api/delete-specialty?id=${userId}`);
 };
-const handleGetListDoctorBySpecialty = (specialtyId) => {
+const handleGetListDoctorBySpecialty = (specialtyId, provinceId) => {
     return axios.get(
-        `/api/get-list-doctor-by-specialty-id?specialtyId=${specialtyId}`
+        `/api/get-list-doctor-by-specialty-id?specialtyId=${specialtyId}&provinceId=${provinceId}`
     );
 };
 export {

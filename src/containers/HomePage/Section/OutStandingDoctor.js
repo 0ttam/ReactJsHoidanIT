@@ -10,7 +10,7 @@ class OutStandingDoctor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrTopDoctorHome: [],
+            arrTopDoctor: [],
         };
     }
     async componentDidMount() {
@@ -18,7 +18,7 @@ class OutStandingDoctor extends Component {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.topDoctorRedux !== this.props.topDoctorRedux) {
-            this.setState({ arrTopDoctorHome: this.props.topDoctorRedux });
+            this.setState({ arrTopDoctor: this.props.topDoctorRedux });
         }
     }
     handleViewDoctor = (doctor) => {
@@ -27,8 +27,9 @@ class OutStandingDoctor extends Component {
         }
     };
     render() {
-        let arrTopDoctor = this.state.arrTopDoctorHome;
+        let { arrTopDoctor } = this.state;
         let { languages } = this.props;
+        console.log('arrTopDoctor', arrTopDoctor);
         // arrTopDoctor = arrTopDoctor.concat(arrTopDoctor).concat(arrTopDoctor);
         return (
             <div className='section-share section-outstanding-doctor'>
@@ -86,7 +87,12 @@ class OutStandingDoctor extends Component {
                                                     : nameVi}
                                             </div>
                                             <div className='outstanding-doctor-facility'>
-                                                Nam Khoa
+                                                <b>
+                                                    {
+                                                        item.Doctor_Info
+                                                            .Specialty.nameVi
+                                                    }
+                                                </b>
                                             </div>
                                         </div>
                                     );

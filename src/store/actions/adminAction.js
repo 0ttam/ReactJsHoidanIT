@@ -11,8 +11,6 @@ import {
     handleGetDetailInfoDoctor,
     handleUpdateDetailInfoDoctor,
     handleSaveBulkScheduleDoctor,
-    handleGetScheduleByDate,
-    handleGetDoctorExtraInfoById,
     handleGetProfileDoctorById,
     handleGetExaminationPriceById,
     handlePostPatientBookAppointment,
@@ -547,49 +545,6 @@ export const saveBulkScheduleDoctorFailed = (data) => ({
     data: data,
 });
 
-export const getScheduleByDateStart = (doctorId, date) => {
-    return async (dispatch, getState) => {
-        try {
-            let res = await handleGetScheduleByDate(doctorId, date);
-            if (res && res.errCode === 0) {
-                dispatch(
-                    getScheduleByDateSuccess({
-                        vi: 'Lấy dữ liệu lịch hẹn thành công',
-                        en: 'Fetch data schedule successfully!',
-                        errType: 'error',
-                        data: res.data,
-                    })
-                );
-            } else {
-                dispatch(
-                    getScheduleByDateFailed({
-                        vi: 'Lấy dữ liệu lịch hẹn không thành công',
-                        en: 'Fetch data schedule failed!',
-                        errType: 'error',
-                    })
-                );
-            }
-        } catch (e) {
-            dispatch(
-                getScheduleByDateFailed({
-                    vi: 'Lấy dữ liệu lịch hẹn không thành công',
-                    en: 'Fetch data schedule failed!',
-                    errType: 'error',
-                })
-            );
-            console.log('fetch all user redux failed', e);
-        }
-    };
-};
-export const getScheduleByDateSuccess = (data) => ({
-    type: actionTypes.GET_SCHEDULE_BY_DATE_SUCCESS,
-    data: data,
-});
-export const getScheduleByDateFailed = (data) => ({
-    type: actionTypes.GET_SCHEDULE_BY_DATE_FAILED,
-    data: data,
-});
-
 export const fetchPriceDoctorStart = (key) => {
     return async (dispatch, getState) => {
         try {
@@ -660,49 +615,6 @@ export const fetchPaymentDoctorSuccess = (data) => ({
 export const fetchPaymentDoctorFailed = () => ({
     type: actionTypes.FETCH_PAYMENT_DOCTOR_FAILED,
     data: {},
-});
-
-export const getDoctorExtraInfoByIdStart = (doctorId) => {
-    return async (dispatch, getState) => {
-        try {
-            let res = await handleGetDoctorExtraInfoById(doctorId);
-            if (res && res.errCode === 0) {
-                dispatch(
-                    getDoctorExtraInfoByIdSuccess({
-                        vi: 'Lấy dữ liệu bác sĩ thành công',
-                        en: 'Fetch data doctor successfully!',
-                        errType: 'success',
-                        data: res.data,
-                    })
-                );
-            } else {
-                dispatch(
-                    getDoctorExtraInfoByIdFailed({
-                        vi: 'Lấy dữ liệu bác sĩ không thành công',
-                        en: 'Fetch data doctor failed!',
-                        errType: 'error',
-                    })
-                );
-            }
-        } catch (e) {
-            dispatch(
-                getDoctorExtraInfoByIdFailed({
-                    vi: 'Lấy dữ liệu bác sĩ không thành công',
-                    en: 'Fetch data doctor failed!',
-                    errType: 'error',
-                })
-            );
-            console.log('fetch all user redux failed', e);
-        }
-    };
-};
-export const getDoctorExtraInfoByIdSuccess = (data) => ({
-    type: actionTypes.GET_DOCTOR_EXTRA_INFO_BY_ID_SUCCESS,
-    data: data,
-});
-export const getDoctorExtraInfoByIdFailed = (data) => ({
-    type: actionTypes.GET_DOCTOR_EXTRA_INFO_BY_ID_FAILED,
-    data: data,
 });
 
 export const getProfileDoctorByIdStart = (doctorId) => {
@@ -1052,48 +964,5 @@ export const deleteSpecialtySuccess = (data) => ({
 });
 export const deleteSpecialtyFailed = (data) => ({
     type: actionTypes.DELETE_SPECIALTY_FAILED,
-    data: data,
-});
-
-export const getListDoctorBySpecialtyStart = (specialtyId) => {
-    return async (dispatch, getState) => {
-        try {
-            let res = await handleGetListDoctorBySpecialty(specialtyId);
-            if (res && res.errCode === 0) {
-                dispatch(
-                    getListDoctorBySpecialtySuccess({
-                        vi: 'Lấy danh sách bác sĩ theo chuyên khoa thành công',
-                        en: 'Get list Doctor by Specialty successfully!',
-                        errType: 'success',
-                        data: res.data,
-                    })
-                );
-            } else {
-                dispatch(
-                    getListDoctorBySpecialtyFailed({
-                        vi: 'Lấy danh sách bác sĩ theo chuyên khoa thất bại',
-                        en: 'Get list Doctor by Specialty failed!',
-                        errType: 'error',
-                    })
-                );
-            }
-        } catch (e) {
-            dispatch(
-                getListDoctorBySpecialtyFailed({
-                    vi: 'Lấy danh sách bác sĩ theo chuyên khoa thất bại',
-                    en: 'Get list Doctor by Specialty failed!',
-                    errType: 'error',
-                })
-            );
-            console.log('get Detail Doctor By Specialty failed', e);
-        }
-    };
-};
-export const getListDoctorBySpecialtySuccess = (data) => ({
-    type: actionTypes.GET_LIST_DOCTOR_BY_SPECIALTY_ID_SUCCESS,
-    data: data,
-});
-export const getListDoctorBySpecialtyFailed = (data) => ({
-    type: actionTypes.GET_LIST_DOCTOR_BY_SPECIALTY_ID_FAILED,
     data: data,
 });

@@ -124,7 +124,6 @@ class DoctorExtraInfo extends Component {
                                     </span>
                                 </div>
                             </div>
-                            <div></div>
                         </div>
                     ) : (
                         <>
@@ -179,7 +178,9 @@ class DoctorExtraInfo extends Component {
                                 </div>
                                 <div className='payment'>
                                     <div>
-                                        <FormattedMessage id='patient.doctor-extra-info.patient-payment' />{' '}
+                                        <span>
+                                            <FormattedMessage id='patient.doctor-extra-info.patient-payment' />{' '}
+                                        </span>
                                         <b>
                                             {languages === LANGUAGES.VI &&
                                             doctorExtraInfo &&

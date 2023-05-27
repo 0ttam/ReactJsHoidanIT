@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fragment } from 'react';
 import HomeHeader from '../../HomePage/Header';
+import Footer from '../../HomePage/Footer';
 import './DetailDoctor.scss';
 import * as actions from '../../../store/actions/adminAction';
 import { LANGUAGES } from '../../../utils';
@@ -129,6 +130,7 @@ class DetailDoctor extends Component {
                     </div>
                     <div className='comment-doctor'></div>
                 </div>
+                <Footer />
             </Fragment>
         );
     }

@@ -10,8 +10,6 @@ const initialState = {
     updateDetailInfoDoctorNotifications: {},
     allScheduleTimeData: [],
     scheduleDoctorNotifications: {},
-    scheduleByDate: {},
-    doctorExtraInfo: {},
     examinationPriceById: {},
     patientBookAppointmentNotifications: {},
     verifyBookAppointmentNotifications: {},
@@ -19,7 +17,6 @@ const initialState = {
     updateSpecialtyNotify: {},
     getSpecialtyById: [],
     deleteSpecialtyNotify: {},
-    listDoctorBySpecialtyId: [],
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -168,13 +165,6 @@ const adminReducer = (state = initialState, action) => {
             state.scheduleDoctorNotifications = action.data;
             return { ...state };
 
-        case actionTypes.GET_SCHEDULE_BY_DATE_SUCCESS:
-            state.scheduleByDate = action.data;
-            return { ...state };
-        case actionTypes.GET_SCHEDULE_BY_DATE_FAILED:
-            state.scheduleByDate = action.data;
-            return { ...state };
-
         case actionTypes.FETCH_PRICE_DOCTOR_SUCCESS:
             state.listPriceDoctor = action.data;
             return { ...state };
@@ -192,13 +182,6 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.FETCH_PAYMENT_DOCTOR_FAILED:
             state.listPaymentDoctor = action.data;
-            return { ...state };
-
-        case actionTypes.GET_DOCTOR_EXTRA_INFO_BY_ID_SUCCESS:
-            state.doctorExtraInfo = action.data;
-            return { ...state };
-        case actionTypes.GET_DOCTOR_EXTRA_INFO_BY_ID_FAILED:
-            state.doctorExtraInfo = action.data;
             return { ...state };
 
         case actionTypes.GET_PROFILE_DOCTOR_BY_ID_SUCCESS:
@@ -251,12 +234,7 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.DELETE_SPECIALTY_FAILED:
             state.deleteSpecialtyNotify = action.data;
             return { ...state };
-        case actionTypes.GET_LIST_DOCTOR_BY_SPECIALTY_ID_SUCCESS:
-            state.listDoctorBySpecialtyId = action.data;
-            return { ...state };
-        case actionTypes.GET_LIST_DOCTOR_BY_SPECIALTY_ID_FAILED:
-            state.listDoctorBySpecialtyId = action.data;
-            return { ...state };
+
         default:
             return state;
     }

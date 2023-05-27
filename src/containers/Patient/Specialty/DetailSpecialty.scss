@@ -1,66 +1,102 @@
-.specialty-detail-container {
+.detail-specialty-container {
 
 
-    .intro-doctor {
-        // margin       : 0 auto;
-        display      : flex;
-        height       : 120px;
-        margin-top   : 20px;
-        margin-bottom: 20px;
+    .detail-specialty {
+        padding: 20px 60px 2px;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.8),
+                rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.99));
+        text-shadow: 0.1px 0.1px 0.1px #e9d8d8;
+        font-size  : 15px;
 
-        .content-left {
-            width: 9%;
-        }
 
-        .content-right {
-            width      : 91%;
-            margin-left: 20px;
-
-            .content-right-up {
-                font-size  : 16px;
-                color      : #49bce2;
-                font-weight: 600;
-            }
-
-            .content-right-down {
-                font-size  : 15px;
-                font-weight: 400;
-                width      : 182%;
-            }
-        }
-    }
-
-    .doctor-detail {
-        margin    : 0 60px;
-        display   : flex;
-        padding   : 15px 0;
-        min-height: 180px;
-
-        .content-left {
-            width       : 55%;
-            border-right: 2px solid #49bce2;
-        }
-
-        .content-right {
-            width: 45%;
-        }
-    }
-
-    .detail-info-doctor-wrapper {
-        background-color: #f9f9f9;
-        border-top      : 1px solid #d9d9d9;
-        border-bottom   : 1px solid #d9d9d9;
-
-        .detail-info-doctor {
-            margin    : 0 100px;
-            margin-top: 20px;
-
-            img {
-                width: 100%;
-            }
-        }
 
     }
 
+    .toggle-detail {
+        padding-left    : 60px;
+        color           : #49bce2;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.99), rgba(255, 255, 255, 1));
+        padding-bottom  : 10px;
+    }
+}
 
+.sort-doctor-specialty {
+    margin     : 0 46px;
+    padding-top: 20px;
+
+}
+
+
+.detail-doctor-background {
+    background    : #eeeeee;
+    padding-bottom: 10px;
+
+    .detail-doctor-container {
+        background-color: #ffffff;
+        margin          : 20px 60px;
+        border-radius   : 10px;
+        padding         : 10px;
+
+        .intro-doctor {
+            // margin       : 0 auto;
+            display      : flex;
+            height       : 120px;
+            margin-top   : 20px;
+            margin-bottom: 20px;
+
+            .content-left {
+                width: 9%;
+            }
+
+            .content-right {
+                width      : 91%;
+                margin-left: 20px;
+
+                .content-right-up {
+                    font-size  : 16px;
+                    color      : #49bce2;
+                    font-weight: 600;
+                }
+
+                .content-right-down {
+                    font-size  : 15px;
+                    font-weight: 400;
+                    width      : 182%;
+                }
+
+                .view-detail-doctor {
+                    color : #5b9fd1;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .doctor-detail {
+
+            display   : flex;
+            padding   : 15px 0;
+            min-height: 180px;
+
+            .content-left {
+                width       : 55%;
+                border-right: 2px solid #49bce2;
+            }
+
+            .content-right {
+                width: 45%;
+            }
+        }
+
+        .detail-info-doctor-wrapper {
+
+            .detail-info-doctor {
+                margin    : 0 100px;
+                margin-top: 20px;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

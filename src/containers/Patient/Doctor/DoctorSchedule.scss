@@ -21,6 +21,10 @@
         .text-calendar {
             margin: 10px 0;
 
+            .icon {
+                margin-left: 4px;
+            }
+
             i {
                 span {
                     text-transform: uppercase;
@@ -66,6 +70,8 @@
             .free-book {
                 margin-top: 5px;
                 display   : block;
+
+
             }
         }
     }

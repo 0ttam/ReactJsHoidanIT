@@ -121,7 +121,8 @@ class ModalAddDetailDoctor extends Component {
                 });
             }
             if (doctorInfo) {
-                let { listPrice, listPayment, listProvince } = this.state;
+                let { listPrice, listPayment, listProvince, listSpecialty } =
+                    this.state;
                 let findItemPriceId = listPrice.find((item) => {
                     if (item.value === doctorInfo.priceId) return item.value;
                 });
@@ -130,6 +131,10 @@ class ModalAddDetailDoctor extends Component {
                 });
                 let findItemProvinceId = listProvince.find((item) => {
                     if (item.value === doctorInfo.provinceId) return item.value;
+                });
+                let findItemSpecialty = listSpecialty.find((item) => {
+                    if (item.value === doctorInfo.specialtyId)
+                        return item.value;
                 });
                 let nameClinic = doctorInfo.nameClinic;
                 let addressClinic = doctorInfo.addressClinic;
@@ -140,6 +145,7 @@ class ModalAddDetailDoctor extends Component {
                 stateCopy['priceId'] = findItemPriceId;
                 stateCopy['paymentId'] = findItemPaymentId;
                 stateCopy['provinceId'] = findItemProvinceId;
+                stateCopy['specialtyId'] = findItemSpecialty;
                 this.setState({
                     ...stateCopy,
                 });
