@@ -19,7 +19,10 @@ import {
     handleGetSpecialtyById,
     handleEditSpecialty,
     handleDeleteSpecialty,
-    handleGetListDoctorBySpecialty,
+    handleCreateNewClinic,
+    handleGetClinicById,
+    handleEditClinic,
+    handleDeleteClinic,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -825,7 +828,7 @@ export const createNewSpecialtyStart = (data) => {
                     errType: 'error',
                 })
             );
-            console.log('create new user failed', e);
+            console.log('create new specialty failed', e);
         }
     };
 };
@@ -868,7 +871,7 @@ export const getSpecialtyByIdStart = (id) => {
                     errType: 'error',
                 })
             );
-            console.log('Get all user failed', e);
+            console.log('Get all specialty failed', e);
         }
     };
 };
@@ -964,5 +967,177 @@ export const deleteSpecialtySuccess = (data) => ({
 });
 export const deleteSpecialtyFailed = (data) => ({
     type: actionTypes.DELETE_SPECIALTY_FAILED,
+    data: data,
+});
+
+export const createNewClinicStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleCreateNewClinic(data);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    createNewClinicSuccess({
+                        vi: 'Tạo mới phòng khám thành công',
+                        en: 'Create new clinic successfully!',
+                        errType: 'success',
+                    })
+                );
+                // dispatch(getSpecialtyByIdStart('ALL'));
+            } else {
+                dispatch(
+                    createNewClinicFailed({
+                        vi: 'Tạo mới phòng khám thất bại',
+                        en: 'Create new clinic failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                createNewClinicFailed({
+                    vi: 'Tạo mới phòng khám thất bại',
+                    en: 'Create new clinic failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('create new clinic failed', e);
+        }
+    };
+};
+export const createNewClinicSuccess = (data) => ({
+    type: actionTypes.CREATE_NEW_CLINIC_SUCCESS,
+    data: data,
+});
+export const createNewClinicFailed = (data) => ({
+    type: actionTypes.CREATE_NEW_CLINIC_FAILED,
+    data: data,
+});
+
+export const getClinicByIdStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleGetClinicById(data);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    getClinicByIdSuccess({
+                        vi: 'Lấy thông tin/danh sách phòng khám thành công',
+                        en: 'Get info/list clinic successfully!',
+                        errType: 'success',
+                        data: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    getClinicByIdFailed({
+                        vi: 'Lấy thông tin/danh sách phòng khám thất bại',
+                        en: 'Get info/list clinic failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                getClinicByIdFailed({
+                    vi: 'Lấy thông tin/danh sách phòng khám thất bại',
+                    en: 'Get info/list clinic failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('Get info/list clinic failed', e);
+        }
+    };
+};
+export const getClinicByIdSuccess = (data) => ({
+    type: actionTypes.GET_CLINIC_BY_ID_SUCCESS,
+    data: data,
+});
+export const getClinicByIdFailed = (data) => ({
+    type: actionTypes.GET_CLINIC_BY_ID_FAILED,
+    data: data,
+});
+
+export const editClinicStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleEditClinic(data);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    editClinicSuccess({
+                        vi: 'Cập nhật phòng khám thành công',
+                        en: 'Update clinic successfully!',
+                        errType: 'success',
+                    })
+                );
+                dispatch(getClinicByIdStart('ALL'));
+            } else {
+                dispatch(
+                    editClinicFailed({
+                        vi: 'Cập nhật phòng khám thất bại',
+                        en: 'Update clinic failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                editClinicFailed({
+                    vi: 'Cập nhật phòng khám thất bại',
+                    en: 'Update clinic failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('Update specialty failed', e);
+        }
+    };
+};
+export const editClinicSuccess = (data) => ({
+    type: actionTypes.EDIT_CLINIC_SUCCESS,
+    data: data,
+});
+export const editClinicFailed = (data) => ({
+    type: actionTypes.EDIT_CLINIC_FAILED,
+    data: data,
+});
+
+export const deleteClinicStart = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleDeleteClinic(id);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    deleteClinicSuccess({
+                        vi: 'Xóa phòng khám thành công',
+                        en: 'Delete clinic successfully!',
+                        errType: 'success',
+                    })
+                );
+                dispatch(getClinicByIdStart('ALL'));
+            } else {
+                dispatch(
+                    deleteClinicFailed({
+                        vi: 'Xóa phòng khám thất bại',
+                        en: 'Delete clinic failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                deleteClinicFailed({
+                    vi: 'Xóa phòng khám thất bại',
+                    en: 'Delete clinic failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('Delete clinic failed', e);
+        }
+    };
+};
+export const deleteClinicSuccess = (data) => ({
+    type: actionTypes.DELETE_CLINIC_SUCCESS,
+    data: data,
+});
+export const deleteClinicFailed = (data) => ({
+    type: actionTypes.DELETE_CLINIC_FAILED,
     data: data,
 });

@@ -4,45 +4,95 @@ import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { emitter } from '../../../utils/emitter';
 import { LANGUAGES } from '../../../utils/constant';
+import * as actions from '../../../store/actions/adminAction';
+import { isEmpty } from 'lodash';
 import CommonUtils from '../../../utils/CommonUtils';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
+import './ManageClinic.scss';
 // import style manually
 import 'react-markdown-editor-lite/lib/index.css';
-import './ModalAddNewSpecialty.scss';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-class ModalAddNewSpecialty extends Component {
+class ModalEditUserRedux extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isOpen: false,
+            previewImageUrl: '',
             nameVi: '',
             contentHTML: '',
             contentMarkdown: '',
             image: Blob,
-            previewImageUrl: '',
         };
-        this.listenToEmitter();
+        // this.listenToEmitter();
     }
-    listenToEmitter() {
-        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
-            //reset state
-            this.setState({
-                nameVi: '',
-                contentHTML: '',
-                contentMarkdown: '',
-                image: '',
-                previewImageUrl: '',
-            });
-        });
-    } // bus event
+    // listenToEmitter() {
+    //     emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
+    //         //reset state
+    //         this.setState({
+    //             email: '',
+    //             password: '',
+    //             firstName: '',
+    //             lastName: '',
+    //             phoneNumber: '',
+    //             address: '',
+    //             gender: '',
+    //             roleId: '',
+    //             positionId: '',
+    //             image: '',
+    //         });
+    //     });
+    // }
+    // bus event
 
-    componentDidMount() {}
-    componentDidUpdate(prevProps, prevState, snapshot) {}
+    componentDidMount() {
+        let imageBase64 = '';
+        if (this.props.currentSpecialty.image) {
+            imageBase64 = Buffer.from(
+                this.props.currentSpecialty.image,
+                'base64'
+            ).toString('binary');
+        }
+        this.setState({
+            nameVi: this.props.currentSpecialty.nameVi,
+            address: this.props.currentSpecialty.address,
+            contentHTML: this.props.currentSpecialty.contentHTML,
+            contentMarkdown: this.props.currentSpecialty.contentMarkdown,
+            previewImageUrl: imageBase64,
+        });
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.currentSpecialty !== this.props.currentSpecialty) {
+            let imageBase64 = '';
+            if (this.props.currentSpecialty.image) {
+                imageBase64 = Buffer.from(
+                    this.props.currentSpecialty.image,
+                    'base64'
+                ).toString('binary');
+            }
+            this.setState({
+                nameVi: this.props.currentSpecialty.nameVi,
+                address: this.props.currentSpecialty.address,
+                contentHTML: this.props.currentSpecialty.contentHTML,
+                contentMarkdown: this.props.currentSpecialty.contentMarkdown,
+                previewImageUrl: imageBase64,
+            });
+        }
+    }
+    // componentWillUnmount
+    // componentDidCatch
+    // shouldComponentUpdate
     toggle = () => {
         this.props.toggleFormParent();
+        this.setState({
+            genderArr: this.props.fetchGender,
+            positionArr: this.props.fetchPosition,
+            roleArr: this.props.fetchRole,
+        });
     };
+
     handleImageChange = async (event) => {
         let data = event.target.files;
         let file = data[0];
@@ -58,13 +108,8 @@ class ModalAddNewSpecialty extends Component {
     openPreviewImage = () => {
         this.props.togglePreviewFormUser(
             this.state.previewImageUrl,
-            'isOpenModalUser',
-            {
-                nameVi: this.state.nameVi,
-                contentHTML: this.state.contentHTML,
-                contentMarkdown: this.state.contentMarkdown,
-                image: this.state.image,
-            }
+            'isOpenModalUpdateSpecialty',
+            this.props.currentSpecialty
         );
     };
 
@@ -75,7 +120,13 @@ class ModalAddNewSpecialty extends Component {
     };
     handleValidateInput = () => {
         let isValid = true;
-        let arrInput = ['nameVi', 'contentHTML', 'contentMarkdown', 'image'];
+        let arrInput = [
+            'nameVi',
+            'address',
+            'image',
+            'contentMarkdown',
+            'contentHTML',
+        ];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false;
@@ -85,12 +136,15 @@ class ModalAddNewSpecialty extends Component {
         }
         return isValid;
     };
-    handleSaveSpecialty = async () => {
+    handleUpdateSpecialty = () => {
         let isValid = this.handleValidateInput();
         if (isValid === true) {
             // call Api request modal
-            this.props.createNewSpecialty({
+            this.props.updateClinic({
+                id: this.props.currentSpecialty.id,
                 nameVi: this.state.nameVi,
+                nameEn: '',
+                address: this.state.address,
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
                 image: this.state.image,
@@ -107,8 +161,11 @@ class ModalAddNewSpecialty extends Component {
         console.log('handleEditorChange', html, text);
         this.setState({ contentHTML: html, contentMarkdown: text });
     };
+
     render() {
-        let language = this.props.language;
+        let languages = this.props.languages;
+        let { previewImageUrl, nameVi, address } = this.state;
+
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -117,26 +174,39 @@ class ModalAddNewSpecialty extends Component {
                 size='lg'
             >
                 <ModalHeader toggle={() => this.toggle()}>
-                    {/* <FormattedMessage id='manage-user.add' /> */}
-                    Thêm mới chuyên khoa
+                    Thay đổi thông tin phòng khám
                 </ModalHeader>
                 <ModalBody>
                     <div className='modal-specialty-body row'>
-                        <div className='col-6 form-group'>
+                        <div className='col-4 form-group'>
                             <label>
-                                <b>Tên chuyên khoa</b>
+                                <b>Tên phòng khám</b>
                             </label>
                             <input
                                 className='form-control'
-                                value={this.state.nameVi}
+                                value={nameVi}
                                 onChange={(event) =>
                                     this.handleOnChangeText(event, 'nameVi')
                                 }
                             ></input>
                         </div>
-                        <div className='input-container col-6 form-group'>
+                        <div className='col-5 form-group'>
                             <label>
-                                <FormattedMessage id='admin.manage-user.image' />
+                                <b>Địa chỉ phòng khám</b>
+                            </label>
+                            <input
+                                className='form-control'
+                                value={address}
+                                onChange={(event) =>
+                                    this.handleOnChangeText(event, 'address')
+                                }
+                            ></input>
+                        </div>
+                        <div className='input-container col-3 form-group'>
+                            <label>
+                                <b>
+                                    <FormattedMessage id='admin.manage-user.image' />
+                                </b>
                             </label>
                             <div className='image-container'>
                                 <span className='upload-image'>
@@ -157,7 +227,7 @@ class ModalAddNewSpecialty extends Component {
                                     </label>
                                 </span>
                             </div>
-                            {this.state.previewImageUrl && (
+                            {previewImageUrl && (
                                 <div
                                     className='preview'
                                     style={{
@@ -167,7 +237,7 @@ class ModalAddNewSpecialty extends Component {
                                         height: '56px',
                                         backgroundRepeat: 'no-repeat',
                                         backgroundSize: 'contain',
-                                        backgroundImage: `url(${this.state.previewImageUrl})`,
+                                        backgroundImage: `url(${previewImageUrl})`,
                                     }}
                                     onClick={() => {
                                         this.openPreviewImage();
@@ -177,7 +247,7 @@ class ModalAddNewSpecialty extends Component {
                         </div>
                         <div className='markdown-wrap form-group col-12'>
                             <label>
-                                <b>Chi tiết chuyên khoa</b>
+                                <b>Chi tiết phòng khám</b>
                             </label>
                             <MdEditor
                                 style={{ height: '346px' }}
@@ -192,9 +262,9 @@ class ModalAddNewSpecialty extends Component {
                     <Button
                         color='primary'
                         className='px-3'
-                        onClick={() => this.handleSaveSpecialty()}
+                        onClick={() => this.handleUpdateSpecialty()}
                     >
-                        Add new
+                        Cập nhật
                     </Button>{' '}
                     <Button
                         color='secondary'
@@ -211,7 +281,11 @@ class ModalAddNewSpecialty extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        language: state.app.language,
+        languages: state.app.language,
+
+        isLoadingGender: state.admin.isLoadingGender,
+        isLoadingPosition: state.admin.isLoadingPosition,
+        isLoadingRole: state.admin.isLoadingRole,
     };
 };
 
@@ -219,7 +293,4 @@ const mapDispatchToProps = (dispatch) => {
     return {};
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ModalAddNewSpecialty);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUserRedux);

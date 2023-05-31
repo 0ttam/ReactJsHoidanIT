@@ -19,6 +19,7 @@ import HomePage from './HomePage/HomePage';
 import DetailDoctor from './Patient/Doctor/DetailDoctor';
 import Doctor from '../routes/Doctor';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
+import DetailClinic from './Patient/Clinic/DetailClinic';
 import VerifyEmail from './Patient/VerifyEmail';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
@@ -88,6 +89,10 @@ class App extends Component {
                                         <Route
                                             path={path.DETAIL_SPECIALTY}
                                             component={DetailSpecialty}
+                                        />
+                                        <Route
+                                            path={path.DETAIL_CLINIC}
+                                            component={DetailClinic}
                                         />
                                         <Route
                                             path={path.VERIFY_EMAIL_BOOKING}

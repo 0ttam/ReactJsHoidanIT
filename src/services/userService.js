@@ -71,6 +71,24 @@ const handleGetListDoctorBySpecialty = (specialtyId, provinceId) => {
         `/api/get-list-doctor-by-specialty-id?specialtyId=${specialtyId}&provinceId=${provinceId}`
     );
 };
+const handleCreateNewClinic = (data) => {
+    return axios.post('/api/create-new-clinic', stringify(data));
+};
+const handleGetClinicById = (id) => {
+    return axios.get(`/api/get-clinic-by-id?id=${id}`);
+};
+const handleGetListDoctorByClinic = (clinicId, specialtyId) => {
+    return axios.get(
+        `/api/get-list-doctor-by-clinic-id?clinicId=${clinicId}&specialtyId=${specialtyId}`
+    );
+};
+const handleEditClinic = (data) => {
+    return axios.put('/api/edit-clinic-by-id', stringify(data));
+};
+const handleDeleteClinic = (clinicId) => {
+    return axios.delete(`/api/delete-clinic?id=${clinicId}`);
+};
+
 export {
     handleLoginApi,
     handleGetAllUsers,
@@ -94,4 +112,9 @@ export {
     handleEditSpecialty,
     handleDeleteSpecialty,
     handleGetListDoctorBySpecialty,
+    handleCreateNewClinic,
+    handleGetClinicById,
+    handleGetListDoctorByClinic,
+    handleEditClinic,
+    handleDeleteClinic,
 };

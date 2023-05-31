@@ -17,6 +17,10 @@ const initialState = {
     updateSpecialtyNotify: {},
     getSpecialtyById: [],
     deleteSpecialtyNotify: {},
+    createNewClinicNotify: {},
+    infoListClinicById: [],
+    editClinicByIdInfo: {},
+    deleteClinicByIdInfo: {},
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -233,6 +237,30 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.DELETE_SPECIALTY_FAILED:
             state.deleteSpecialtyNotify = action.data;
+            return { ...state };
+        case actionTypes.CREATE_NEW_CLINIC_SUCCESS:
+            state.createNewClinicNotify = action.data;
+            return { ...state };
+        case actionTypes.CREATE_NEW_CLINIC_FAILED:
+            state.createNewClinicNotify = action.data;
+            return { ...state };
+        case actionTypes.GET_CLINIC_BY_ID_SUCCESS:
+            state.infoListClinicById = action.data;
+            return { ...state };
+        case actionTypes.GET_CLINIC_BY_ID_FAILED:
+            state.infoListClinicById = action.data;
+            return { ...state };
+        case actionTypes.EDIT_CLINIC_SUCCESS:
+            state.editClinicByIdInfo = action.data;
+            return { ...state };
+        case actionTypes.EDIT_CLINIC_FAILED:
+            state.editClinicByIdInfo = action.data;
+            return { ...state };
+        case actionTypes.DELETE_CLINIC_SUCCESS:
+            state.deleteClinicByIdInfo = action.data;
+            return { ...state };
+        case actionTypes.DELETE_CLINIC_FAILED:
+            state.deleteClinicByIdInfo = action.data;
             return { ...state };
 
         default:

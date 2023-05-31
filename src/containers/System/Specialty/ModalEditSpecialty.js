@@ -182,7 +182,7 @@ class ModalEditUserRedux extends Component {
                         </div>
                         <div className='input-container col-6 form-group'>
                             <label>
-                                <FormattedMessage id='manage-user.image' />
+                                <FormattedMessage id='admin.manage-user.image' />
                             </label>
                             <div className='image-container'>
                                 <span className='upload-image'>

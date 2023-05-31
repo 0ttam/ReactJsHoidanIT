@@ -25,7 +25,7 @@ class ModalDeleteSpecialty extends Component {
             <Modal
                 isOpen={this.props.isOpen}
                 toggle={() => this.toggle()}
-                deleteSpecialty={() => this.deleteSpecialty()}
+                deleteClinic={() => this.deleteClinic()}
                 className={'modal-user-container'}
                 size='lg'
             >
@@ -34,22 +34,17 @@ class ModalDeleteSpecialty extends Component {
                 </ModalHeader>
                 <ModalBody>
                     <div className='modal-user-body col-12'>
-                        Bạn chắc chắn xóa chuyên khoa:
-                        <b>
-                            {' '}
-                            {this.props.user.firstName}{' '}
-                            {this.props.user.lastName}
-                        </b>
-                        ?
+                        <span>{`Bạn chắc chắn xóa phòng khám: `}</span>
+                        <b> {this.props.clinic.nameVi}</b>?
                     </div>
                 </ModalBody>
                 <ModalFooter>
                     <Button
                         color='primary'
                         className='px-3'
-                        onClick={() => this.props.deleteSpecialty()}
+                        onClick={() => this.props.deleteClinic()}
                     >
-                        Vẫn xóa
+                        Delete
                     </Button>{' '}
                     <Button
                         color='secondary'

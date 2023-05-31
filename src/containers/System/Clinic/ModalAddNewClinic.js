@@ -9,7 +9,7 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 // import style manually
 import 'react-markdown-editor-lite/lib/index.css';
-import './ModalAddNewSpecialty.scss';
+import './ModalAddNewClinic.scss';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -18,6 +18,8 @@ class ModalAddNewSpecialty extends Component {
         super(props);
         this.state = {
             nameVi: '',
+            nameEn: '',
+            address: '',
             contentHTML: '',
             contentMarkdown: '',
             image: Blob,
@@ -29,7 +31,9 @@ class ModalAddNewSpecialty extends Component {
         emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
             //reset state
             this.setState({
+                address: '',
                 nameVi: '',
+                nameEn: '',
                 contentHTML: '',
                 contentMarkdown: '',
                 image: '',
@@ -75,7 +79,13 @@ class ModalAddNewSpecialty extends Component {
     };
     handleValidateInput = () => {
         let isValid = true;
-        let arrInput = ['nameVi', 'contentHTML', 'contentMarkdown', 'image'];
+        let arrInput = [
+            'nameVi',
+            'address',
+            'contentHTML',
+            'contentMarkdown',
+            'image',
+        ];
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
                 isValid = false;
@@ -85,11 +95,12 @@ class ModalAddNewSpecialty extends Component {
         }
         return isValid;
     };
-    handleSaveSpecialty = async () => {
+    handleSaveClinic = async () => {
         let isValid = this.handleValidateInput();
         if (isValid === true) {
             // call Api request modal
-            this.props.createNewSpecialty({
+            this.props.createNewClinic({
+                address: this.state.address,
                 nameVi: this.state.nameVi,
                 contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
@@ -118,13 +129,13 @@ class ModalAddNewSpecialty extends Component {
             >
                 <ModalHeader toggle={() => this.toggle()}>
                     {/* <FormattedMessage id='manage-user.add' /> */}
-                    Thêm mới chuyên khoa
+                    Thêm mới phòng khám
                 </ModalHeader>
                 <ModalBody>
                     <div className='modal-specialty-body row'>
-                        <div className='col-6 form-group'>
+                        <div className='col-4 form-group'>
                             <label>
-                                <b>Tên chuyên khoa</b>
+                                <b>Tên phòng khám</b>
                             </label>
                             <input
                                 className='form-control'
@@ -134,7 +145,19 @@ class ModalAddNewSpecialty extends Component {
                                 }
                             ></input>
                         </div>
-                        <div className='input-container col-6 form-group'>
+                        <div className='col-5 form-group'>
+                            <label>
+                                <b>Địa chỉ phòng khám</b>
+                            </label>
+                            <input
+                                className='form-control'
+                                value={this.state.address}
+                                onChange={(event) =>
+                                    this.handleOnChangeText(event, 'address')
+                                }
+                            ></input>
+                        </div>
+                        <div className='input-container col-3 form-group'>
                             <label>
                                 <FormattedMessage id='admin.manage-user.image' />
                             </label>
@@ -192,7 +215,7 @@ class ModalAddNewSpecialty extends Component {
                     <Button
                         color='primary'
                         className='px-3'
-                        onClick={() => this.handleSaveSpecialty()}
+                        onClick={() => this.handleSaveClinic()}
                     >
                         Add new
                     </Button>{' '}

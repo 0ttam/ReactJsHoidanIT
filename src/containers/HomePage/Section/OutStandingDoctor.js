@@ -29,7 +29,6 @@ class OutStandingDoctor extends Component {
     render() {
         let { arrTopDoctor } = this.state;
         let { languages } = this.props;
-        console.log('arrTopDoctor', arrTopDoctor);
         // arrTopDoctor = arrTopDoctor.concat(arrTopDoctor).concat(arrTopDoctor);
         return (
             <div className='section-share section-outstanding-doctor'>

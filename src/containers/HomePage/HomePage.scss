@@ -40,15 +40,16 @@
         .medical-item {
             height : 200px;
             padding: 0 5px;
-
+            cursor : pointer;
 
             .medical-img {
-                background         : url('../../assets/medical/152704logo-bvcr-moi.jpg');
+                // background         : url('../../assets/medical/152704logo-bvcr-moi.jpg');
                 height             : 150px;
                 background-position: center center;
                 background-repeat  : no-repeat;
                 background-size    : cover;
                 background-color   : #eee;
+
             }
 
             .medical-name {

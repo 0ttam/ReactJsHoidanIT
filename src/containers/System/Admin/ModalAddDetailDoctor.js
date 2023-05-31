@@ -42,6 +42,7 @@ class ModalAddDetailDoctor extends Component {
             provinceId: '',
             paymentId: '',
             specialtyId: '',
+            clinicId: '',
 
             nameClinic: '',
             addressClinic: '',
@@ -56,6 +57,7 @@ class ModalAddDetailDoctor extends Component {
         this.props.fetchProvinceDoctor();
         this.props.fetchPaymentDoctor();
         this.props.fetchSpecialty();
+        this.props.fetchClinic();
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.allDoctorRedux !== this.props.allDoctorRedux) {
@@ -121,8 +123,13 @@ class ModalAddDetailDoctor extends Component {
                 });
             }
             if (doctorInfo) {
-                let { listPrice, listPayment, listProvince, listSpecialty } =
-                    this.state;
+                let {
+                    listPrice,
+                    listPayment,
+                    listProvince,
+                    listSpecialty,
+                    listClinic,
+                } = this.state;
                 let findItemPriceId = listPrice.find((item) => {
                     if (item.value === doctorInfo.priceId) return item.value;
                 });
@@ -136,6 +143,9 @@ class ModalAddDetailDoctor extends Component {
                     if (item.value === doctorInfo.specialtyId)
                         return item.value;
                 });
+                let findItemClinic = listClinic.find((item) => {
+                    if (item.value === doctorInfo.clinicId) return item.value;
+                });
                 let nameClinic = doctorInfo.nameClinic;
                 let addressClinic = doctorInfo.addressClinic;
                 let note = doctorInfo.note;
@@ -146,6 +156,7 @@ class ModalAddDetailDoctor extends Component {
                 stateCopy['paymentId'] = findItemPaymentId;
                 stateCopy['provinceId'] = findItemProvinceId;
                 stateCopy['specialtyId'] = findItemSpecialty;
+                stateCopy['clinicId'] = findItemClinic;
                 this.setState({
                     ...stateCopy,
                 });
@@ -207,6 +218,17 @@ class ModalAddDetailDoctor extends Component {
                 listSpecialty: dataSelectSpecialty,
             });
         }
+        if (
+            prevProps.infoListClinicByIdRedux !==
+            this.props.infoListClinicByIdRedux
+        ) {
+            let dataSelectClinic = this.handleBuiltSelection(
+                this.props.infoListClinicByIdRedux.data
+            );
+            this.setState({
+                listClinic: dataSelectClinic,
+            });
+        }
     }
     handleEditorChange = ({ html, text }) => {
         console.log('handleEditorChange', html, text);
@@ -252,6 +274,7 @@ class ModalAddDetailDoctor extends Component {
                 addressClinic: this.state.addressClinic,
                 note: this.state.note,
                 specialtyId: this.state.specialtyId.value,
+                clinicId: this.state.clinicId.value,
             });
             this.setState({
                 selectedDoctor: '',
@@ -267,6 +290,7 @@ class ModalAddDetailDoctor extends Component {
                 addressClinic: '',
                 note: '',
                 specialtyId: '',
+                clinicId: '',
             });
             this.notify(
                 this.state.detailInfoNotifications.vi,
@@ -291,6 +315,7 @@ class ModalAddDetailDoctor extends Component {
                 addressClinic: this.state.addressClinic,
                 note: this.state.note,
                 specialtyId: this.state.specialtyId.value,
+                clinicId: this.state.clinicId.value,
             });
             this.setState({
                 selectedDoctor: '',
@@ -306,6 +331,7 @@ class ModalAddDetailDoctor extends Component {
                 addressClinic: '',
                 note: '',
                 specialtyId: '',
+                clinicId: '',
             });
             this.notify(
                 this.state.updateDetailInfoNotification.vi,
@@ -375,6 +401,8 @@ class ModalAddDetailDoctor extends Component {
             note,
             listSpecialty,
             specialtyId,
+            listClinic,
+            clinicId,
             selectedDoctor,
             listDoctor,
             description,
@@ -522,7 +550,13 @@ class ModalAddDetailDoctor extends Component {
                     </div>
                     <div className='form-group col-3'>
                         <label>Chon phong kham</label>
-                        <input className='form-control'></input>
+                        <Select
+                            options={listClinic}
+                            value={clinicId}
+                            onChange={this.handleChange}
+                            placeholder={'chon phong kham'}
+                            name='clinicId'
+                        />
                     </div>
                 </div>
                 <div className='markdown-wrap form-group col-12'>
@@ -582,6 +616,7 @@ const mapStateToProps = (state) => {
         listProvinceDoctorRedux: state.admin.listProvinceDoctor,
         listPaymentDoctorRedux: state.admin.listPaymentDoctor,
         listSpecialtyRedux: state.admin.getSpecialtyById,
+        infoListClinicByIdRedux: state.admin.infoListClinicById,
     };
 };
 
@@ -601,7 +636,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchPaymentDoctor: () =>
             dispatch(actions.fetchPaymentDoctorStart('PAYMENT')),
         fetchSpecialty: () => dispatch(actions.getSpecialtyByIdStart('ALL')),
-        // fetchClinic: () => dispatch(actions.fetchClinicStart),
+        fetchClinic: () => dispatch(actions.getClinicByIdStart('ALL-NO-IMAGE')),
     };
 };
 

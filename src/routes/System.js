@@ -6,6 +6,7 @@ import UserManagerRedux from '../containers/System/Admin/UserManagerRedux';
 import Header from '../containers/Header/Header';
 import ModalAddDetailDoctor from '../containers/System/Admin/ModalAddDetailDoctor';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
+import ManageClinic from '../containers/System/Clinic/ManageClinic';
 
 class System extends Component {
     render() {
@@ -32,6 +33,10 @@ class System extends Component {
                             <Route
                                 path='/system/manage-specialty'
                                 component={ManageSpecialty}
+                            />
+                            <Route
+                                path='/system/manage-clinic'
+                                component={ManageClinic}
                             />
                             <Route
                                 component={() => {
