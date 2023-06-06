@@ -85,7 +85,9 @@
             "manage-handbook": "Handbook manage"
         },
         "doctor" : {
-            "manage-schedule": "Manage medical examination plan"
+            "manage-medical-examination-for-doctors": "Manage medical examination for doctors",
+            "manage-schedule": "Manage medical examination plan",
+            "manage-appointment": "Manage medical examination appointments"
         }
     },
     "system": {

@@ -4,7 +4,7 @@ export const path = {
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    DOCTOR: '/doctor/manage-schedule',
+    DOCTOR: '/doctor',
     DETAIL_DOCTOR: '/detail-doctor/:id',
     VERIFY_EMAIL_BOOKING: '/verify-book-appointment',
     DETAIL_SPECIALTY: '/detail-specialty/:id',

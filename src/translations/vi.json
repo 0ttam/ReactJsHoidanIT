@@ -61,7 +61,9 @@
             "manage-handbook": "Quản lý cẩm nang"
         },
         "doctor" : {
-            "manage-schedule": "Quản lí kế hoạch khám bệnh"
+            "manage-medical-examination-for-doctors": "Quản lý khám bệnh dành cho bác sĩ",
+            "manage-schedule": "Quản lí kế hoạch khám bệnh",
+            "manage-appointment": "Quản lí lịch hẹn khám bệnh"
         }
     },
     "common": {

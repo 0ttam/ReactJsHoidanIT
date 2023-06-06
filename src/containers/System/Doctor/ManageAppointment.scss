@@ -1,0 +1,51 @@
+.manage-schedule-container {
+
+    label {
+        font-weight: bold;
+    }
+
+    .pick-hour-container {
+        display       : flex;
+        padding-top   : 20px;
+        padding-bottom: 20px;
+        border        : 1px solid red;
+        gap           : 20px;
+        flex-wrap     : wrap;
+
+        .btn-schedule {
+            padding: 5px 10px;
+            border : 1px solid grey;
+
+            &.active {
+                background-color: orange;
+            }
+        }
+    }
+
+    .container {
+        .users-table {
+            table {
+                font-family    : arial, sans-serif;
+                border-collapse: collapse;
+                width          : 100%;
+
+            }
+
+            th {
+                background-color: #04AA6D;
+            }
+
+            td,
+            th {
+                border    : 1px solid #dddddd;
+                text-align: left;
+                padding   : 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        }
+
+    }
+}

@@ -82,6 +82,8 @@ class ManageSchedule extends Component {
         this.setState({ selectedDoctor });
     };
     handleOnChangeDate = (date) => {
+        let formatDate = new Date(date[0]).getTime();
+        console.log('formatDate 1', formatDate);
         this.setState({
             currentDate: date[0],
         });
@@ -111,7 +113,7 @@ class ManageSchedule extends Component {
             return;
         }
         let formatDate = new Date(currentDate).getTime();
-        console.log('formatDate', formatDate);
+        console.log('formatDate 2', formatDate);
         if (allScheduleTimeData && allScheduleTimeData.length > 0) {
             let selectedTime = allScheduleTimeData.filter(
                 (item) => item.isSelected === true

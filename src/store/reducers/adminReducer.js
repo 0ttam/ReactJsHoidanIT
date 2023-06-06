@@ -21,6 +21,7 @@ const initialState = {
     infoListClinicById: [],
     editClinicByIdInfo: {},
     deleteClinicByIdInfo: {},
+    getListPatientByDoctorTimeTypeDataInfo: {},
     topDoctor: [],
     allDoctor: [],
     detailInfoDoctor: {},
@@ -261,6 +262,12 @@ const adminReducer = (state = initialState, action) => {
             return { ...state };
         case actionTypes.DELETE_CLINIC_FAILED:
             state.deleteClinicByIdInfo = action.data;
+            return { ...state };
+        case actionTypes.GET_LIST_PATIENT_BY_DOCTOR_TIME_TYPE_SUCCESS:
+            state.getListPatientByDoctorTimeTypeDataInfo = action.data;
+            return { ...state };
+        case actionTypes.GET_LIST_PATIENT_BY_DOCTOR_TIME_TYPE_FAILED:
+            state.getListPatientByDoctorTimeTypeDataInfo = action.data;
             return { ...state };
 
         default:

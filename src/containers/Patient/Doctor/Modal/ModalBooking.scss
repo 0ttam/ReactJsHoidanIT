@@ -63,3 +63,11 @@
         }
     }
 }
+
+div._loading_overlay_wrapper {
+    position: unset;
+
+    .css-df17o1 {
+        z-index: 1000000;
+    }
+}

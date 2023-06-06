@@ -23,6 +23,7 @@ import {
     handleGetClinicById,
     handleEditClinic,
     handleDeleteClinic,
+    handleLoadListPatientByDoctorTime,
 } from '../../services/userService';
 
 // Fetch Gender
@@ -713,8 +714,8 @@ export const postPatientBookAppointmentStart = (data) => {
             if (res && res.errCode === 0) {
                 dispatch(
                     postPatientBookAppointmentSuccess({
-                        vi: 'Tạo dữ liệu đặt lịch khám thành công',
-                        en: 'Create appointment booking data successfully',
+                        vi: res.errMessageVi,
+                        en: res.errMessageEn,
                         errType: 'success',
                     })
                 );
@@ -1139,5 +1140,48 @@ export const deleteClinicSuccess = (data) => ({
 });
 export const deleteClinicFailed = (data) => ({
     type: actionTypes.DELETE_CLINIC_FAILED,
+    data: data,
+});
+
+export const loadListPatientByDoctorTimeStart = (doctorId, date) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await handleLoadListPatientByDoctorTime(doctorId, date);
+            if (res && res.errCode === 0) {
+                dispatch(
+                    loadListPatientByDoctorTimeSuccess({
+                        vi: 'Lấy thông tin bệnh nhân thành công',
+                        en: 'Get list patient by doctor time type successfully!',
+                        errType: 'success',
+                        data: res.data,
+                    })
+                );
+            } else {
+                dispatch(
+                    loadListPatientByDoctorTimeFailed({
+                        vi: 'Lấy thông tin bệnh nhân thất bại',
+                        en: 'Get list patient by doctor time type failed!',
+                        errType: 'error',
+                    })
+                );
+            }
+        } catch (e) {
+            dispatch(
+                loadListPatientByDoctorTimeFailed({
+                    vi: 'Lấy thông tin bệnh nhân thất bại',
+                    en: 'Get list patient by doctor time type failed!',
+                    errType: 'error',
+                })
+            );
+            console.log('Get list patient by doctor time type failed', e);
+        }
+    };
+};
+export const loadListPatientByDoctorTimeSuccess = (data) => ({
+    type: actionTypes.GET_LIST_PATIENT_BY_DOCTOR_TIME_TYPE_SUCCESS,
+    data: data,
+});
+export const loadListPatientByDoctorTimeFailed = (data) => ({
+    type: actionTypes.GET_LIST_PATIENT_BY_DOCTOR_TIME_TYPE_FAILED,
     data: data,
 });

@@ -181,9 +181,9 @@ class ModalUserRedux extends Component {
         }
         return isValid;
     };
-    handleSaveUser = async () => {
-        await this.handleValidateOptionInput();
-        let isValid = await this.handleValidateInput();
+    handleSaveUser = () => {
+        this.handleValidateOptionInput();
+        let isValid =  this.handleValidateInput();
         // eslint-disable-next-line no-unused-expressions
         if (isValid === true) {
             // call Api request modal

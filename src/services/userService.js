@@ -88,7 +88,14 @@ const handleEditClinic = (data) => {
 const handleDeleteClinic = (clinicId) => {
     return axios.delete(`/api/delete-clinic?id=${clinicId}`);
 };
-
+const handleLoadListPatientByDoctorTime = (doctorId, date) => {
+    return axios.get(
+        `/api/get-list-patient-by-doctor-time-type?doctorId=${doctorId}&date=${date}`
+    );
+};
+const postSendInvoiceAndRecipience = (data) => {
+    return axios.post('/api/send-invoice-recipience', data);
+};
 export {
     handleLoginApi,
     handleGetAllUsers,
@@ -117,4 +124,6 @@ export {
     handleGetListDoctorByClinic,
     handleEditClinic,
     handleDeleteClinic,
+    handleLoadListPatientByDoctorTime,
+    postSendInvoiceAndRecipience
 };
