@@ -214,7 +214,6 @@ class ModalBooking extends Component {
         }
     };
     render() {
-        console.log('scheduleSelected', this.state.scheduleSelected);
         let languages = this.props.languages;
         let {
             lastName,

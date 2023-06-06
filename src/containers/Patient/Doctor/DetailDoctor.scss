@@ -24,6 +24,10 @@
                 font-size  : 16px;
                 font-weight: 400;
             }
+
+            .like-and-share {
+                margin-top: 5px;
+            }
         }
     }
 
@@ -59,5 +63,15 @@
 
     }
 
+    .comment-doctor {
+        margin    : 0 100px;
+        margin-top: 20px;
 
+        .comment-doctor-title {
+            font-size    : 16px;
+            font-weight  : 600;
+            color        : #4988be;
+            margin-bottom: 10px;
+        }
+    }
 }

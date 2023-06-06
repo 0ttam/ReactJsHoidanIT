@@ -10,6 +10,8 @@ import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfo from './DoctorExtraInfo';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LikeandShare from '../Plugin/LikeandShare';
+import Comment from '../Plugin/Comment';
 
 class DetailDoctor extends Component {
     constructor(props) {
@@ -97,6 +99,11 @@ class DetailDoctor extends Component {
                                         </span>
                                     )}
                             </div>
+                            <div className='like-and-share'>
+                                <LikeandShare
+                                    dataHref={`http://localhost:3000/detail-doctor/${this.state.currentDoctorId}`}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className='schedule-doctor'>
@@ -128,7 +135,14 @@ class DetailDoctor extends Component {
                                 )}
                         </div>
                     </div>
-                    <div className='comment-doctor'></div>
+                    <div className='comment-doctor'>
+                        <div className='comment-doctor-title'>
+                            Phản hồi về bác sĩ
+                        </div>
+                        <Comment
+                            dataHref={`http://localhost:3000/detail-doctor/${this.state.currentDoctorId}`}
+                        />
+                    </div>
                 </div>
                 <Footer />
             </Fragment>
